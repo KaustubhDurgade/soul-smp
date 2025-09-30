@@ -9,13 +9,13 @@
 
 ---
 
-## 🔥 1. Soul of Wrath (Rage, Fire, Blood)
+## 🔥 1. Soul of Wrath (Rage, Fire, Blood) — Resource: Heat (Ash: Cinder Meter, Blood: Bloodlust)
 
 **Base Kit**
 
 * **P**: Burning Spirit → +15% damage below 60% HP
 * **T**: Ignition → Enflame weapon for 6s
-* **M**: Inferno Dash → Dash leaving flame trail
+* **M**: Inferno Chain Surge → Latch fire chain, slingshot & detonate tether
 * **U**: Meteorfall → Call down a flaming meteor
 
 ### Subclasses
@@ -24,10 +24,10 @@
 
   * **P**: Cinder Veins → Fire ignores resistance
   * **T**: Flame Surge → Fire pillars erupt
-  * **M**: Ash Glide → Longer Dash + smoke blind & true invis, attack during true invis duration leads to a critical hit that does more damage, completley ignores health if backstabbed.
+  * **M**: Ash Glide → Glide with brief true invis; first attack crit/backstab bonus
   * **U**: Infernal Storm → Meteor shower
   * **Weapon**: Cinderblade (explosive swings = crowd control + slight increase in dura breaking)
-  * **Final Stand**: Volcanic Heart (lava geyser on death)
+  * **Final Stand**: Worldscar Caldera (erupts magma basin; conditional revival)
 
 * **Path of Blood** (*Vampiric Frenzy*)
 
@@ -36,17 +36,17 @@
   * **M**: Frenzy Leap → Leaping strike heals on hit
   * **U**: Crimson Overdrive → Berserk mode (minus 4 hearts, like reverse health boost, for strength 3, res1, and speed 4)
   * **Weapon**: Bloodfang (Kill = +1 Sharpness)
-  * **Final Stand**: Last Frenzy (revive for 8s in berserk)
+  * **Final Stand**: Crimson Deluge (blood field channels revival)
 
 ---
 
-## 🌊 2. Soul of Serenity (Balance, Healing, Protection)
+## 🌊 2. Soul of Serenity (Balance, Healing, Protection) — Resource: Harmony (Reflection: Resonance)
 
 **Base Kit**
 
 * **P**: Still Waters → Regen out of combat
 * **T**: Soothing Breeze → Small AOE heal
-* **M**: Tranquil Step → instant teleporataion Blink & cleanse (requires 2 clicks, 1 for priming, where you pick a target block in 10 blocks, and one to activate the actual ability)
+* **M**: Tranquil Veil Step → Anchor & reactive blink cleanse + optional ally veil
 * **U**: Sanctuary → Healing dome
 
 ### Subclasses
@@ -67,17 +67,17 @@
   * **M**: Prism Step → Blink that mirrors position (expand upon this, i dont know exactly what this means)
   * **U**: Dome of Mirrors → Reflect abilities back
   * **Weapon**: Mirror Aegis (special sheild that bounces 10 attacks/effects/abilities before cooldown.)
-  * **Final Stand**: Echo Barrier (shield remains after death for 10 minecraft days)
+  * **Final Stand**: Echo Barrier (30m reflective barrier persists)
 
 ---
 
-## 💰 3. Soul of Greed (Theft, Hoarding, Consumption)
+## 💰 3. Soul of Greed (Theft, Hoarding, Consumption) — Resource: Wealth Value (Gold: Gilded Charge, Gluttony: Hunger Momentum)
 
 **Base Kit**
 
 * **P**: Golden Hunger → Bonus loot drops (aka )
 * **T**: Drain Touch → Steal XP/items
-* **M**: Coin Toss → more gold/valuable items on you, further dash/speed, idk too many dashes already, might need to rethink this.
+* **M**: Market Shift → Place marker then swap & spawn homing coins
 * **U**: Pillage → Temporarily steal enemy buffs
 
 ### Subclasses
@@ -89,7 +89,7 @@
   * **M**: Greed Pull → Pull dropped items toward you
   * **U**: Treasurefall → Rain gold that explodes
   * **Weapon**: Gilded Greataxe (absorbs enchants)
-  * **Final Stand**: Golden Catastrophe (exploding wealth storm)
+  * **Final Stand**: Golden Catastrophe (wealth meteor storm)
 
 * **Path of Gluttony** (*Draining Hunger*)
 
@@ -98,48 +98,48 @@
   * **M**: Maw Dash → Bite dash that steals HP
   * **U**: Feast of Souls → Drain all nearby enemies of resources
   * **Weapon**: Vorpal Maw (devours items + increase durability breaking)
-  * **Final Stand**: Last Feast (consume everything nearby)
+  * **Final Stand**: Last Feast (devour area for stat siphon)
 
 ---
 
-## 👑 4. Soul of Pride (Dominance, Leadership, Glory)
+## 👑 4. Soul of Pride (Dominance, Leadership, Glory) — Resource: Renown (Solitude: Resolve)
 
 **Base Kit**
 
 * **P**: Commanding Presence → trusted players gain +5% strength
 * **T**: Challenge → Force enemies to target you?? Idk how you would do that with players
-* **M**: Royal Stride → (WIP, needs a different movement util)
+* **M**: Imperial Advance → Procession path granting ally buffs
 * **U**: Crown of Dominion → Buff trusted player's stats
 
 ### Subclasses
 
 * **Path of Authority** (*Commander*)
 
-  * **P**: Bannerlord → (WIP)
+  * **P**: Bannerlord → Trusted allies (max 4) grant you +2% dmg & -2% dmg taken each
   * **T**: Royal Decree → Boost trusted players’ damage for 10s
-  * **M**: King’s March → Trusted follow faster if walking in your direction
+  * **M**: Sovereign Pathstride → Gilded path feeds Warbanner duration
   * **U**: Warbanner → Summon buff/debuff zone for allies/enemis respectivley
   * **Weapon**: Crownblade (buffs trusted players on unsheathe, cooldown obviously)
-  * **Final Stand**: Legacy Call (death massively buffs allies)
+  * **Final Stand**: Monument of Sovereigns (dais tracks ally-seconds; possible revive)
 
 * **Path of Solitude** (*One-Man Army*)
 
   * **P**: Lone Glory → Stronger when no trusted players within 15 block radius
   * **T**: Duelist’s Strike → Increased damage in 1v1, resistamce increased with each enemy player attacking you, forces into 1on1
-  * **M**: Sovereign Dash → Dash that knocks back everyone but 1 enemy
+  * **M**: Dominion Pivot → Mark, leap, swap shockwave duel control
   * **U**: Emperor’s Wrath → Huge personal buff
   * **Weapon**: Emperor’s Blade (scales with solitude)
-  * **Final Stand**: One-Man Army (revive at death, fight briefly)
+  * **Final Stand**: Silent Arena (isolated duel ring, conditional revival)
 
 ---
 
-## ☠️ 5. Soul of Despair (Decay, Fear, Shadow)
+## ☠️ 5. Soul of Despair (Decay, Fear, Shadow) — Resources: Decay Index / (Rot) Blight Saturation / (Night) Terror Charge
 
 **Base Kit**
 
 * **P**: Withering Touch → Chance to inflict Wither for 2s, with cooldown
 * **T**: Decay Bolt → hitscan applies wither II for 8s
-* **M**: Shadow Step → instant teleport, blinding enemies along path betwwin start and end position.
+* **M**: Umbral Corridor → Shadow tunnel travel & reversible path
 * **U**: Plague Field → Disease zone
 
 ### Subclasses
@@ -148,29 +148,29 @@
 
   * **P**: Fungal Growth → Attacks stack rot debuff (new effect, gets rid of a certain amount of hearts on target depending on level, and as the duration goes down, target regains hearts proportionally)
   * **T**: Spore Cloud → Release choking spores that inflect low level rot, small duration
-  * **M**: Crawling Roots → Root enemies briefly, with low level rot, but longer duration
+  * **M**: Rootcrawl Advance → Root wave pulls you & feeds Rot resource
   * **U**: Blightstorm → Massive AOE poison storm (high level rot, med duration)
   * **Weapon**: Moldfang Scythe (inflicts high level rot and has ability to reel in enemies)
-  * **Final Stand**: Plague Bloom (disease high level and duration rot spreads after death)
+  * **Final Stand**: Blighted Crater (corrupted vents; reform if rot spread)
 
 * **Path of Night** (*Fear & Shadows*)
 
   * **P**: Terror Gaze → Hits may blind
   * **T**: Shadow Dagger → Throw blade, blinds target
-  * **M**: Nightstride → Dash invisibly for 2s
+  * **M**: Eclipse Veil → Anchor + invis blink with darkness burst
   * **U**: Dreadfall → Drop darkness across battlefield, increased damage for only you towards people within domain
   * **Weapon**: Dagger of Eclipse (blind crits)
-  * **Final Stand**: Nightfall (WIP)
+  * **Final Stand**: Eternal Dusk Obelisks (darkness tri-pylons; survival revive)
 
 ---
 
-## ✨ 6. Soul of Hope (Light, Sacrifice, Renewal)
+## ✨ 6. Soul of Hope (Light, Sacrifice, Renewal) — Resources: Light Reservoir (Flame: Martyr Gauge)
 
 **Base Kit**
 
 * **P**: Guiding Light → Allies glow + regen I
 * **T**: Radiant Beam → Heal ally / burn undead
-* **M**: Wings of Dawn → Small hover burst
+* **M**: Solar Arc Glide → Defensive glide arc + dive heal option
 * **U**: Beacon → Massive light pillar buff
 
 ### Subclasses
@@ -179,19 +179,19 @@
 
   * **P**: Shining Presence → Buffs grant knockback resist
   * **T**: Solar Wave → Radiant burst that heals allies
-  * **M**: Dawnstep → Dash that gives allies temp immunity to all attacks in path
-  * **U**: Aurora Dome → (WIP)
+  * **M**: Aegis Path → Radiant path granting barriers & CD synergy
+  * **U**: Aurora Dome → Protective dome reduces ally damage taken & pulses cleanses
   * **Weapon**: Sunblade (strengthens allies in aura)
-  * **Final Stand**: Solar Resurrection (shield allies at death)
+  * **Final Stand**: Pillar of Dawn (healing pillar; ally-seconds revival)
 
 * **Path of Flame** (*Sacrificial Offense*)
 
   * **P**: Burning Faith → Punch with bare fist to Heal allies, burns user
   * **T**: Firebrand → Fire slash fueled by own HP
-  * **M**: Immolation Dash → Damages both self and enemies
+  * **M**: Sacrificial Flare Vault → Vault leaving flame arc & HP trade
   * **U**: Martyr’s Pyre → Huge flame burst at heavy HP cost
   * **Weapon**: Pyrelance (costs HP to empower)
-  * **Final Stand**: Incredible amount of damage, but spread across enemies withing area, so insta kills when around 3 enemies, but 4 and up does less and less damage (burn self + enemies)
+  * **Final Stand**: Phoenix Crucible (flame ring channel; resource-fed revival)
 
 ---
 
@@ -201,7 +201,7 @@
 
 * **P**: Chaotic Aura → Random buff/debuff every 30s
 * **T**: Unstable Burst → Random AoE effect (small chance to be a different soul's effect)
-* **M**: Warp Step → Teleport randomly nearby
+* **M**: Fracture Warp → Dual-phase blink with distortion trail
 * **U**: Riftstorm → Create unstable pulling rift
 
 ### Subclasses
@@ -213,16 +213,16 @@
   * **M**: Chaotic Sprint → Dash leaves random effect trail
   * **U**: Reality Fracture → AOE attack, gamble to see how good (or bad) it is (-4 --> +4, -4 being detrimental to you and allies, +4 being catastrophically destructive, 0 being nothing happens)
   * **Weapon**: Entropy Shard (random effects on hit)
-  * **Final Stand**: Chaotic Collapse (3 last stands from other souls, but reduced effect)
+  * **Final Stand**: Rift Cataclysm → Unstable anomaly cycles; conditional reform
 
 * **Path of Void** (*Dimensional Rift*)
 
   * **P**: Phase Step → Chance to ignore damage
   * **T**: Rift Slash → Void blade cuts through armor (true damage)
-  * **M**: Blink Rift → Short-range void teleport, low cooldown
+  * **M**: Void Lattice Step → Chain blink nodes collapse pulling enemies
   * **U**: Singularity → Summon mini black hole pulling in enemies and lock them in place
   * **Weapon**: Voidripper (armor-piercing strikes)
-  * **Final Stand**: Black Hole (collapse into singularity, eats players, allies or not, and the land alive.)
+  * **Final Stand**: Void Implosion → Collapsing sphere; damage-based reform or lingering void scar
 
 
 ## ⚖️ 8. Soul of Order (Law, Time, Structure)
@@ -231,7 +231,7 @@
 
 * **P**: Balanced Flow → -10% cooldowns, -10% damage dealt. Crutches semi-hevily on abilities
 * **T**: Binding Chains → Root enemy for 2s, chain display entities, lock pearls/chorus fruit, movement, and mouse
-* **M**: March of Law → Dash forward in a straight line, even into/through walls. nedium cooldown
+* **M**: Axiom Phase March → Phasing corridor path with snap-back option
 * **U**: Edict → Cancels enemy abilities in an area if charging up, locks other abilities for short duration, movement abilities for med-long duration
 
 ### Subclasses
@@ -240,19 +240,19 @@
 
   * **P**: Shackled Will → Enemies you hit are slightly slowed (try not to use the ffect since it can be bypassed through sprint jumping)
   * **T**: Iron Bind → Trap enemy in chains, immobilize
-  * **M**: Chain Pull → Grapple toward enemy
+  * **M**: Chain Pull → Grapple to enemy or terrain, brief root on arrival
   * **U**: Prison of Order → Create cage that locks foes withing a chunk (use chain display entities, drains healing and food)
   * **Weapon**: Lawkeeper’s Chains (bind multiple enemies w/ cooldown)
-  * **Final Stand**: Judgment → Shackles explode, stunning all
+  * **Final Stand**: Crystalline Tribunal → Crystal court slows & may reform
 
 * **Path of Clockwork** (*Time Manipulation*)
 
   * **P**: Temporal Stability → 10% chance to avoid cooldowns on ability use
   * **T**: Rewind → Undo last 3s of damage taken
-  * **M**: Time Step → return to previous position, leaving afterimage
+  * **M**: Chronopivot → Anchor rewind + cooldown synergy
   * **U**: Stasis Lock → Freeze enemies for 5s, immidiatly puts cooldowns for all nontrusted abilities
   * **Weapon**: Chronoblade (reduces cooldowns per hit)
-  * **Final Stand**: Chrono Collapse → Freeze time for 3s on death
+  * **Final Stand**: Temporal Fracture → Time bubble logs damage for reform
 
 ---
 
@@ -262,7 +262,7 @@
 
 * **P**: Hero’s Spark → Gain XP from combat and kills
 * **T**: Rallying Cry → Boost nearby allies’ speed
-* **M**: Heroic Leap → Jump higher, shockwave on landing
+* **M**: Legacy Vault → Arc leap creates empowering impact zone
 * **U**: Immortal Banner → Summon glowing banner buff
 
 ### Subclasses
@@ -274,16 +274,16 @@
   * **M**: Phoenix Dash → Dash leaves fiery trail
   * **U**: Flame of Legacy → Leave immortal flame beacon
   * **Weapon**: Emberblade (burns enemies, buffs allies)
-  * **Final Stand**: Phoenix Rise → Revive once as fiery avatar
+  * **Final Stand**: Ashen Scar → Flaming crater with Ember reform condition
 
 * **Path of Champion** (*Gladiator/Combat Master*)
 
   * **P**: Arena Mastery → Deal +10% more in 1v1
   * **T**: Crushing Blow → Heavy strike with knockback
-  * **M**: Champion’s Charge → Dash through enemies
+  * **M**: Valor Rush → Unstoppable targeted charge marking foe
   * **U**: Colosseum → Temporary arena boosts self massively
   * **Weapon**: Champion’s Spear (empowers in duels)
-  * **Final Stand**: Champion’s Roar → After death, 1 extra chance to fight killer. Sends both to a different plane, like in the void r smthng, forces all other players to watch, and you get 1 last fight. Only iron armour. No buffs. No heals. No cobwebs. If you win, you respawn where you died. If you lose, the enemy goes back with extra buffs.
+  * **Final Stand**: Arena of Legends → Sealed duel platform; reform on performance
 
 ---
 
@@ -293,7 +293,7 @@
 
 * **P**: Keen Eye → See hidden entities (invis, tnt traps, etc etc)
 * **T**: Analyze → Reveal enemy cooldowns/HP
-* **M**: Scholar’s Step → (WIP)
+* **M**: Insight Pivot → Anchor blink granting CDR & vision
 * **U**: Arcane Experiment → Random potion effect burst
 
 ### Subclasses
@@ -302,19 +302,19 @@
 
   * **P**: Alchemical Insight → Can craft special items, and in future, are some of the only people able to craft the special items.
   * **T**: Flask Toss → Throw alchemy bomb (heal or harm)
-  * **M**: Jet Jump → Small alchemical rocket leap
+  * **M**: Catalyst Jet Spiral → Spiral ascent granting ally CDR
   * **U**: Transmute → Convert items into rarer ones
   * **Weapon**: Philosopher’s Tool (transmutation powers)
-  * **Final Stand**: Alchemical Catastrophe → Explodes into random potions
+  * **Final Stand**: Transmutation Field → Block-converting field; reform on conversions
 
 * **Path of Madness** (*Forbidden Knowledge*)
 
   * **P**: Insatiable Mind → Gain XP faster, take more dmg
   * **T**: Eldritch Bolt → Chaos projectile, random debuff
-  * **M**: Reality Slip → Blink unpredictably for small duration
+  * **M**: Fracture Drift → Sequence micro-blinks leaving damage rifts
   * **U**: Forbidden Tome → Summon eldritch entity (custom or just a warden)
   * **Weapon**: Tome of Whispers (random dark effects)
-  * **Final Stand**: Sanity Break → Cause nearby players confusion
+  * **Final Stand**: Eldritch Bloom → Growing anomaly reform trigger
 
 ---
 
@@ -342,7 +342,7 @@
 
   * **P**: Cursed Fortune → Enemies near you miscrit
   * **T**: Hex → Curse enemy (miss chance)
-  * **M**: Trickster’s Vault → (WIP)
+  * **M**: Trickster’s Vault → Vertical vault + brief invis distraction
   * **U**: Wheel of Fate → Randomize effects in area
   * **Weapon**: Hexstaff (debuffs enemies)
   * **Final Stand**: Gambler’s End → On death, enemies roll random debuffs
@@ -355,8 +355,8 @@
 
 * **P**: Verdant Blessing → Plants grow faster nearby
 * **T**: Vine Snare → Root enemy briefly
-* **M**: Vine Whip → grapple using a vine
-* **U**: Nature’s Wrath → (WIP)
+* **M**: Vine Whip → Grapple to surface or pull toward enemy
+* **U**: Nature’s Wrath → Storm with periodic strikes & slows
 
 ### Subclasses
 
