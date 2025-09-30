@@ -300,7 +300,7 @@
 
 * **Path of Discovery** (*Inventor/Alchemist*)
 
-  * **P**: Alchemical Insight → Can xraft special items, and in future, are some of the only people able to craft the special items.
+  * **P**: Alchemical Insight → Can craft special items, and in future, are some of the only people able to craft the special items.
   * **T**: Flask Toss → Throw alchemy bomb (heal or harm)
   * **M**: Jet Jump → Small alchemical rocket leap
   * **U**: Transmute → Convert items into rarer ones
