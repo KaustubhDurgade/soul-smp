@@ -1,0 +1,10 @@
+name: SoulSMP
+version: 0.1.0
+main: dev.soulsmp.SoulSMPPlugin
+description: Core systems for the Soul SMP server, starting with the Wrath base implementation.
+author: Soul SMP Team
+api-version: 1.21
+commands:
+	wrath:
+		description: Manage Wrath soul abilities.
+		usage: /wrath <join|leave|heat|ignition>

@@ -1,0 +1,14 @@
+debug:
+  enabled: false
+
+resources:
+  heat:
+    min: 0
+    max: 100
+    starting: 0
+    decay-interval-seconds: 10
+    combat-tick-seconds: 5
+
+persistence:
+  storage: yaml
+  autosave-interval-minutes: 5

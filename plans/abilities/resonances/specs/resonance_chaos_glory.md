@@ -8,7 +8,7 @@ trigger: ULT(riftstorm + immortal_banner)
 version: 1.0.0
 design_status: draft
 ---
-### Overview
+ ### Overview
 Immortal Banner inside Riftstorm causes banner aura to randomize secondary buff each tick.
 ### Trigger Conditions
 Both ultimates active; banner origin within rift radius at activation.

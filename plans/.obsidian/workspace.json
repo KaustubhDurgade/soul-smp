@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "abilities/resonances/resonance-chart.md",
+                "file": "abilities/specs/souls/chaos/base/spec.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "resonance-chart"
+              "title": "spec"
             }
           }
         ]
@@ -171,6 +171,33 @@
   },
   "active": "cf601afd02fcc4ee",
   "lastOpenFiles": [
+    "abilities/specs/souls/curiosity/base/spec.md",
+    "abilities/specs/souls/curiosity/madness/spec.md",
+    "abilities/specs/souls/curiosity/discovery/spec.md",
+    "roadmaps/wrath-base.md",
+    "ability-overveiw.md",
+    "abilities/resonances/expansion.md",
+    "abilities/resonances/specs/resonance_chaos_greed.md",
+    "abilities/resonances/specs/resonance_chaos_glory.md",
+    "abilities/resonances/specs/resonance_chaos_despair.md",
+    "abilities/resonances/specs/resonance_chaos_curiosity.md",
+    "abilities/resonances/mythic/mythic_wrath_hope_serenity.md",
+    "abilities/resonances/mythic/mythic_order_silence_despair.md",
+    "abilities/resonances/mythic/mythic_nature_hope_serenity.md",
+    "abilities/resonances/mythic/mythic_greed_glory_pride.md",
+    "abilities/resonances/mythic/mythic_chaos_curiosity_trickery.md",
+    "registry/attribute-pipeline.md",
+    "registry/schemas/resonances.md",
+    "registry/schemas/mythics.md",
+    "registry/schemas/items.md",
+    "registry/schemas/events.md",
+    "registry/schemas/contracts.md",
+    "roadmaps/soul-smp-master-roadmap.md",
+    "abilities/resonances/specs/resonance_silence_wrath.md",
+    "abilities/resonances/specs/resonance_trickery_wrath.md",
+    "abilities/resonances/specs/README.md",
+    "abilities/resonances/resonance-chart.md",
+    "roadmaps",
     "registry/data/mythic_eclipse_totem.yaml",
     "registry/data/mythic_leviathan_core.yaml",
     "registry/data/mythic_aegis_ancients.yaml",
@@ -179,33 +206,6 @@
     "registry/data/mythic_chronos_hourglass.yaml",
     "registry/data/mythic_aurora_crown.yaml",
     "registry/data/mythic_elemental_orb.yaml",
-    "registry/data/mythic_eclipse_blade.yaml",
-    "registry/data/mythic_phantom_mantle.yaml",
-    "registry/data/event_cataclysmic_convergence.yaml",
-    "registry/conversion-status.md",
-    "registry/integration-architecture.md",
-    "registry/telemetry-schema.md",
-    "registry/validation-rules.md",
-    "registry/conflict-usage-report.md",
-    "registry/attribute-pipeline.md",
-    "mythics/mythic_oblivion_shard.md",
-    "mythics/mythic_aurora_crown.md",
-    "mythics/mythic_celestial_compass.md",
-    "mythics/mythic_meteoric_scepter.md",
-    "mythics/mythic_eclipse_totem.md",
-    "mythics/mythic_void_mantle.md",
-    "mythics/mythic_leviathan_core.md",
-    "mythics/mythic_dragon_heart.md",
-    "mythics/mythic_phantom_mantle.md",
-    "mythics/mythic_aegis_ancients.md",
-    "mythics/mythic_elemental_orb.md",
-    "mythics/mythic_soul_prism.md",
-    "mythics/mythic_chronos_hourglass.md",
-    "mythics/mythic_infernal_cannon.md",
-    "mythics/mythic_tempest_halberd.md",
-    "mythics/mythic_eclipse_blade.md",
-    "events/event_leviathan_spawn.md",
-    "events/event_phoenix_rise.md",
-    "events/event_haunting_shadows.md"
+    "registry/data/mythic_eclipse_blade.yaml"
   ]
 }
