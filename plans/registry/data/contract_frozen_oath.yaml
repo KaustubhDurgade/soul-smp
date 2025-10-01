@@ -1,0 +1,33 @@
+# GENERATED FROM: plans/contracts/contract_frozen_oath.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: contract.frozen_oath
+name: Frozen Oath
+tier: 2
+class: CONTROL
+scope: AREA
+activation:
+  mode: INSTANT
+  cast_time_ticks: 15
+  cooldown_seconds: 160
+sacrifice:
+  type: ITEM_AND_MOBILITY
+  item_tag: frost_blade
+  mobility_lock_seconds: 4
+effects:
+  field_radius: 9
+  freeze_duration_seconds: 2.5
+  slow_after_freeze: 0.3
+  slow_duration_seconds: 4
+scaling:
+  formula: freeze_duration = base + (silence_souls * 0.25)
+  clamp_freeze: 3.5
+resonance_hooks:
+- condition: resonance:frost_silence within:12
+  modify:
+    freeze_duration_add: 1.0
+conflict_tags:
+- control_freeze
+anti_abuse:
+  freeze_immunity_after: 8
+logging: EXTENDED
+status: draft

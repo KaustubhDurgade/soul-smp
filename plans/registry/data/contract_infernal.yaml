@@ -1,0 +1,34 @@
+# GENERATED FROM: plans/contracts/contract_infernal.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: contract.infernal
+name: Infernal Contract
+tier: 2
+class: OFFENSE
+scope: AREA
+activation:
+  mode: INSTANT
+  cast_time_ticks: 20
+  cooldown_seconds: 150
+  internal_lockout_tag: area_control_fire
+sacrifice:
+  type: ITEM
+  item_tag: flame_core
+effects:
+  duration_seconds: 15
+  pulses_every_seconds: 3
+  pulse_damage: 6
+  field_radius: 10
+scaling:
+  formula: Damage = base * (1 + elemental_resonances*0.08)
+  clamp_pulse_damage: 12
+resonance_hooks:
+- condition: resonance:flame_wind within:16
+  modify:
+    field_radius_mult: 1.25
+    pulse_damage_mult: 1.2
+conflict_tags:
+- area_control_fire
+anti_abuse:
+  max_concurrent_same_field_region: 1
+logging: EXTENDED
+status: draft

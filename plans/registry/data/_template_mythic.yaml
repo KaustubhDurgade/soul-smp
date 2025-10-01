@@ -1,0 +1,31 @@
+# Template: Mythic YAML
+id: mythic.example_mythic
+name: Example Mythic
+mythic_type: WEAPON
+tier: 3
+activation_mode: ACTIVE_WINDOW
+acquisition_path: EVENT_DROP
+soul_focus: [Flame]
+cooldown_seconds: 300
+active_window_seconds: 10
+passives:
+  damage_amp: 0.10
+active:
+  radius: 6
+  damage: 14
+scaling:
+  # flame_souls_damage_per: value per Flame soul; cap_add indicates max additive bonus
+  flame_souls_damage_per: 1
+  cap_add_damage: 4
+resonance_hooks:
+  - condition: resonance:flame_wind active_within:16
+    modify:
+      radius_add: 2
+visual:
+  model: weapon/example_model
+anti_abuse:
+  window_icd_seconds: 2
+attunement:
+  exclusive_slot: weapon_core
+logging: BASIC
+status: draft

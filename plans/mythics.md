@@ -1,73 +1,187 @@
-Perfect! Here’s a **full SMP Mythics Catalog**, formatted like the Contracts blueprint, giving you a **ready-to-implement reference** for your plugin. I included **name, type, active/passive effect, resonance interactions, particle/display ideas, and tier/duration**.
+# 🌌 Mythic System – Structured Specification (Step 1.0 → 2.0 Ready)
+
+Mythics are apex items / transformations / world anchors that create limited, high-impact windows of altered gameplay. They must never become mandatory baselines; they are strategic accelerators with strict acquisition friction and stacking guardrails.
 
 ---
 
-# 🌌 SMP Mythics Catalog
-
-| Mythic Name               | Type                   | Active / Passive Effect                                                                   | Soul Interaction / Resonance Modifier                               | Particle / Display Ideas                                     | Tier / Duration                      |
-| ------------------------- | ---------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------ |
-| **Eclipse Blade**         | Weapon                 | Active: AoE slash, doubles Shadow/Silence ability effects; Passive: +15% damage           | Enhances stealth & clone attacks; Shadow+Trickery resonance ↑       | Dark arcs, shadow streaks, pulsing sigil under player        | Tier 3, Active 8–10s, Passive always |
-| **Tempest Halberd**       | Weapon                 | Active: Lightning cleave, chain attacks; Passive: +Wind and Tides ability damage          | Amplifies Wind+Tides resonances; can trigger Fire+Wind auto synergy | Electric arcs, storm clouds, crackling air particles         | Tier 3, Active 10s, Passive always   |
-| **Infernal Cannon**       | Weapon                 | Active: Fire AoE projectile, explosive; Passive: Flame abilities burn longer              | Fire+Wind resonance automatically triggers Fire Tornado on hit      | Fire explosions, smoke spirals, glowing ember particles      | Tier 3, Active 12s, Passive always   |
-| **Chronos Hourglass**     | Artifact               | Active: Reduce cooldowns of all nearby allies 50%; Slow enemies in radius                 | Boosts passive and tactical abilities of nearby souls               | Floating golden hourglass, spinning particle rings           | Tier 2, Active 8–12s                 |
-| **Soul Prism**            | Artifact               | Passive: Doubles duration and strength of all passive/tactical abilities within 10 blocks | Amplifies all nearby resonances                                     | Orbiting colorful prisms, swirling rainbow particle halo     | Tier 2, Passive always               |
-| **Elemental Orb**         | Artifact               | Active: Store and release amplified elemental AoE (Fire, Frost, Tides, Lightning)         | Compatible with elemental resonances                                | Floating orb, elemental arcs, sphere of particles            | Tier 3, Active 10–15s                |
-| **Aegis of the Ancients** | Armor                  | Passive: Reflect projectiles; Amplifies defensive resonances                              | Boosts AoE defensive and shield abilities                           | Golden shield arcs, protective particle dome                 | Tier 2, Passive always               |
-| **Phantom Mantle**        | Armor                  | Passive: Invisibility on ultimate; Shadow+Trickery resonance amplified                    | Enhances stealth and clone attack synergy                           | Ethereal cloak particles, dark mist trailing player          | Tier 3, Passive always               |
-| **Dragon’s Heart**        | Transformation         | Active: Fire dragon form; AoE flame breath; Aerial mobility                               | Flame+Wind resonance enhanced                                       | Flaming wings, smoke trails, fiery aura                      | Tier 3, Active 12s–15s               |
-| **Leviathan Core**        | Transformation         | Active: Water form; Pulls enemies; Tidal AoE control                                      | Strengthens Tides abilities; Electrified Whirlpool synergy          | Water spiral particles, prismarine tentacles, splash effects | Tier 3, Active 12s–15s               |
-| **Void Mantle**           | Transformation         | Active: Shadow form; Teleportation; Clone attacks; Stealth                                | Shadow+Trickery and Silence resonances amplified                    | Dark particle wrap, floating shadow armorstands              | Tier 3, Active 10s                   |
-| **Eclipse Totem**         | World / Artifact       | Active: Darken area; Amplify Shadow/Silence; Reduce enemy healing                         | Boosts nearby shadow resonances                                     | Shadow dome, floating dark runes, mist particles             | Tier 3, Active 15s                   |
-| **Meteoric Scepter**      | World / Artifact       | Active: Calls down meteor storm; terrain damage                                           | Fire+Wind resonance triggers automatically                          | Falling meteors, impact sparks, smoke columns                | Tier 3, Active 12–15s                |
-| **Celestial Compass**     | World / Artifact       | Active: Converts biome temporarily to elemental-aligned field                             | Amplifies elemental abilities in area                               | Floating compass display, glowing elemental aura             | Tier 2, Active 20s                   |
-| **Aurora Crown**          | World / Transformation | Passive: Increase movement speed, ultimate gain; Active: Summon aurora field for buffs    | Enhances multi-soul resonances                                      | Floating crown particle halo, rainbow particle arcs          | Tier 2, Active 8s, Passive always    |
-| **Oblivion Shard**        | Artifact               | Active: AoE silence and damage; Passive: +Shadow and Silence ability power                | Multi-soul synergy with Shadow+Silence                              | Black shards orbiting player, void mist dome                 | Tier 3, Active 10s, Passive +15%     |
+## 0. Design Goals
+* Singular Identity (each mythic solves a unique combat / support niche)
+* Windowed Power (bursts or sustained passives within controlled bands)
+* Multi-System Fusion (always interacts with at least one of: resonance, contract, event)
+* Predictable Counterplay (visual clarity, telegraphs, cooldown readability)
+* Data-Driven Scalability (no bespoke code branches per mythic)
 
 ---
 
-## **Implementation Notes**
-
-1. **Activation / Passive**
-
-   * Weapons & Transformations: right-click / keybind for active; passive always applies while equipped.
-   * Artifacts & Armor: passive effects continuous; active abilities can have cooldowns.
-   * World Mythics: triggered by event or activation, visually dominates the area.
-
-2. **Particle & Display**
-
-   * **Weapons:** streaks, arcs, AoE bursts
-   * **Artifacts:** floating orbs, sigils, rotating runes
-   * **Transformations:** full-body particle wrap, elemental aura, armorstand projections
-   * **World-effects:** domes, meteor strikes, elemental storms, terrain overlays
-
-3. **Scaling / Resonances**
-
-   * Effects scale with:
-
-     * Nearby players / number of souls
-     * Active resonances or contracts
-     * Player level or mythic rarity tier
-   * Example: Dragon’s Heart AoE damage = Base × (1 + 0.2 × # Flame+Wind souls nearby)
-
-4. **Tiering**
-
-   * **Tier 2:** Strong, regional effects, moderate duration, enhances multiple abilities/resonances
-   * **Tier 3:** Cataclysmic, massive area, long duration, visually spectacular, multi-soul or world-altering
+## 1. Taxonomy
+| Field | Values | Notes |
+|-------|--------|-------|
+| mythic_type | WEAPON, ARTIFACT, ARMOR, TRANSFORMATION, WORLD_OBJECT, CATALYST | Drives activation + persistence rules |
+| tier | 2, 3 (mythics start high) | Tier influences visual + stacking ceilings |
+| activation_mode | PASSIVE_ONLY, ACTIVE_WINDOW, TRANSFORM, WORLD_DEPLOY | Behavior lifecycle |
+| acquisition_path | EVENT_DROP, CRAFT_INFUSION, CONTRACT_FUSION, BOSS_REWARD, WORLD_TRIGGER | Balancing levers |
+| soul_focus | list(souls) or ANY | Used for affinity & attunement |
+| limited_flag | true/false | If true, server-limited count concurrently |
 
 ---
 
-This catalog gives you a **plug-and-play list of Mythics** with:
-
-* **Name & type**
-* **Effects** (active/passive)
-* **Resonance interactions**
-* **Visual / particle concepts**
-* **Tier / duration**
-
-It’s ready to be **integrated into your SMP plugin framework**, interacting with **souls, contracts, and events**.
+## 2. Data Schema (YAML Prototype)
+```yaml
+id: mythic.dragon_heart
+name: Dragon's Heart
+mythic_type: TRANSFORMATION
+tier: 3
+activation_mode: TRANSFORM
+acquisition_path: EVENT_DROP
+soul_focus: [Flame, Wind]
+cooldown_seconds: 420
+active_window_seconds: 15
+transformation:
+   model_key: transform/dragon_form
+   ability_overrides:
+      slot.primary:
+         type: cone_breath
+         damage: 26
+         dot: 4 over 4s
+      slot.secondary:
+         type: wing_dash
+         distance: 12
+         knockback: 1.2
+scaling:
+   flame_souls_bonus_damage_per: 0.06 (cap 0.24)
+   wind_souls_dash_bonus_per: 0.5 (blocks, cap +3)
+resonance_hooks:
+   - condition: resonance:flame_wind active
+      modify:
+         cone_breath.radius: +2
+         cone_breath.damage_mult: 1.15
+visual:
+   aura: fiery_wings
+   trail: ember_stream
+   activation_burst: meteor_flare
+anti_abuse:
+   transform_cancel_min_seconds: 4
+   revert_lockout_seconds: 6
+   limited_flag: false
+attunement:
+   exclusive_slot: transformation_core
+logging:
+   audit: EXTENDED
+```
 
 ---
 
-If you want, the **next step** could be me **designing a unified SMP system architecture**, showing **how all 13 souls, abilities, resonances, contracts, events, and mythics interact dynamically**, with **data flow, tick scheduling, and modular plugin structure**.
+## 3. Lifecycle
+```
+IDLE → (Acquire) → EQUIPPED (passives maybe) → ACTIVATION_CHECK (cooldown OK) → WINDUP → ACTIVE_WINDOW / TRANSFORMED → REVERT → COOLDOWN → EQUIPPED
+```
+World objects (e.g., Eclipse Totem) substitute REVERT with DESPAWN.
 
-Do you want me to do that next?
+---
+
+## 4. Attunement & Exclusive Slots
+* Mythics occupy special attunement channels (e.g., transformation_core, world_anchor)
+* A player may attune to at most ONE from each exclusive channel
+* Attempt to activate when channel occupied → UI feedback (deny + reason)
+
+---
+
+## 5. Stacking & Conflict Rules
+| Domain | Rule |
+|--------|------|
+| silence_amp | Strongest_only |
+| transformation | Only 1 active transformation per player |
+| world_anchor_dark | Max 1 within 64 blocks |
+| cooldown_mass_reducer | Additive → multiplicative beyond 40% |
+
+Mythic declares `conflict_tags`, engine enforces at activation or merges with diminishing table.
+
+---
+
+## 6. Acquisition Philosophy
+| Path | Intent | Control Lever |
+|------|--------|---------------|
+| EVENT_DROP | Link to macro world pacing | Drop weight & bad luck protection |
+| CRAFT_INFUSION | Long-term progression | Essence costs & gating components |
+| CONTRACT_FUSION | Group cooperative ritual | Sacrifice totals & ritual timing risk |
+| BOSS_REWARD | High-challenge success | Boss token economy |
+| WORLD_TRIGGER | Exploration reward | Hidden structure spawn rate |
+
+Bad luck protection increments chance after each failed eligible participation.
+
+---
+
+## 7. Power Budgeting
+| Tier | Active Window (s) | Passive Budget (approx stat units) | Visual Layers | Cooldown Band |
+|------|-------------------|-------------------------------------|---------------|---------------|
+| 2 | 8–12 | 1.0 (baseline) | ≤3 | 180–300 |
+| 3 | 10–18 | 1.35 | ≤5 | 300–480 |
+
+Stat Units: Normalized equivalence bucket (e.g., +5% ability dmg = 0.25 unit) used to keep builds balanced.
+
+---
+
+## 8. Visual Degrade Ladder
+1. Ambient aura density
+2. Secondary wing/halo trails
+3. Ground sigil pulses
+4. Large volumetric displays
+
+When server performance inspector flags degrade-mode, steps apply globally to mythics.
+
+---
+
+## 9. Mythic Catalog
+| ID | Name | Type | Tier | Mode | Core Identity | Resonance Highlight |
+|----|------|------|------|------|---------------|---------------------|
+| mythic.eclipse_blade | Eclipse Blade | WEAPON | 3 | ACTIVE_WINDOW | Shadow/Silence burst hybrid | Shadow+Trickery clone burst |
+| mythic.tempest_halberd | Tempest Halberd | WEAPON | 3 | ACTIVE_WINDOW | Lightning cleave chaining | Wind+Tides chain extension |
+| mythic.infernal_cannon | Infernal Cannon | WEAPON | 3 | ACTIVE_WINDOW | High AoE fire salvo | Fire+Wind tornado auto-proc |
+| mythic.chronos_hourglass | Chronos Hourglass | ARTIFACT | 2 | ACTIVE_WINDOW | AoE cooldown compression | Multi-soul support boost |
+| mythic.soul_prism | Soul Prism | ARTIFACT | 2 | PASSIVE_ONLY | Passive/tactical amplifier | Resonance duration scaling |
+| mythic.elemental_orb | Elemental Orb | ARTIFACT | 3 | ACTIVE_WINDOW | Stored elemental discharge | Elemental cycle synergy |
+| mythic.aegis_ancients | Aegis of the Ancients | ARMOR | 2 | PASSIVE_ONLY | Reflective defense shell | Defensive resonance layering |
+| mythic.phantom_mantle | Phantom Mantle | ARMOR | 3 | PASSIVE_ONLY | Invis on ult + stealth chain | Shadow+Trickery extension |
+| mythic.dragon_heart | Dragon’s Heart | TRANSFORMATION | 3 | TRANSFORM | Fire dragon aerial form | Flame+Wind breath amplification |
+| mythic.leviathan_core | Leviathan Core | TRANSFORMATION | 3 | TRANSFORM | Water vortex control form | Tides+Lightning conductive pulls |
+| mythic.void_mantle | Void Mantle | TRANSFORMATION | 3 | TRANSFORM | Shadow warp assassin form | Shadow+Silence stacking |
+| mythic.eclipse_totem | Eclipse Totem | WORLD_OBJECT | 3 | WORLD_DEPLOY | Area darkness & suppression | Shadow/Silence synergy radius |
+| mythic.meteoric_scepter | Meteoric Scepter | WORLD_OBJECT | 3 | ACTIVE_WINDOW | Meteor storm cascade | Fire event synergy scaling |
+| mythic.celestial_compass | Celestial Compass | WORLD_OBJECT | 2 | ACTIVE_WINDOW | Temporary elemental biome field | Elemental resonance layering |
+| mythic.aurora_crown | Aurora Crown | ARTIFACT | 2 | ACTIVE_WINDOW | Movement + ult regen aura | Multi-soul aura scaling |
+| mythic.oblivion_shard | Oblivion Shard | ARTIFACT | 3 | ACTIVE_WINDOW | AoE silence + damage | Shadow+Silence amplifier |
+
+Earlier detailed table remains valid; this catalog normalizes it into registry perspective.
+
+---
+
+## 10. Anti-Abuse / Safeguards
+* Transform revert cooldown prevents burst weaving
+* World objects limited per region & per-player deploy rate
+* Cooldown compression stacking respects contract + artifact diminishing rules
+* Passive amplifiers (Soul Prism) follow absolute duration caps after merges
+* Telemetry auto-flags mythics with >X% participation dominance
+
+---
+
+## 11. Telemetry
+* acquisition_source_distribution
+* average_active_window_utilization
+* transformation_cancel_rate
+* conflict_denial_count
+* visual_degrade_invocations
+
+---
+
+## 12. Implementation Checklist
+1. Mythic registry loader (with structural validation)
+2. Exclusive slot / attunement service integration
+3. Activation pipeline (conflict -> gating -> activation -> revert)
+4. Transformation harness (model swap & ability override binding)
+5. World object deployer (region occupancy tracking)
+6. Visual degrade orchestrator reuse
+7. Telemetry + admin introspection commands
+
+---
+
+End of mythic spec.

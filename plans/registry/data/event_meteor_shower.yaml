@@ -1,0 +1,38 @@
+# GENERATED FROM: plans/events/event_meteor_shower.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: event.meteor_shower
+name: Meteor Shower
+category: WEATHER
+scope: REGIONAL
+rarity: UNCOMMON
+intensity_tier: 2
+scaling:
+  wind_souls_scatter_reduce_per: 0.05 (cap 0.30)
+resonance_hooks:
+- condition: resonance:flame_wind active_within:24
+  modify:
+    meteor_interval_seconds_mult: 0.85
+    meteor_damage_mult: 1.1
+anti_abuse:
+  max_active_regions: 2
+visual:
+  sky_trails: fiery_streaks
+  impact_effect: explosion_sparks
+logging: BASIC
+status: draft
+trigger:
+  mode: PROBABILISTIC
+  chance_per_interval: 0.08
+  interval_minutes: 20
+  prerequisite:
+    time_of_day: night
+phases:
+  telegraph_seconds: 15
+  active_seconds: 90
+  cooldown_seconds: 1800
+mechanics:
+  meteor_interval_seconds: 3
+  meteor_damage: 10
+  impact_radius: 3
+rewards:
+  loot_table_id: loot.meteor_fragments

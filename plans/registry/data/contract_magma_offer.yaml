@@ -1,0 +1,32 @@
+# GENERATED FROM: plans/contracts/contract_magma_offer.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: contract.magma_offer
+name: Magma Offer
+tier: 2
+class: OFFENSE
+scope: AREA
+activation:
+  mode: INSTANT
+  cooldown_seconds: 150
+  internal_lockout_tag: area_control_fire
+sacrifice:
+  type: ENVIRONMENT
+  requires_block: lava_source
+effects:
+  hazard_radius: 9
+  tick_damage: 5
+  terrain_scorch_seconds: 12
+scaling:
+  formula: tick_damage = base + (order_souls * 1.0)
+  clamp_tick_damage: 10
+resonance_hooks:
+- condition: resonance:flame_order within:14
+  modify:
+    tick_damage_mult: 1.2
+    adds_effect: purge_flames
+conflict_tags:
+- area_control_fire
+anti_abuse:
+  scorch_block_limit: 40
+logging: EXTENDED
+status: draft

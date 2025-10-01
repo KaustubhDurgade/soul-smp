@@ -1,0 +1,36 @@
+# GENERATED FROM: plans/contracts/contract_shadow_merge.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: contract.shadow_merge
+name: Shadow Merge
+tier: 2
+class: HYBRID
+scope: LOCAL
+activation:
+  mode: INSTANT
+  cast_time_ticks: 10
+  cooldown_seconds: 130
+sacrifice:
+  type: COOLDOWN
+  ability_lock_ids:
+  - dash
+  - blink
+  lock_duration_seconds: 8
+effects:
+  stealth_duration_seconds: 5
+  clone_count: 2
+  clone_lifespan_seconds: 6
+  opening_strike_bonus: 0.25
+scaling:
+  formula: clone_count = base + floor(trickery_souls/2)
+  clamp_clone_count: 4
+resonance_hooks:
+- condition: resonance:shadow_trickery within:14
+  modify:
+    clone_count_add: 1
+    opening_strike_bonus_add: 0.1
+conflict_tags:
+- stealth_field
+anti_abuse:
+  stealth_reveal_on_damage: true
+logging: BASIC
+status: draft

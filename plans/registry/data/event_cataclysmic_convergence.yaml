@@ -1,0 +1,40 @@
+# GENERATED FROM: plans/events/event_cataclysmic_convergence.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: event.cataclysmic_convergence
+name: Cataclysmic Convergence
+category: FUSION
+scope: REGIONAL
+rarity: LEGENDARY
+intensity_tier: 3
+scaling:
+  additional_unique_soul_pulse_damage_add: 1 (cap +6)
+resonance_hooks:
+- condition: multi_resonance_count>=3 within:18
+  modify:
+    pulse_interval_mult: 0.85
+    pull_strength_mult: 1.1
+anti_abuse:
+  region_exclusive: true
+visual:
+  layered_domes: fire + water + shadow_spikes
+  particle_density: high
+logging: FULL
+status: draft
+trigger:
+  mode: COMPOSITE
+  conditions:
+    flame_ultimates_within_60s>=: 1
+    tides_ultimates_within_60s>=: 1
+    shadow_ultimates_within_60s>=: 1
+phases:
+  telegraph_seconds: 20
+  active_seconds: 70
+  recovery_seconds: 8
+  cooldown_seconds: 7200
+mechanics:
+  vortex_radius: 15
+  pulse_damage: 18
+  pulse_interval: 5
+  pull_strength: 0.24
+rewards:
+  loot_table_id: loot.cataclysm_core

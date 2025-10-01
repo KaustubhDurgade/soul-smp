@@ -1,0 +1,37 @@
+# GENERATED FROM: plans/contracts/contract_harmony_convergence.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: contract.harmony_convergence
+name: Harmony Convergence
+tier: 2
+class: SUPPORT
+scope: AREA
+activation:
+  mode: SEQUENCE
+  steps:
+  - channel_seconds: 3
+  - alignment_radius: 6
+sacrifice:
+  type: GROUP_POOL
+  hp_pool_percent_each: 0.1
+effects:
+  aura_radius_base: 10
+  buff_duration_seconds: 12
+  buffs:
+  - stat: damage_amp
+    base: 0.1
+  - stat: regen
+    base: 1.0
+scaling:
+  formula: radius = base + (unique_souls*1.5)
+  clamp_radius: 18
+resonance_hooks:
+- condition: multi_resonance_count>=2 within:14
+  modify:
+    damage_amp_add: 0.05
+conflict_tags:
+- support_regen
+anti_abuse:
+  min_participants: 2
+logging: EXTENDED
+status: draft
+activation_cooldown_seconds: 240

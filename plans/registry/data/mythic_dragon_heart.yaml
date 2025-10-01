@@ -1,0 +1,42 @@
+# GENERATED FROM: plans/mythics/mythic_dragon_heart.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: mythic.dragon_heart
+name: Dragon’s Heart
+tier: 3
+mythic_type: TRANSFORMATION
+activation_mode: TRANSFORM
+acquisition_path: EVENT_DROP
+soul_focus:
+- Flame
+- Wind
+cooldown_seconds: 420
+active_window_seconds: 15
+transformation:
+  abilities:
+    primary:
+      type: cone_breath
+      damage: 26
+      dot: 4 over 4s
+    secondary:
+      type: wing_dash
+      distance: 12
+      knockback: 1.2
+scaling:
+  flame_souls_damage_per: 0.06 (cap 0.24)
+  wind_souls_dash_bonus_blocks_per: 0.5 (cap 3)
+resonance_hooks:
+- condition: resonance:flame_wind active_within:20
+  modify:
+    cone_breath_damage_mult: 1.15
+    cone_breath_radius_add: 2
+anti_abuse:
+  transform_cancel_min_seconds: 4
+  revert_lockout_seconds: 6
+attunement:
+  exclusive_slot: transformation_core
+visual:
+  model: transform/dragon_form
+  wings_particles: fire_trail
+  activation_burst: meteor_flare
+logging: FULL
+status: draft

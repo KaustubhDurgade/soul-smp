@@ -1,0 +1,37 @@
+# GENERATED FROM: plans/mythics/mythic_eclipse_blade.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: mythic.eclipse_blade
+name: Eclipse Blade
+tier: 3
+mythic_type: WEAPON
+activation_mode: ACTIVE_WINDOW
+acquisition_path: CRAFT_INFUSION
+soul_focus:
+- Shadow
+- Silence
+cooldown_seconds: 240
+active_window_seconds: 10
+passives:
+  damage_amp_shadow: 0.15
+  silence_effect_duration_add: 0.5
+active:
+  slash_radius: 6
+  slash_damage: 18
+  bonus_vs_silenced_mult: 1.25
+scaling:
+  trickery_souls_bonus_per: 0.02 (cap 0.08)
+resonance_hooks:
+- condition: resonance:shadow_trickery active_within:16
+  modify:
+    slash_radius_add: 2
+    damage_amp_shadow_add: 0.05
+anti_abuse:
+  silence_extension_cap: 1.5
+attunement:
+  exclusive_slot: weapon_core
+visual:
+  model: weapon/eclipse_blade
+  swing_trail: dark_arc
+  activation_burst: shadow_flash
+logging: EXTENDED
+status: draft

@@ -1,199 +1,189 @@
-Perfect — let’s dive into a **high-level, massively expanded Events overview** for your SMP plugin. I’ll map **all types of events**, their triggers, scaling, interactions with souls and resonances, and flashy particle/display mechanics. This will be **plugin-ready, mid-to-high-level design**, similar in scope to the resonance blueprint.
+# 🌟 Event System – Structured Specification (Step 1.0 → 2.0 Ready)
+
+Events are scheduled or reactive world-layer occurrences that modulate environment, combat rhythms, resource pressure, and emergent social coordination. They are registry-driven, conflict-aware, and resonance-reactive.
 
 ---
 
-# 🌟 Ultra High-Level SMP Events Overview
-
-Events are **dynamic occurrences** that make the world feel alive, reactive, and unpredictable. They can be **server-wide, location-specific, or player-triggered**, and often **interact with souls and resonances** for epic effects.
-
----
-
-## **1. Event Categories**
-
-### **A. World Events**
-
-* **Scope:** Affect large areas or entire worlds.
-* **Triggers:** Time of day, weather, biome, random chance.
-* **Examples:**
-
-  1. **Elemental Storm**:
-
-     * Randomly selects elements active in the world (Fire, Frost, Tides, Storms).
-     * Particle Effects: swirling vortex, lightning arcs, fire spirals, water pillars.
-     * Mechanics: Buffs/nerfs elemental souls temporarily (e.g., Fire +50% damage, Frost -10% movement).
-  2. **Moon Eclipse / Solar Flare**:
-
-     * Shadow + Silence → invisibility buffs at night.
-     * Flame + Light → day-time damage boosts.
-     * Particle Display: large circular moon/sun overlay (`block_display`) with dynamic glow.
-  3. **Seasonal Events**:
-
-     * Snowfall, Tidal Surges, Volcanic Flares, Meteor Showers.
-     * Mechanically: modify terrain blocks, spawn temporary mobs or hazards.
-     * Particle + Display: snow storm dome, fire columns, falling meteor entities.
+## 0. Principles
+* Pacing Layer: Adds macro rhythm on top of micro abilities/contracts
+* Contextual Amplification: Souls/resonances modify event parameters (not replace them)
+* Predictive Telegraphy: Pre-phase warnings reduce unfairness
+* Performance-Aware: Hard cap concurrent heavy visuals; degrade gracefully
+* Deterministic Core: Pure data spec → engine resolves; no hidden per-event code hacks
 
 ---
 
-### **B. Soul-Specific Events**
-
-* **Scope:** Triggered by the presence, actions, or numbers of certain souls.
-* **Examples:**
-
-  1. **Wrath Ascendant (Blood + Ash)**:
-
-     * Rage storm spawns fire meteors.
-     * Particle: red swirling meteors, flames on impact.
-     * Scaling: more Blood souls → higher meteor frequency.
-  2. **Tidal Convergence (Tides)**:
-
-     * 2+ Tides nearby → water vortex pulls mobs.
-     * Particle: whirlpool spiral with `BUBBLE_POP` and `SOUL` particles.
-     * Display: prismarine `block_display` tentacle waves around center.
-  3. **Prism Alignment (Silence + Frost + Lightning)**:
-
-     * AoE petrify + silence.
-     * Particle: freezing shard arcs + lightning bolts.
-     * Display: ice dome overlay + lightning rods (`block_display`).
+## 1. Taxonomy
+| Field | Values | Notes |
+|-------|--------|-------|
+| scope | LOCAL, REGIONAL, WORLD, GLOBAL | Affects scheduling + broadcast radius |
+| category | WEATHER, ASTRAL, SOUL, CONTRACT, RESOURCE, CREATURE, FUSION, SEASONAL | Filtering & balancing |
+| trigger_mode | TIMER, PROBABILISTIC, THRESHOLD, COMPOSITE, MANUAL | Composite = multi-condition |
+| phases | TELEGRAPH, ACTIVE, COOLDOWN, RECOVERY | Telegraph optional; recovery for cleanup |
+| scaling_axes | player_count, unique_souls, active_resonances, biome_density, time_of_day | Declared per event |
+| reward_profile | LOOT, BUFF, WORLD_STATE, CONTRACT_UNLOCK | Drives anti-farm policies |
+| rarity | COMMON, UNCOMMON, RARE, LEGENDARY, MYTHIC | Weighted scheduling |
+| intensity_tier | 1, 2, 3 | Visual & mechanical budgets |
 
 ---
 
-### **C. Mythical Soul / Item Events**
-
-* **Scope:** Rare, limited spawn, high reward.
-* **Mechanics:**
-
-  * Conditional spawn: biome + time + active souls + proximity check.
-  * Dropped items: mythical souls, legendary weapons, temporary transformations.
-  * Particle: aura rings, floating runes, glowing silhouettes.
-  * Display: massive temporary entities (e.g., Leviathan, Phoenix) for visual spectacle.
-* **Examples:**
-
-  1. **Leviathan Spawn**: Tides + Shadow + deep ocean biome.
-  2. **Phoenix Rise**: Flame + Light in desert biome at sunrise.
-  3. **Wraith of Silence**: Shadow + Silence in dark forests at night.
-
----
-
-### **D. Player-Driven / Contract Events**
-
-* **Scope:** Triggered by deliberate player actions or “contracts”.
-* **Mechanics:** Use **equivalent exchange principles**:
-
-  * Sacrifice HP → gain damage buff or temporary skill.
-  * Sacrifice items → summon a world-altering effect or temporary mythical entity.
-* **Examples:**
-
-  1. **Blood Pact**: Player sacrifices health → AoE vampiric strike.
-  2. **Infernal Contract**: Sacrifice rare item → Firestorm for 15s.
-  3. **Frozen Oath**: Sacrifice mobility → Frost ultimate enhanced in radius.
-* **Particles/Display:**
-
-  * Contract sigil forms under player (`block_display`)
-  * Ritual particle circle (spirals, runes, aura).
-
----
-
-### **E. Multi-Soul / Group Events**
-
-* **Scope:** Requires coordination between multiple players/souls.
-* **Mechanics:** Trigger when:
-
-  * X number of compatible souls are present
-  * Abilities or ultimates are aligned in timing & location
-* **Examples:**
-
-  1. **Cataclysmic Convergence**:
-
-     * Shadow + Tides + Flame ultimates together → Abyssal Pyro-Vortex
-     * Particle: layered swirling domes, fire & water arcs, shadow spikes
-     * Display: massive fused `block_display` entities representing vortex
-  2. **Harmony Festival**:
-
-     * Multiple allied souls align → temporary buff zone, shared lifesteal, regen
-     * Particle: rainbow-colored rings + elemental arcs
-     * Display: floating sigils above players
-
----
-
-### **F. Random / Environmental Triggers**
-
-* **Scope:** Adds unpredictability, encourages exploration
-* **Mechanics:**
-
-  * Randomized timers, biome-specific triggers, weather checks
-  * Particle + display signals to indicate the upcoming event
-* **Examples:**
-
-  1. **Meteor Shower**: Any biome, night-only
-  2. **Wild Mana Surge**: Certain chunks randomly amplify ultimates & abilities
-  3. **Haunting Shadows**: Random spawn of minor shadow mobs + ghost particles
+## 2. Data Schema (YAML Prototype)
+```yaml
+id: event.elemental_storm
+name: Elemental Storm
+category: WEATHER
+rarity: UNCOMMON
+intensity_tier: 2
+scope: REGIONAL
+trigger:
+  mode: TIMER
+  interval_range_minutes: [45, 75]
+  biome_filter: [desert, ocean, plains]
+  prerequisite:
+    min_players: 4
+    min_unique_souls: 3
+phases:
+  telegraph_seconds: 20
+  active_seconds: 180
+  cooldown_seconds: 900
+scaling:
+  player_count:
+    radius_per_player: 1.2
+    max_extra_radius: 30
+  unique_souls:
+    elemental_bias_weight: 0.15
+  active_resonances:
+    damage_amp_per_relevant: 0.05 (cap 0.25)
+mechanics:
+  elemental_rotation: [FIRE, TIDES, FROST, LIGHTNING]
+  cycle_interval_seconds: 30
+  effects:
+    FIRE:
+      tick_damage: 2
+      fire_stack_increase: 1
+    TIDES:
+      slow_percent: 0.25
+      pull_strength: 0.12
+    FROST:
+      freeze_chance: 0.08
+    LIGHTNING:
+      strike_rate_seconds: 5
+resonance_hooks:
+  - condition: resonance:flame_wind active_within:32
+    modify:
+      FIRE.fire_stack_increase: +1
+      LIGHTNING.strike_rate_seconds: -1
+visual:
+  telegraph: swirling_cloud_band
+  active_layers: 3
+  particle_budget: 400
+  suppression_strategy: density_scale_then_layer_drop
+rewards:
+  loot_table_id: loot.elemental_shards_t2
+  participation_min_ticks: 60
+anti_abuse:
+  region_reentry_grace_seconds: 40
+  diminishing_tag: weather_chain
+logging:
+  audit: EXTENDED
+```
 
 ---
 
-## **2. Event Mechanics**
-
-* **Scheduling:** Use a central tick/scheduler for timed events
-
-* **Scaling:** Events scale with:
-
-  * # of active players / souls
-  * Area size / proximity to event trigger
-
-* **Particle & Display Integration:**
-
-  * Layered particle effects (arcs, spirals, domes, spheres)
-  * `block_display` entities for massive visual cues (pillars, domes, sigils)
-  * Temporary summons for added environmental drama
-
-* **Vector / Math Mechanics:**
-
-  * AoE calculations using radius spheres and angles
-  * Projectile paths for meteors, lightning, water tornadoes
-  * Pull/push effects for vortices, wind blasts, cataclysmic ultimates
+## 3. Lifecycle
+```
+SCHEDULED → TELEGRAPH (optional) → ACTIVE → RECOVERY (optional cleanup fade) → COOLDOWN → (re-eligible)
+```
+Preemption rules: A higher-tier event can delay same-region lower-tier events; never chain >2 high-intensity events in same region within 30m.
 
 ---
 
-## **3. Event Hierarchy & Flow**
-
-1. **Tier 1 – Minor Events**
-
-   * Small radius, short duration, visual flair
-   * Examples: mini whirlpools, ember showers, shadow spikes
-
-2. **Tier 2 – Regional Events**
-
-   * Moderate radius, medium duration, affects terrain & mobs
-   * Examples: elemental storms, seasonal shifts, targeted contracts
-
-3. **Tier 3 – Global / Cataclysmic Events**
-
-   * Server-wide, long duration, world-altering visuals
-   * Examples: Abyssal Pyro-Vortex, Absolute Nullification zones, Leviathan spawns
+## 4. Scheduling Engine
+* Weighted pool per region (configured base weights × rarity scalar × recent activity penalty)
+* Region segmentation: world partitioned into logical cells (e.g., 128×128)
+* Soft concurrency limits per scope tier (ex: max 2 Tier 2 regional events simultaneously)
+* Backoff: each executed event increments its category fatigue score → decays over time
 
 ---
 
-## **4. Event-Resonance Interactions**
+## 5. Scaling Formulas
+| Parameter | Formula (simplified) | Clamp |
+|-----------|----------------------|-------|
+| radius | base + min(player_count, Pcap)*rpp | ≤ base + max_extra_radius |
+| damage_amp | Σ relevant_resonance * bonus | ≤ 25% |
+| strike_rate | base * (1 - soul_density * k) | ≥ base * 0.5 |
+| reward_quality | base * (1 + rarity_scalar + participation_scalar) | config limit |
 
-* Events are **amplified or modified** by active resonances:
-
-  * Fire Tornado resonance in world Firestorm → radius +50%, +2s duration
-  * Frost + Silence in Blizzard event → ice dome size doubled, enemy freeze 50% longer
-  * Blood + Shadow → Rage storm in Night Eclipse → stronger meteor spawn + faster ticks
-
-* Particle & display cues **sync with resonance mechanics** to visually communicate layered effects
-
----
-
-## **5. Key Takeaways**
-
-* Events = **dynamic storytelling + gameplay mechanics**
-* **Integrates with souls & resonances** for multi-layered synergy
-* Scalable, modular, visually spectacular: particles, block displays, temporary summons
-* Encourages **coordination, exploration, strategy** in SMP
-* Supports **rare rewards, mythical items, contracts, and world interactions**
+Participation scalar uses effective contribution score (time_in_zone × action_weight).
 
 ---
 
-If you want, the **next step** could be me making a **visual map / table of all major events, triggers, and particle/display ideas**, fully cross-referenced with **all 13 souls and possible resonances** — essentially a **“cosmic event-resonance blueprint”** for your SMP plugin.
+## 6. Conflict / Priority Rules
+| Domain | Rule |
+|--------|------|
+| weather | Only one weather category regional event per region ID |
+| creature | Max 1 mythic creature in world concurrently |
+| fusion | Fusion (tier 3) suppresses Tier 1 telegraphs within 48 blocks |
+| astral | Eclipse / Solar events are mutually exclusive in 2h window |
 
-Do you want me to do that next?
+Priority chain: FUSION > CREATURE > ASTRAL > WEATHER > RESOURCE.
+
+---
+
+## 7. Anti-Abuse & Fairness
+* Participation credit requires minimum active time & non-AFK action events
+* AFK detection reduces reward share (movement variance + interaction count)
+* Loot roll protections: per-player bad luck counter for rare drops
+* Edge guard: event ceases if TPS < threshold (enters SAFE MODE – visuals minimal, reward token auto-grant)
+
+---
+
+## 8. Visual Performance Strategy
+Escalation tiers – remove in order: (1) ambient particles (2) outer layer displays (3) secondary dynamic light (4) projectile trail density.
+
+Per-event declares particle_budget & degrade path.
+
+---
+
+## 9. Event Catalog (Initial Draft)
+| ID | Name | Tier | Category | Scope | Core Mechanic | Sample Resonance Effect |
+|----|------|------|----------|-------|---------------|--------------------------|
+| event.elemental_storm | Elemental Storm | 2 | WEATHER | REGIONAL | Rotating elemental phases | Flame+Wind increases fire rotation intensity |
+| event.moon_eclipse | Moon Eclipse | 1–2 | ASTRAL | WORLD | Light level suppression, shadow buffs | Shadow+Silence stealth extension |
+| event.solar_flare | Solar Flare | 2 | ASTRAL | WORLD | Day damage boost, debuff undead | Light + Flame amplify burst |
+| event.meteor_shower | Meteor Shower | 2 | WEATHER | REGIONAL | Falling meteor projectiles | Wind resonance reduces impact scatter |
+| event.tidal_surge | Tidal Surge | 1–2 | SOUL | REGIONAL | Water push/pull pulses | Tides+Lightning electrifies pulses |
+| event.wrath_ascendant | Wrath Ascendant | 2 | SOUL | REGIONAL | Fire rage meteors | Blood+Flame increases meteor rate |
+| event.prism_alignment | Prism Alignment | 3 | FUSION | REGIONAL | Freeze + silence field | Frost+Silence extends duration |
+| event.harmony_festival | Harmony Festival | 2 | GROUP | LOCAL | Buff zone multi-soul | Multi-soul scaling radius |
+| event.cataclysmic_convergence | Cataclysmic Convergence | 3 | FUSION | REGIONAL | Ultimate vortex fusion | Multi fusion stacking → capped |
+| event.wild_mana_surge | Wild Mana Surge | 1 | RESOURCE | LOCAL | Amplify ult gain | Elemental combos widen zone |
+| event.haunting_shadows | Haunting Shadows | 1 | CREATURE | LOCAL | Shadow mob waves | Shadow+Trickery clone additive |
+| event.phoenix_rise | Phoenix Rise | 3 | CREATURE | WORLD | Phoenix spawn + fire aura | Flame+Wind storm enhancement |
+| event.leviathan_spawn | Leviathan Spawn | 3 | CREATURE | WORLD | Leviathan encounter water control | Tides synergy adds pull fields |
+
+---
+
+## 10. Telemetry
+Tracked:
+* spawn_interval_actual
+* participation_count
+* avg_duration_vs_spec
+* reward_dispersion
+* tps_during_active
+
+---
+
+## 11. Implementation Checklist
+* Scheduler module (priority queue + region map)
+* Trigger evaluators (time, biome, composite)
+* Phase controller (telegraph/active transitions)
+* Scaling resolver (compute final tuned params)
+* Conflict arbitrator (priority-based suppression)
+* Visual orchestrator (layers + degrade ladder)
+* Reward allocator (participation adjudication)
+* Telemetry emitter + admin debug commands
+
+---
+
+End of event spec.

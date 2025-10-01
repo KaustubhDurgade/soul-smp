@@ -1,0 +1,36 @@
+# GENERATED FROM: plans/contracts/contract_natures_tribute.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: contract.natures_tribute
+name: Nature's Tribute
+tier: 1
+class: SUPPORT
+scope: LOCAL
+activation:
+  mode: INSTANT
+  cooldown_seconds: 100
+sacrifice:
+  type: ENVIRONMENT
+  required_blocks:
+  - log
+  - leaves
+  radius_scan: 6
+  consume_count: 6
+effects:
+  regen_per_tick: 1
+  tick_interval: 1
+  duration_seconds: 8
+  cleanse_negative: true
+scaling:
+  formula: regen = base + (tides_souls * 0.5)
+  clamp_regen: 3
+resonance_hooks:
+- condition: resonance:nature_tides within:10
+  modify:
+    regen_per_tick_add: 0.5
+    adds_status: water_blessing
+conflict_tags:
+- support_regen
+anti_abuse:
+  block_restore_after_seconds: 60
+logging: BASIC
+status: draft

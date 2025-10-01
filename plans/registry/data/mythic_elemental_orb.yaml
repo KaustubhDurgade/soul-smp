@@ -1,0 +1,41 @@
+# GENERATED FROM: plans/mythics/mythic_elemental_orb.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: mythic.elemental_orb
+name: Elemental Orb
+tier: 3
+mythic_type: ARTIFACT
+activation_mode: ACTIVE_WINDOW
+acquisition_path: EVENT_DROP
+soul_focus:
+- Flame
+- Frost
+- Tides
+- Lightning
+cooldown_seconds: 320
+active_window_seconds: 12
+passives:
+  charge_capacity: 4
+active:
+  discharge_damage_per_charge: 10
+  discharge_radius: 7
+  cycle_elements:
+  - FIRE
+  - WATER
+  - FROST
+  - LIGHTNING
+scaling:
+  elemental_resonance_count_damage_bonus_per: 0.05 (cap 0.25)
+resonance_hooks:
+- condition: elemental_resonance_count>=3 within:16
+  modify:
+    discharge_radius_add: 2
+anti_abuse:
+  max_discharge_per_second: 2
+attunement:
+  exclusive_slot: artifact_core
+visual:
+  model: artifact/elemental_orb
+  elemental_arcs: rotating
+  activation_burst: prismatic_wave
+logging: EXTENDED
+status: draft
