@@ -5,9 +5,9 @@ description: Core systems for the Soul SMP server, starting with the Wrath base 
 author: Soul SMP Team
 api-version: 1.21
 commands:
-	souls:
-		description: Core Soul SMP command suite.
-		usage: /souls <help|reload>
-	wrath:
-		description: Manage Wrath soul abilities.
-		usage: /wrath <join|leave|heat|ignition>
+  souls:
+    description: Core Soul SMP command suite.
+    usage: /souls <help|reload>
+  wrath:
+    description: Manage Wrath soul abilities.
+    usage: /wrath <join|leave|heat|ignition>

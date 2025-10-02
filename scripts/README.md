@@ -1,6 +1,52 @@
 # Scripts Overview
 
-This folder contains utility scripts that support the Soul SMP planning pipeline. Python scripts assume the repository virtual environment (`.venv`) is active and that dependencies from `scripts/requirements.txt` are installed.
+This folder contains utility scripts that support the Soul SMP planning pipeline and plugin deployment.
+
+## Development Scripts
+
+### `deploy_plugin.sh` - **Automated Plugin Deployment**
+
+**NEW:** Fully automated deployment script for rapid development iteration.
+
+```bash
+./deploy_plugin.sh [--skip-build] [--skip-restart]
+```
+
+**What it does:**
+1. ✓ Kills any running Paper server instances
+2. ✓ Builds the plugin using Gradle
+3. ✓ Deletes old plugin from `server/plugins/`
+4. ✓ Copies new plugin as `SoulSMP.jar`
+5. ✓ Starts the Paper server automatically
+
+**Flags:**
+- `--skip-build` - Skip Gradle build (use existing JAR)
+- `--skip-restart` - Deploy but don't start server
+
+**Quick workflow:**
+```bash
+# Make code changes
+cd scripts
+./deploy_plugin.sh
+# Server restarts automatically!
+```
+
+See detailed usage examples below.
+
+---
+
+## Pipeline Scripts
+
+### `build_plugin.sh`
+
+Builds the plugin JAR using Gradle:
+```bash
+./build_plugin.sh
+```
+
+Output: `plugin/build/libs/soul-smp-0.1.0.jar`
+
+---
 
 ## `convert_specs.py`
 
