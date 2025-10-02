@@ -1,0 +1,20 @@
+# General
+.DS_Store
+.idea/
+.vscode/
+
+# Gradle build outputs
+plugin/.gradle/
+plugin/build/
+
+# Server runtime data
+server/world/
+server/logs/
+server/plugins/SoulSMP.jar
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# Obsidian workspace metadata
+plans/.obsidian/

@@ -8,19 +8,20 @@ _Status: Draft • Created 2025-09-30_
 
 ## Phase 0 · Repository Hygiene & Tooling Foundation
 
-- [ ] **Repo audit + Git hygiene**
-  - [ ] Validate `.gitignore` covers `/server/world`, `/server/logs`, `/plugin/build`, `/plugin/.gradle`, `/server/plugins/SoulSMP.jar`.
-  - [ ] Add `.editorconfig` aligning with Java + Markdown style if missing.
-  - [ ] Ensure `README.md` at repo root describes project structure.
-- [ ] **Task runner standardization**
-  - [ ] Confirm Gradle wrapper version (`gradle-wrapper.properties`) is current (>=8.7).
-  - [ ] Add convenience scripts: `scripts/build_plugin.sh`, `scripts/deploy_plugin.sh` (copy jar to Paper server).
-- [ ] **CI/CD scaffolding**
-  - [ ] Introduce GitHub Action workflow `/.github/workflows/build.yml` (Java 21, cache Gradle, run build + tests).
-  - [ ] Add badge to README once pipeline operational.
-- [ ] **Documentation index**
-  - [ ] Create `plans/README.md` summarizing planning docs, referencing registries and specs.
-  - [ ] Link the master roadmap and Wrath roadmap from that index.
+
+  - [x] Validate `.gitignore` covers `/server/world`, `/server/logs`, `/plugin/build`, `/plugin/.gradle`, `/server/plugins/SoulSMP.jar`. _(2025-10-01 · uncommitted)_
+  - [x] **Repo audit + Git hygiene** _(2025-10-01 · uncommitted)_
+  - [x] Add `.editorconfig` aligning with Java + Markdown style if missing. _(2025-10-01 · uncommitted)_
+  - [x] Ensure `README.md` at repo root describes project structure. _(2025-10-01 · uncommitted)_
+  - [x] **Task runner standardization** _(2025-10-01 · uncommitted)_
+  - [x] Confirm Gradle wrapper version (`gradle-wrapper.properties`) is current (>=8.7). _(2025-10-01 · uncommitted)_
+  - [x] Add convenience scripts: `scripts/build_plugin.sh`, `scripts/deploy_plugin.sh` (copy jar to Paper server). _(2025-10-01 · uncommitted)_
+  - [x] **CI/CD scaffolding** _(2025-10-01 · uncommitted)_
+  - [x] Introduce GitHub Action workflow `/.github/workflows/build.yml` (Java 21, cache Gradle, run build + tests). _(2025-10-01 · uncommitted)_
+  - [x] Add badge to README once pipeline operational. _(2025-10-01 · uncommitted)_
+  - [x] **Documentation index** _(2025-10-01 · uncommitted)_
+  - [x] Create `plans/README.md` summarizing planning docs, referencing registries and specs. _(2025-10-01 · uncommitted)_
+  - [x] Link the master roadmap and Wrath roadmap from that index. _(2025-10-01 · uncommitted)_
 
 ---
 
@@ -47,18 +48,18 @@ _Status: Draft • Created 2025-09-30_
   - [ ] Introduce dependency injection container (simple service registry) for managers.
   - [ ] Implement graceful disable sequence (save state, unregister listeners, cancel tasks).
 - [ ] **Configuration system**
-  - [ ] Create `plugin/src/main/resources/config.yml` default values covering global tuning, path toggles, debugging levels.
-  - [ ] Implement `ConfigManager` handling reloads (`/souls reload`).
+  - [x] Create `plugin/src/main/resources/config.yml` default values covering global tuning, path toggles, debugging levels. _(2025-10-01 · uncommitted)_
+  - [x] Implement `ConfigManager` handling reloads (`/souls reload`). _(2025-10-01 · uncommitted)_
   - [ ] Document config keys in `docs/configuration.md`.
 - [ ] **Messaging & localization**
-  - [ ] Add `messages.properties` (and optional locale-specific variants).
-  - [ ] Implement `MessageService` with prefix, color, placeholder interpolation.
+  - [x] Add `messages.properties` (and optional locale-specific variants). _(2025-10-01 · uncommitted)_
+  - [x] Implement `MessageService` with prefix, color, placeholder interpolation. _(2025-10-01 · uncommitted)_
   - [ ] Update all commands/listeners to use message service.
-- [ ] **Scheduler utilities**
-  - [ ] Create `TaskScheduler` wrapper with tracking (for cancel-on-disable, repeating tasks, async validations where safe).
+- [x] **Scheduler utilities** _(2025-10-01 · uncommitted)_
+  - [x] Create `TaskScheduler` wrapper with tracking (for cancel-on-disable, repeating tasks, async validations where safe). _(2025-10-01 · uncommitted)_
 - [ ] **Player profile & persistence**
-  - [ ] Design `PlayerProfile` object storing soul choice, path, progress, unlocked perks.
-  - [ ] Choose persistence layer (YAML per player, SQLite, or database) and implement repository.
+  - [x] Design `PlayerProfile` object storing soul choice, path, progress, unlocked perks. _(2025-10-01 · uncommitted)_
+  - [x] Choose persistence layer (YAML per player, SQLite, or database) and implement repository. _(2025-10-01 · uncommitted)_
   - [ ] Add migration strategy if schema evolves.
 - [ ] **Combat event pipeline**
   - [ ] Centralize damage/heal events to allow souls to hook consistently.
@@ -67,10 +68,10 @@ _Status: Draft • Created 2025-09-30_
   - [ ] Implement reusable effect classes (burn, bleed, stun, etc.) with registration.
   - [ ] Provide API for stacking, refreshing, and visual cues.
 - [ ] **Resource engine**
-  - [ ] Generalize Heat manager concept for other souls (e.g., Harmony, Wealth) via `ResourceManager` interface.
+  - [x] Generalize Heat manager concept for other souls (e.g., Harmony, Wealth) via `ResourceManager` interface. _(2025-10-01 · uncommitted)_
   - [ ] Add tick bus for resource updates with per-resource cadence definitions.
-- [ ] **Cooldown manager**
-  - [ ] Implement central cooldown tracking keyed by ability IDs; allow dynamic adjustments via buffs/debuffs.
+- [x] **Cooldown manager** _(2025-10-01 · uncommitted)_
+  - [x] Implement central cooldown tracking keyed by ability IDs; allow dynamic adjustments via buffs/debuffs. _(2025-10-01 · uncommitted)_
 - [ ] **Logging & analytics**
   - [ ] Create `TelemetryService` capturing ability usage, damage, healing, resource peaks; respect privacy config toggles.
   - [ ] Output summary logs or integrate with external analytics if desired.
@@ -278,4 +279,5 @@ Record completed tasks here:
 YYYY-MM-DD · [x] <Task Description> (commit <hash>) — notes/links
 ```
 
-_Currently empty._
+- 2025-10-01 · [x] Phase 0 repository hygiene + tooling groundwork (uncommitted) — Added .gitignore, .editorconfig, README structure overview, build/deploy scripts, CI workflow, planning index.
+- 2025-10-01 · [x] Core runtime scaffolding: config/messages/task scheduler/profile persistence/resource manager/cooldown manager (uncommitted)
