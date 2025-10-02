@@ -2,19 +2,46 @@
 .DS_Store
 .idea/
 .vscode/
+.obsidian/
 
 # Gradle build outputs
 plugin/.gradle/
 plugin/build/
 
-# Server runtime data
-server/world/
+# Server runtime data - ignore everything except infrastructure
+server/world*/
 server/logs/
-server/plugins/SoulSMP.jar
+server/cache/
+server/libraries/
+server/versions/
+server/plugins/
+server/config/
+
+# Server runtime config files (generated at runtime)
+server/banned-ips.json
+server/banned-players.json
+server/bukkit.yml
+server/commands.yml
+server/eula.txt
+server/help.yml
+server/ops.json
+server/permissions.yml
+server/server.properties
+server/spigot.yml
+server/usercache.json
+server/version_history.json
+server/whitelist.json
+
+# Keep these server files in git:
+# - paper-*.jar (the server executable)
+# - start.sh (startup script)
+# - README.md (documentation)
 
 # Python artifacts
 __pycache__/
 *.pyc
+.venv/
+.pytest_cache/
 
-# Obsidian workspace metadata
-plans/.obsidian/
+# Reference materials (kept for documentation purposes)
+# old-gui-mod/ - intentionally tracked for future mod development
