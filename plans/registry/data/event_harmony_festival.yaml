@@ -18,6 +18,7 @@ visual:
   rainbow_rings: true
   elemental_arcs: true
 logging: BASIC
+notes: []
 status: draft
 trigger:
   mode: THRESHOLD

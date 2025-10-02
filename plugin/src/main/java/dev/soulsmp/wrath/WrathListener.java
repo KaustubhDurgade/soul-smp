@@ -1,6 +1,6 @@
 package dev.soulsmp.wrath;
 
-import org.bukkit.ChatColor;
+import dev.soulsmp.core.message.MessageService;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
@@ -15,11 +15,16 @@ final class WrathListener implements Listener {
     private final WrathAbilityManager abilityManager;
     private final WrathHeatManager heatManager;
     private final WrathIgnitionManager ignitionManager;
+    private final MessageService messageService;
 
-    WrathListener(WrathAbilityManager abilityManager, WrathHeatManager heatManager, WrathIgnitionManager ignitionManager) {
+    WrathListener(WrathAbilityManager abilityManager,
+                  WrathHeatManager heatManager,
+                  WrathIgnitionManager ignitionManager,
+                  MessageService messageService) {
         this.abilityManager = abilityManager;
         this.heatManager = heatManager;
         this.ignitionManager = ignitionManager;
+        this.messageService = messageService;
     }
 
     @EventHandler
@@ -55,6 +60,6 @@ final class WrathListener implements Listener {
             return;
         }
         this.abilityManager.removePlayer(player);
-        player.sendMessage(ChatColor.GRAY + "Wrath alignment cleared on logout.");
+        messageService.send(player, "wrath.logout-cleared");
     }
 }

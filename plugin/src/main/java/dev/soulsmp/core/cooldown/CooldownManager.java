@@ -57,4 +57,27 @@ public final class CooldownManager {
     public void clearAll() {
         cooldowns.clear();
     }
+
+    /**
+     * Get all active cooldowns for a player.
+     * Returns a map of ability IDs to their expiration timestamps.
+     */
+    public Map<String, Long> getActiveCooldowns(UUID playerId) {
+        Map<String, Long> playerCooldowns = cooldowns.get(playerId);
+        if (playerCooldowns == null) {
+            return Map.of();
+        }
+
+        // Filter out expired cooldowns
+        long now = System.currentTimeMillis();
+        Map<String, Long> active = new ConcurrentHashMap<>();
+        for (Map.Entry<String, Long> entry : playerCooldowns.entrySet()) {
+            if (entry.getValue() > now) {
+                active.put(entry.getKey(), entry.getValue());
+            } else {
+                playerCooldowns.remove(entry.getKey());
+            }
+        }
+        return active;
+    }
 }

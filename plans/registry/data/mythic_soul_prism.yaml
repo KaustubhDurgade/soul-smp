@@ -24,4 +24,5 @@ visual:
   model: artifact/soul_prism
   orbiting_prisms: true
 logging: BASIC
+notes: []
 status: draft

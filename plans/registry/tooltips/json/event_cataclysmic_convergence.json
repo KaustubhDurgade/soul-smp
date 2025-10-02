@@ -1,0 +1,8 @@
+{
+  "id": "event.cataclysmic_convergence",
+  "name": "Cataclysmic Convergence",
+  "status": "draft",
+  "summary": "Fusion event triggered by sequential ultimates of three soul types creating a destructive vortex.",
+  "source": "plans/events/event_cataclysmic_convergence.md",
+  "category": "FUSION"
+}

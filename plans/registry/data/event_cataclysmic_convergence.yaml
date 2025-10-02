@@ -19,6 +19,7 @@ visual:
   layered_domes: fire + water + shadow_spikes
   particle_density: high
 logging: FULL
+notes: []
 status: draft
 trigger:
   mode: COMPOSITE

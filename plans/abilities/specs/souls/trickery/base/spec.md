@@ -1,3 +1,14 @@
+---
+id: soul.trickery.base
+resource: Deception Layers
+ability_names:
+  passive: False Image
+  tactical: Smoke Trick
+  movement: Quickstep
+  ultimate: Grand Illusion
+difficulty: tbd
+---
+
 # Soul of Trickery – Base (Resources: Deception Layers / Paths: Masks & Misfortune)
 
 Philosophy: Misdirection and illusion through decoys and stealth tactics.

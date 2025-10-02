@@ -28,4 +28,5 @@ conflict_tags:
 anti_abuse:
   restore_soul_after_seconds: 900
 logging: FULL
+notes: []
 status: draft

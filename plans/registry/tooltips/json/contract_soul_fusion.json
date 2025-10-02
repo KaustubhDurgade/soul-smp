@@ -1,0 +1,12 @@
+{
+  "id": "contract.soul_fusion",
+  "name": "Soul Fusion Contract",
+  "status": "draft",
+  "summary": "Consumes a secondary soul temporarily to grant hybrid form with merged kit bonuses.",
+  "source": "plans/contracts/contract_soul_fusion.md",
+  "tier": 3,
+  "class": "FUSION",
+  "conflict_tags": [
+    "hybrid_fusion"
+  ]
+}

@@ -29,4 +29,5 @@ conflict_tags:
 anti_abuse:
   scorch_block_limit: 40
 logging: EXTENDED
+notes: []
 status: draft

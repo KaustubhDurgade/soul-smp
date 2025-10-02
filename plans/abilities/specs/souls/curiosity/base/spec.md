@@ -1,3 +1,14 @@
+---
+id: soul.curiosity.base
+resource: Inspiration
+ability_names:
+  passive: Keen Eye
+  tactical: Analyze
+  movement: Insight Pivot
+  ultimate: Arcane Experiment
+difficulty: tbd
+---
+
 # Soul of Curiosity – Base (Resource: Inspiration / Paths: Discovery & Madness)
 
 Philosophy: Knowledge acquisition and experimental discovery through investigation and analysis.

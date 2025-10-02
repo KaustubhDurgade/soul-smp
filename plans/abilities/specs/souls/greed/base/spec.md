@@ -1,3 +1,14 @@
+---
+id: soul.greed.base
+resource: Wealth Value
+ability_names:
+  passive: Golden Hunger
+  tactical: Drain Touch
+  movement: Market Shift
+  ultimate: Pillage
+difficulty: tbd
+---
+
 # Soul of Greed – Base (Paths: Gluttony & Envy)
 
 Philosophy: Accumulation and resource manipulation through wealth generation and buff theft.

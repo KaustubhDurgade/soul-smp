@@ -19,6 +19,7 @@ visual:
   sky_trails: fiery_streaks
   impact_effect: explosion_sparks
 logging: BASIC
+notes: []
 status: draft
 trigger:
   mode: PROBABILISTIC

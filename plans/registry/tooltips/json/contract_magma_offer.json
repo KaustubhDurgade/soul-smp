@@ -1,0 +1,12 @@
+{
+  "id": "contract.magma_offer",
+  "name": "Magma Offer",
+  "status": "draft",
+  "summary": "Channels lava into a fiery hazard that scorches terrain and damages entities.",
+  "source": "plans/contracts/contract_magma_offer.md",
+  "tier": 2,
+  "class": "OFFENSE",
+  "conflict_tags": [
+    "area_control_fire"
+  ]
+}

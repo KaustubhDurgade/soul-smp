@@ -1,0 +1,34 @@
+# GENERATED FROM: plans/mythics/mythic_meteoric_scepter.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: mythic.meteoric_scepter
+name: Meteoric Scepter
+tier: 3
+mythic_type: WORLD_OBJECT
+activation_mode: ACTIVE_WINDOW
+acquisition_path: EVENT_DROP
+soul_focus:
+- Flame
+cooldown_seconds: 360
+active_window_seconds: 12
+active:
+  meteor_interval_seconds: 2.5
+  meteor_damage: 16
+  impact_radius: 4
+scaling:
+  flame_souls_meteor_damage_per: '1 (cap_add: 6)'
+resonance_hooks:
+- condition: resonance:flame_wind active_within:24
+  modify:
+    meteor_interval_seconds_mult: 0.85
+    meteor_damage_mult: 1.1
+anti_abuse:
+  max_active_meteors: 30
+attunement:
+  exclusive_slot: world_anchor
+visual:
+  model: world/meteor_scepter
+  meteor_trail: flame_tail
+  activation_burst: meteor_swarm
+logging: FULL
+notes: []
+status: draft

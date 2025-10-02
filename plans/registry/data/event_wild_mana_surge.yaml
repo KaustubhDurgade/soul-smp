@@ -17,6 +17,7 @@ anti_abuse:
 visual:
   mana_orbs: swirling
 logging: BASIC
+notes: []
 status: draft
 trigger:
   mode: PROBABILISTIC

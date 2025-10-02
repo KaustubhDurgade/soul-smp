@@ -1,6 +1,8 @@
 package dev.soulsmp.wrath;
 
-import org.bukkit.ChatColor;
+import dev.soulsmp.core.message.MessageService;
+import dev.soulsmp.core.resource.ResourceDefinition;
+import dev.soulsmp.core.resource.ResourceManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,9 +10,9 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 final class WrathCommand implements CommandExecutor, TabCompleter {
     private static final List<String> SUB_COMMANDS = List.of("join", "leave", "heat", "ignition");
@@ -18,22 +20,30 @@ final class WrathCommand implements CommandExecutor, TabCompleter {
     private final WrathAbilityManager abilityManager;
     private final WrathIgnitionManager ignitionManager;
     private final WrathHeatManager heatManager;
+    private final MessageService messageService;
+    private final ResourceManager resourceManager;
 
-    WrathCommand(WrathAbilityManager abilityManager, WrathIgnitionManager ignitionManager, WrathHeatManager heatManager) {
+    WrathCommand(WrathAbilityManager abilityManager,
+                 WrathIgnitionManager ignitionManager,
+                 WrathHeatManager heatManager,
+                 MessageService messageService,
+                 ResourceManager resourceManager) {
         this.abilityManager = abilityManager;
         this.ignitionManager = ignitionManager;
         this.heatManager = heatManager;
+        this.messageService = messageService;
+        this.resourceManager = resourceManager;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(ChatColor.RED + "Only players can use this command.");
+            messageService.send(sender, "wrath.player-only");
             return true;
         }
 
         if (args.length == 0) {
-            sender.sendMessage(ChatColor.YELLOW + "Usage: /" + label + " <" + String.join("|", SUB_COMMANDS) + ">");
+            messageService.send(sender, "wrath.usage", Map.of("label", label));
             return true;
         }
 
@@ -43,42 +53,48 @@ final class WrathCommand implements CommandExecutor, TabCompleter {
             case "leave" -> handleLeave(player);
             case "heat" -> handleHeat(player);
             case "ignition" -> handleIgnition(player);
-            default -> sender.sendMessage(ChatColor.YELLOW + "Unknown subcommand. Options: " + String.join(", ", SUB_COMMANDS));
+            default -> messageService.send(sender, "unknown-subcommand");
         }
         return true;
     }
 
     private void handleJoin(Player player) {
         if (this.abilityManager.hasPlayer(player)) {
-            player.sendMessage(ChatColor.GOLD + "You are already aligned with Wrath.");
+            messageService.send(player, "wrath.join.already");
             return;
         }
         this.abilityManager.addPlayer(player);
-        player.sendMessage(ChatColor.RED + "The Soul of Wrath takes hold. Heat will now build through combat.");
+        messageService.send(player, "wrath.join.success");
     }
 
     private void handleLeave(Player player) {
         if (!this.abilityManager.hasPlayer(player)) {
-            player.sendMessage(ChatColor.YELLOW + "You are not currently using Wrath.");
+            messageService.send(player, "wrath.leave.not-active");
             return;
         }
         this.abilityManager.removePlayer(player);
-        player.sendMessage(ChatColor.GREEN + "You release the fury within and calm returns.");
+        messageService.send(player, "wrath.leave.success");
     }
 
     private void handleHeat(Player player) {
         int heat = this.heatManager.getHeat(player.getUniqueId());
-        player.sendMessage(ChatColor.RED + "Heat: " + heat + ChatColor.DARK_RED + "/100");
+        int max = maxHeat();
+        messageService.send(player, "wrath.heat.value", Map.of("value", Integer.toString(heat), "max", Integer.toString(max)));
     }
 
     private void handleIgnition(Player player) {
         if (!this.abilityManager.hasPlayer(player)) {
-            player.sendMessage(ChatColor.YELLOW + "You must align with Wrath before using Ignition.");
+            messageService.send(player, "wrath.ignition.not-aligned");
             return;
         }
         if (this.ignitionManager.activate(player)) {
             this.heatManager.recordCombat(player);
         }
+    }
+
+    private int maxHeat() {
+        Optional<ResourceDefinition> definition = resourceManager.definition("heat");
+        return definition.map(ResourceDefinition::max).orElse(100);
     }
 
     @Override
@@ -93,6 +109,6 @@ final class WrathCommand implements CommandExecutor, TabCompleter {
             }
             return matches;
         }
-        return Collections.emptyList();
+        return java.util.Collections.emptyList();
     }
 }

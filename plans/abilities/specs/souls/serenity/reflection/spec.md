@@ -1,3 +1,16 @@
+---
+id: soul.serenity.reflection
+resource: Resonance
+ability_names:
+  passive: Mirror Skin
+  tactical: Parry
+  movement: Prism Step
+  ultimate: Dome of Mirrors
+  weapon: Mirror Aegis
+  final_stand: Echo Barrier
+difficulty: tbd
+---
+
 # Soul of Serenity – Path of Reflection (Resource: Resonance)
 
 Philosophy: Perfect defense through reflection mastery and mirrored retaliation.

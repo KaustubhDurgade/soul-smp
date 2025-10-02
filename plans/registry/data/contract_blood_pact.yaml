@@ -36,4 +36,5 @@ anti_abuse:
   - 0.7
   - 0.45
 logging: BASIC
+notes: []
 status: draft

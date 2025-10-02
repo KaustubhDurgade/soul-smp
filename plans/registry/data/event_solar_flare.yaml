@@ -18,6 +18,7 @@ visual:
   sky_overlay: solar_radiance
   ambient_particles: golden_rays
 logging: EXTENDED
+notes: []
 status: draft
 trigger:
   mode: TIMER

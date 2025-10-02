@@ -1,3 +1,16 @@
+---
+id: soul.nature.thorns
+resource: TBD
+ability_names:
+  passive: Thornskin
+  tactical: Vine Lash
+  movement: Bramble Dash
+  ultimate: Garden of Pain
+  weapon: Thornwhip
+  final_stand: Bloom of Thorns
+difficulty: tbd
+---
+
 # Soul of Nature – Path of Thorns
 
 Philosophy: Defensive plant manipulation and retaliatory damage through thorn barriers.

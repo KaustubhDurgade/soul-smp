@@ -1,3 +1,16 @@
+---
+id: soul.wrath.blood
+resource: Bloodlust
+ability_names:
+  passive: Thirst for War
+  tactical: Blood Rend
+  movement: Frenzy Leap
+  ultimate: Crimson Overdrive
+  weapon: Bloodfang
+  final_stand: Crimson Deluge
+difficulty: tbd
+---
+
 # Soul of Wrath – Path of Blood (Resource Extension: Bloodlust)
 
 Philosophy: Vampiric escalation and blood magic through life steal amplification and berserker states.

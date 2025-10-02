@@ -1,3 +1,16 @@
+---
+id: soul.hope.radiance
+resource: TBD
+ability_names:
+  passive: Shining Presence
+  tactical: Solar Wave
+  movement: Aegis Path
+  ultimate: Aurora Dome
+  weapon: Sunblade
+  final_stand: Pillar of Dawn
+difficulty: tbd
+---
+
 # Soul of Hope – Path of Radiance (No Resource)
 
 Philosophy: Protective radiance and aegis mastery through barrier creation and ally enhancement.

@@ -4,6 +4,7 @@ import dev.soulsmp.core.player.PlayerProfile;
 import dev.soulsmp.core.player.PlayerProfileManager;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,6 +29,10 @@ public final class ResourceManager {
 
     public Optional<ResourceDefinition> definition(String id) {
         return Optional.ofNullable(definitions.get(id));
+    }
+
+    public Collection<ResourceDefinition> registeredDefinitions() {
+        return List.copyOf(definitions.values());
     }
 
     public void initializeProfile(PlayerProfile profile) {
@@ -67,6 +72,11 @@ public final class ResourceManager {
         int clamped = clamp(resourceId, current + delta);
         profile.setResource(resourceId, clamped);
         return clamped;
+    }
+
+    public int getMax(UUID playerId, String resourceId) {
+        ResourceDefinition definition = definitions.get(resourceId);
+        return definition != null ? definition.max() : 100;
     }
 
     private int clamp(String resourceId, int value) {

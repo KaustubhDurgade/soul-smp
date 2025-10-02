@@ -1,3 +1,14 @@
+---
+id: soul.pride.base
+resource: Renown
+ability_names:
+  passive: Commanding Presence
+  tactical: Challenge
+  movement: Imperial Advance
+  ultimate: Crown of Dominion
+difficulty: tbd
+---
+
 # Soul of Pride – Base (Paths: Authority & Solitude)
 
 Philosophy: Leadership and superiority through commanding presence and tactical dominance.

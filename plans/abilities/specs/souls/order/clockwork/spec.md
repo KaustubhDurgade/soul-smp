@@ -1,3 +1,16 @@
+---
+id: soul.order.clockwork
+resource: Temporal Charge
+ability_names:
+  passive: Temporal Stability
+  tactical: Rewind
+  movement: Chronopivot
+  ultimate: Stasis Lock
+  weapon: Chronoblade
+  final_stand: Temporal Fracture
+difficulty: tbd
+---
+
 # Soul of Order – Path of Clockwork (Resource: Temporal Charge)
 
 Philosophy: Time manipulation through precise temporal anchoring and clockwork precision.

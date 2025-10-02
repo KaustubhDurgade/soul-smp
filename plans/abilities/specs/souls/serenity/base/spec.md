@@ -1,3 +1,14 @@
+---
+id: soul.serenity.base
+resource: Harmony
+ability_names:
+  passive: Still Waters
+  tactical: Soothing Breeze
+  movement: Tranquil Veil Step
+  ultimate: Sanctuary
+difficulty: tbd
+---
+
 # Soul of Serenity – Base (Paths: Reflection & Mist)
 
 Philosophy: Peace and tranquility through cleansing effects and protective barriers.

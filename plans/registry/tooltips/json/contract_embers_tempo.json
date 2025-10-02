@@ -1,0 +1,10 @@
+{
+  "id": "contract.embers_tempo",
+  "name": "Ember's Tempo",
+  "status": "draft",
+  "summary": "Delays next attack to unleash an igniting pulse around the user.",
+  "source": "plans/contracts/contract_embers_tempo.md",
+  "tier": 1,
+  "class": "OFFENSE",
+  "conflict_tags": []
+}

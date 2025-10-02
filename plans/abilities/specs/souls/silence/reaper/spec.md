@@ -1,3 +1,16 @@
+---
+id: soul.silence.reaper
+resource: Soul Meter
+ability_names:
+  passive: Harvest Spirit
+  tactical: Reaping Slash
+  movement: Deathstride
+  ultimate: Soul Harvest
+  weapon: Deathscythe
+  final_stand: Grim Finale
+difficulty: tbd
+---
+
 # Soul of Silence – Path of the Reaper (Resource: Soul Meter)
 
 Philosophy: Death mastery through soul harvesting and execution mechanics.

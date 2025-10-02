@@ -1,0 +1,8 @@
+{
+  "id": "event.prism_alignment",
+  "name": "Prism Alignment",
+  "status": "draft",
+  "summary": "High-tier fusion control event freezing and silencing within a crystalline dome.",
+  "source": "plans/events/event_prism_alignment.md",
+  "category": "FUSION"
+}

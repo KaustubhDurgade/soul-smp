@@ -1,0 +1,12 @@
+{
+  "id": "contract.shadow_merge",
+  "name": "Shadow Merge",
+  "status": "draft",
+  "summary": "Locks mobility abilities to generate shadow clones and brief stealth, empowering the next attack.",
+  "source": "plans/contracts/contract_shadow_merge.md",
+  "tier": 2,
+  "class": "HYBRID",
+  "conflict_tags": [
+    "stealth_field"
+  ]
+}

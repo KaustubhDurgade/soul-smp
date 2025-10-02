@@ -1,3 +1,14 @@
+---
+id: soul.silence.base
+resource: TBD
+ability_names:
+  passive: Quiet Aura
+  tactical: Null Strike
+  movement: Silent Step
+  ultimate: Silence Field
+difficulty: tbd
+---
+
 # Soul of Silence – Base (Paths: Reaper & Emptiness)
 
 Philosophy: Nullification and anti-magic through silence effects and ability suppression.

@@ -1,3 +1,14 @@
+---
+id: soul.chaos.base
+resource: Instability
+ability_names:
+  passive: Chaotic Aura
+  tactical: Unstable Burst
+  movement: Fracture Warp
+  ultimate: Riftstorm
+difficulty: tbd
+---
+
 # Soul of Chaos – Base (Resource: Instability / Paths: Discord & Void)
 
 Design Pillars: Volatility, emergent advantage, controlled exploitation of randomness.

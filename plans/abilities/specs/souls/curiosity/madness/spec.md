@@ -1,3 +1,16 @@
+---
+id: soul.curiosity.madness
+resource: Fracture
+ability_names:
+  passive: Insatiable Mind
+  tactical: Eldritch Bolt
+  movement: Fracture Drift
+  ultimate: Forbidden Tome
+  weapon: Tome of Whispers
+  final_stand: Eldritch Bloom
+difficulty: tbd
+---
+
 # Soul of Curiosity – Path of Madness (Resource: Fracture)
 
 Philosophy: Forbidden knowledge and reality distortion through eldritch experimentation.

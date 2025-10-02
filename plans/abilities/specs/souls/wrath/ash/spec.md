@@ -1,3 +1,16 @@
+---
+id: soul.wrath.ash
+resource: Cinder Meter
+ability_names:
+  passive: Cinder Veins
+  tactical: Flame Surge
+  movement: Ash Glide
+  ultimate: Infernal Storm
+  weapon: Cinderblade
+  final_stand: Worldscar Caldera
+difficulty: tbd
+---
+
 # Soul of Wrath – Path of Ash (Resource Extension: Cinder Meter)
 
 Philosophy: Volcanic destruction and stealth assassination through fire mastery and ash manipulation.

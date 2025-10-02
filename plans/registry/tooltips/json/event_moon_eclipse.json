@@ -1,0 +1,8 @@
+{
+  "id": "event.moon_eclipse",
+  "name": "Moon Eclipse",
+  "status": "draft",
+  "summary": "World eclipse lowering light and empowering shadow interactions.",
+  "source": "plans/events/event_moon_eclipse.md",
+  "category": "ASTRAL"
+}

@@ -18,6 +18,7 @@ visual:
   deep_sea_glow: blue_pulse
   leviathan_tentacles: display_entities
 logging: FULL
+notes: []
 status: draft
 trigger:
   mode: COMPOSITE

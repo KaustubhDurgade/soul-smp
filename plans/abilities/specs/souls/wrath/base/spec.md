@@ -1,3 +1,14 @@
+---
+id: soul.wrath.base
+resource: Heat
+ability_names:
+  passive: Burning Spirit
+  tactical: Ignition
+  movement: Inferno Chain Surge
+  ultimate: Meteorfall
+difficulty: tbd
+---
+
 # Soul of Wrath – Base (Paths: Blood & Ash)
 
 Philosophy: Rage and fire mastery through aggressive combat and burning effects.

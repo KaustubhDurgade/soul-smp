@@ -1,3 +1,14 @@
+---
+id: soul.order.base
+resource: Balance
+ability_names:
+  passive: Balanced Flow
+  tactical: Binding Chains
+  movement: Axiom Phase March
+  ultimate: Edict
+difficulty: tbd
+---
+
 # Soul of Order – Base (Resource: Balance / Paths: Chains & Clockwork)
 
 Philosophy: Structured control through disciplined ability rotation and battlefield management.

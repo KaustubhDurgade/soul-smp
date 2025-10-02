@@ -1,0 +1,13 @@
+{
+  "id": "contract.shadow_bargain",
+  "name": "Shadow Bargain",
+  "status": "draft",
+  "summary": "Sacrifices health and a relic to cloak allies and launch sequential clone assault waves.",
+  "source": "plans/contracts/contract_shadow_bargain.md",
+  "tier": 3,
+  "class": "HYBRID",
+  "conflict_tags": [
+    "stealth_field",
+    "hybrid_fusion"
+  ]
+}

@@ -33,5 +33,6 @@ conflict_tags:
 anti_abuse:
   min_participants: 2
 logging: EXTENDED
+notes: []
 status: draft
 activation_cooldown_seconds: 240

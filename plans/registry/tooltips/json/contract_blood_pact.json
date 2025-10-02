@@ -1,0 +1,12 @@
+{
+  "id": "contract.blood_pact",
+  "name": "Blood Pact",
+  "status": "draft",
+  "summary": "Sacrifice health to project a temporary lifesteal aura that scales with sacrifice fraction and nearby Blood souls.",
+  "source": "plans/contracts/contract_blood_pact.md",
+  "tier": 1,
+  "class": "SUPPORT",
+  "conflict_tags": [
+    "sustain_leech"
+  ]
+}

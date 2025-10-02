@@ -1,0 +1,8 @@
+{
+  "id": "mythic.oblivion_shard",
+  "name": "Oblivion Shard",
+  "status": "draft",
+  "summary": "Silence + damage artifact with passive power amplification.",
+  "source": "plans/mythics/mythic_oblivion_shard.md",
+  "tier": 3
+}

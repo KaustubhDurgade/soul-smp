@@ -30,6 +30,7 @@ A curated index of planning materials lives in [`plans/README.md`](plans/README.
 
 - [`plans/roadmaps/soul-smp-master-roadmap.md`](plans/roadmaps/soul-smp-master-roadmap.md)
 - [`plans/roadmaps/wrath-base.md`](plans/roadmaps/wrath-base.md)
+- [`docs/configuration.md`](docs/configuration.md) — Runtime configuration reference.
 
 ## Contributing
 

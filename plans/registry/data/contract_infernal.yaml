@@ -31,4 +31,5 @@ conflict_tags:
 anti_abuse:
   max_concurrent_same_field_region: 1
 logging: EXTENDED
+notes: []
 status: draft

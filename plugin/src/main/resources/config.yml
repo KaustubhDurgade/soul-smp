@@ -9,6 +9,36 @@ resources:
     decay-interval-seconds: 10
     combat-tick-seconds: 5
 
+souls:
+  allow-respec: true
+  catalog:
+    - id: wrath
+      name: Wrath
+      description: Aggressive melee soul focused on heat buildup and close-range pressure.
+      difficulty: HARD
+      paths:
+        - ash
+        - blood
+
 persistence:
   storage: yaml
   autosave-interval-minutes: 5
+  schema-version: 1
+
+metrics:
+  enabled: true
+  report-interval-minutes: 5
+
+telemetry:
+  enabled: true
+  flush-interval-seconds: 300
+
+combat:
+  throttle-window-millis: 200
+
+ui:
+  # Default display mode for resource/cooldown UI
+  # Options: ACTION_BAR, BOSS_BAR, BOTH, NONE
+  default-mode: ACTION_BAR
+  # Update interval in ticks (20 ticks = 1 second)
+  update-interval-ticks: 10

@@ -10,6 +10,7 @@ public final class PlayerProfile {
     private String soulId;
     private String pathId;
     private Map<String, Integer> resourceValues = new HashMap<>();
+    private int schemaVersion;
 
     public PlayerProfile() {
     }
@@ -55,5 +56,17 @@ public final class PlayerProfile {
             resourceValues = new HashMap<>();
         }
         return resourceValues;
+    }
+
+    public void setResourceValues(Map<String, Integer> resourceValues) {
+        this.resourceValues = resourceValues;
+    }
+
+    public int getSchemaVersion() {
+        return schemaVersion;
+    }
+
+    public void setSchemaVersion(int schemaVersion) {
+        this.schemaVersion = schemaVersion;
     }
 }

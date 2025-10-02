@@ -1,3 +1,16 @@
+---
+id: soul.chaos.void
+resource: Void Charge
+ability_names:
+  passive: Phase Step
+  tactical: Rift Slash
+  movement: Void Lattice Step
+  ultimate: Singularity
+  weapon: Voidripper
+  final_stand: Void Implosion
+difficulty: tbd
+---
+
 # Soul of Chaos – Path of Void (Resource: Void Charge)
 
 Philosophy: Dimensional manipulation and void energy exploitation for precise control.

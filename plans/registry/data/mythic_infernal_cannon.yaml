@@ -1,0 +1,35 @@
+# GENERATED FROM: plans/mythics/mythic_infernal_cannon.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: mythic.infernal_cannon
+name: Infernal Cannon
+tier: 3
+mythic_type: WEAPON
+activation_mode: ACTIVE_WINDOW
+acquisition_path: CONTRACT_FUSION
+soul_focus:
+- Flame
+cooldown_seconds: 300
+active_window_seconds: 12
+passives:
+  burn_duration_mult: 1.25
+active:
+  projectile_damage: 22
+  explosion_radius: 5
+  attack_interval: 1.2
+scaling:
+  flame_souls_damage_per: '2 (cap_add: 8)'
+resonance_hooks:
+- condition: resonance:flame_wind active_within:20
+  modify:
+    spawn_fire_tornado_chance: 0.25
+anti_abuse:
+  tornado_spawn_icd_seconds: 4
+attunement:
+  exclusive_slot: weapon_core
+visual:
+  model: weapon/infernal_cannon
+  projectile_trail: ember_comet
+  explosion_effect: flame_burst
+logging: FULL
+notes: []
+status: draft

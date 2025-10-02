@@ -1,3 +1,16 @@
+---
+id: soul.trickery.masks
+resource: TBD
+ability_names:
+  passive: Doppelganger
+  tactical: Mask Swap
+  movement: Phantom Dash
+  ultimate: Identity Theft
+  weapon: Maskblade
+  final_stand: Final Masquerade
+difficulty: tbd
+---
+
 # Soul of Trickery – Path of Masks
 
 Philosophy: Identity manipulation and infiltration through disguise mastery.

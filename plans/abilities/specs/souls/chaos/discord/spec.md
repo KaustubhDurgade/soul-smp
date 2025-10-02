@@ -1,3 +1,16 @@
+---
+id: soul.chaos.discord
+resource: Entropy
+ability_names:
+  passive: Entropic Gift
+  tactical: Wild Surge
+  movement: Chaotic Sprint
+  ultimate: Reality Fracture
+  weapon: Entropy Shard
+  final_stand: Rift Cataclysm
+difficulty: tbd
+---
+
 # Soul of Chaos – Path of Discord (Resource: Entropy)
 
 Philosophy: Amplify randomness through cascading effects and deliberate chaos spreading.

@@ -1,3 +1,16 @@
+---
+id: soul.hope.flame
+resource: Martyr Gauge
+ability_names:
+  passive: Burning Faith
+  tactical: Firebrand
+  movement: Sacrificial Flare Vault
+  ultimate: Martyr's Pyre
+  weapon: Pyrelance
+  final_stand: Phoenix Crucible
+difficulty: tbd
+---
+
 # Soul of Hope – Path of Flame (Resource: Martyr Gauge)
 
 Philosophy: Sacrificial flame and martyrdom through self-sacrifice for powerful effects.

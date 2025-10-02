@@ -1,0 +1,8 @@
+{
+  "id": "mythic.dragon_heart",
+  "name": "Dragon’s Heart",
+  "status": "draft",
+  "summary": "Transformation granting aerial mobility and fiery breath.",
+  "source": "plans/mythics/mythic_dragon_heart.md",
+  "tier": 3
+}

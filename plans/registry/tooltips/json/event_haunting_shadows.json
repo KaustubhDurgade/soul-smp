@@ -1,0 +1,8 @@
+{
+  "id": "event.haunting_shadows",
+  "name": "Haunting Shadows",
+  "status": "draft",
+  "summary": "Local shadow mob incursion encouraging light / control responses.",
+  "source": "plans/events/event_haunting_shadows.md",
+  "category": "CREATURE"
+}

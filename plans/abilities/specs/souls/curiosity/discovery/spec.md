@@ -1,3 +1,10 @@
+---
+id: soul.curiosity.discovery
+resource: TBD
+ability_names: {}
+difficulty: tbd
+---
+
 # Soul of Curiosity – Path of Discovery
 | Code | Name | CD | Tags | Details |
 |------|------|----|------|---------|

@@ -1,3 +1,16 @@
+---
+id: soul.greed.gluttony
+resource: Appetite
+ability_names:
+  passive: Voracious
+  tactical: Devour
+  movement: Hungry Rush
+  ultimate: Feast
+  weapon: Glutton's Maw
+  final_stand: Final Meal
+difficulty: tbd
+---
+
 # Greed – Path of Gluttony (Resource: Hunger Momentum)
 | Code | Name | CD | Tags | Details |
 |------|------|----|------|---------|

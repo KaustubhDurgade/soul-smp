@@ -1,3 +1,14 @@
+---
+id: soul.hope.base
+resource: Light Reservoir
+ability_names:
+  passive: Guiding Light
+  tactical: Radiant Beam
+  movement: Solar Arc Glide
+  ultimate: Beacon
+difficulty: tbd
+---
+
 # Soul of Hope – Base (Paths: Radiance & Flame)
 
 Philosophy: Light and healing through protection, restoration, and holy damage against undead.

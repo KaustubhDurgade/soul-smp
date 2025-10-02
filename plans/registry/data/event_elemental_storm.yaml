@@ -29,6 +29,7 @@ visual:
   particle_budget: 400
   suppression_strategy: density_scale_then_layer_drop
 logging: EXTENDED
+notes: []
 status: draft
 trigger:
   mode: TIMER

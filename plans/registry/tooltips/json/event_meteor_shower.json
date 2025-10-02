@@ -1,0 +1,8 @@
+{
+  "id": "event.meteor_shower",
+  "name": "Meteor Shower",
+  "status": "draft",
+  "summary": "Regional meteor bombardment applying area denial and damage pressure.",
+  "source": "plans/events/event_meteor_shower.md",
+  "category": "WEATHER"
+}

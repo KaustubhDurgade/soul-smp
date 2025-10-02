@@ -1,3 +1,16 @@
+---
+id: soul.despair.rot
+resource: Blight Saturation
+ability_names:
+  passive: Fungal Growth
+  tactical: Spore Cloud
+  movement: Rootcrawl Advance
+  ultimate: Blightstorm
+  weapon: Moldfang Scythe
+  final_stand: Blighted Crater
+difficulty: tbd
+---
+
 # Soul of Despair – Path of Rot (Resource: Blight Saturation)
 
 Philosophy: Fungal corruption and rot mastery through progressive decay mechanics.

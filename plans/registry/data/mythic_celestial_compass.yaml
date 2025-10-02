@@ -1,0 +1,31 @@
+# GENERATED FROM: plans/mythics/mythic_celestial_compass.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: mythic.celestial_compass
+name: Celestial Compass
+tier: 2
+mythic_type: WORLD_OBJECT
+activation_mode: ACTIVE_WINDOW
+acquisition_path: CRAFT_INFUSION
+soul_focus: ANY
+cooldown_seconds: 300
+active_window_seconds: 20
+world_object:
+  biome_field_type: elemental
+  radius: 18
+  elemental_amp: 0.12
+scaling:
+  elemental_resonance_count_amp_per: '0.03 (cap_add: 0.12)'
+resonance_hooks:
+- condition: elemental_resonance_count>=3 within:20
+  modify:
+    elemental_amp_add: 0.05
+anti_abuse:
+  field_overlap_limit: 1
+attunement:
+  exclusive_slot: world_anchor
+visual:
+  model: world/celestial_compass
+  aura: prismatic_field
+logging: EXTENDED
+notes: []
+status: draft

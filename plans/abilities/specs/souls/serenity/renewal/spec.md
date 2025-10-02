@@ -1,3 +1,16 @@
+---
+id: soul.serenity.renewal
+resource: TBD
+ability_names:
+  passive: Blooming Grace
+  tactical: Nature's Touch
+  movement: Verdant Stride
+  ultimate: Circle of Renewal
+  weapon: Staff of Blossoms
+  final_stand: Rebirth
+difficulty: tbd
+---
+
 # Soul of Serenity – Path of Renewal (No Resource)
 
 Philosophy: Life restoration and renewal through healing mastery and revival abilities.

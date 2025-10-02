@@ -1,3 +1,16 @@
+---
+id: soul.despair.night
+resource: Terror Charge
+ability_names:
+  passive: Terror Gaze
+  tactical: Shadow Dagger
+  movement: Eclipse Veil
+  ultimate: Dreadfall
+  weapon: Dagger of Eclipse
+  final_stand: Eternal Dusk Obelisks
+difficulty: tbd
+---
+
 # Soul of Despair – Path of Night (Resource: Terror Charge)
 
 Philosophy: Blindness and darkness mastery through terror mechanics and shadow ambush tactics.

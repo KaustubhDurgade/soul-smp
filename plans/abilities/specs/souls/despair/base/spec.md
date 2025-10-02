@@ -1,3 +1,14 @@
+---
+id: soul.despair.base
+resource: Decay Index
+ability_names:
+  passive: Withering Touch
+  tactical: Decay Bolt
+  movement: Umbral Corridor
+  ultimate: Plague Field
+difficulty: tbd
+---
+
 # Soul of Despair – Base (Paths: Night & Rot)
 
 Philosophy: Decay and corruption through withering effects and plague mechanics.

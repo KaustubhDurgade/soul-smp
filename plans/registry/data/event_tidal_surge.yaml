@@ -19,6 +19,7 @@ visual:
   water_walls: spiral_rise
   bubble_particles: true
 logging: BASIC
+notes: []
 status: draft
 trigger:
   mode: TIMER

@@ -1,3 +1,16 @@
+---
+id: soul.pride.solitude
+resource: Resolve
+ability_names:
+  passive: Lone Glory
+  tactical: Duelist's Strike
+  movement: Dominion Pivot
+  ultimate: Emperor's Wrath
+  weapon: Emperor's Blade
+  final_stand: Silent Arena
+difficulty: tbd
+---
+
 # Soul of Pride – Path of Solitude (Resource: Resolve)
 
 Philosophy: Individual excellence and duel mastery through solitary supremacy.

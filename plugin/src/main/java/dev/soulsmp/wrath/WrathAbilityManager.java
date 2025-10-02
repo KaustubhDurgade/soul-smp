@@ -1,6 +1,13 @@
 package dev.soulsmp.wrath;
 
 import dev.soulsmp.SoulSMPPlugin;
+import dev.soulsmp.core.bootstrap.ServiceRegistry;
+import dev.soulsmp.core.config.ConfigManager;
+import dev.soulsmp.core.message.MessageService;
+import dev.soulsmp.core.resource.ResourceDefinition;
+import dev.soulsmp.core.resource.ResourceManager;
+import dev.soulsmp.core.resource.ResourceTickBus;
+import dev.soulsmp.core.telemetry.TelemetryService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
@@ -15,17 +22,29 @@ import java.util.UUID;
 public final class WrathAbilityManager {
     private final SoulSMPPlugin plugin;
     private final Set<UUID> activePlayers = Collections.synchronizedSet(new HashSet<>());
+    private final MessageService messageService;
+    private final ResourceManager resourceManager;
+    private final ResourceTickBus resourceTickBus;
+    private final TelemetryService telemetryService;
+    private final ConfigManager configManager;
+
     private final WrathHeatManager heatManager;
     private final WrathIgnitionManager ignitionManager;
     private final WrathListener listener;
     private final WrathCommand command;
 
-    public WrathAbilityManager(SoulSMPPlugin plugin) {
+    public WrathAbilityManager(SoulSMPPlugin plugin, ServiceRegistry services) {
         this.plugin = plugin;
-        this.heatManager = new WrathHeatManager(plugin, this);
-        this.ignitionManager = new WrathIgnitionManager(plugin, this.heatManager);
-        this.listener = new WrathListener(this, this.heatManager, this.ignitionManager);
-        this.command = new WrathCommand(this, this.ignitionManager, this.heatManager);
+        this.messageService = services.require(MessageService.class);
+        this.resourceManager = services.require(ResourceManager.class);
+        this.resourceTickBus = services.require(ResourceTickBus.class);
+        this.telemetryService = services.require(TelemetryService.class);
+        this.configManager = services.require(ConfigManager.class);
+
+        this.heatManager = new WrathHeatManager(plugin, this, resourceManager, telemetryService);
+        this.ignitionManager = new WrathIgnitionManager(plugin, this.heatManager, messageService, telemetryService);
+        this.listener = new WrathListener(this, this.heatManager, this.ignitionManager, messageService);
+        this.command = new WrathCommand(this, this.ignitionManager, this.heatManager, messageService, resourceManager);
     }
 
     public void register() {
@@ -38,7 +57,22 @@ public final class WrathAbilityManager {
         }
 
         Bukkit.getPluginManager().registerEvents(this.listener, this.plugin);
-        this.heatManager.start();
+
+        ResourceDefinition heatDefinition = resourceManager.definition("heat")
+            .orElseGet(() -> {
+                ConfigManager.HeatConfig heat = configManager.heat();
+                ResourceDefinition definition = ResourceDefinition.builder("heat")
+                    .min(heat.min())
+                    .max(heat.max())
+                    .starting(heat.starting())
+                    .decayIntervalSeconds(heat.decayIntervalSeconds())
+                    .combatTickSeconds(heat.combatTickSeconds())
+                    .build();
+                resourceManager.register(definition);
+                return definition;
+            });
+
+        this.heatManager.start(resourceTickBus, heatDefinition);
         this.ignitionManager.start();
     }
 
@@ -65,5 +99,9 @@ public final class WrathAbilityManager {
 
     public Collection<UUID> getActivePlayers() {
         return Set.copyOf(this.activePlayers);
+    }
+
+    public boolean isPlayerActive(UUID playerId) {
+        return this.activePlayers.contains(playerId);
     }
 }

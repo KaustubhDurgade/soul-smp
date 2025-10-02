@@ -1,0 +1,8 @@
+{
+  "id": "event.wrath_ascendant",
+  "name": "Wrath Ascendant",
+  "status": "draft",
+  "summary": "Triggered by high recent Blood soul activity; rains rage-fueled meteors.",
+  "source": "plans/events/event_wrath_ascendant.md",
+  "category": "SOUL"
+}

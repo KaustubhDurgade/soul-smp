@@ -1,3 +1,16 @@
+---
+id: soul.order.chains
+resource: TBD
+ability_names:
+  passive: Shackled Will
+  tactical: Iron Bind
+  movement: Chain Pull
+  ultimate: Prison of Order
+  weapon: Lawkeeper's Chains
+  final_stand: Crystalline Tribunal
+difficulty: tbd
+---
+
 # Soul of Order – Path of Chains
 
 Philosophy: Binding and enforcement through escalating restraints and battlefield control.

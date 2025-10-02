@@ -1,0 +1,12 @@
+{
+  "id": "contract.tides_unbound",
+  "name": "Tides Unbound",
+  "status": "draft",
+  "summary": "Converts a dash resource into a persistent whirlpool control field pulling entities inward.",
+  "source": "plans/contracts/contract_tides_unbound.md",
+  "tier": 2,
+  "class": "CONTROL",
+  "conflict_tags": [
+    "area_control_water"
+  ]
+}

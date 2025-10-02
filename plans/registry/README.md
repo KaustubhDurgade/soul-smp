@@ -11,6 +11,7 @@ Goals:
 Contents:
 * `schemas/` – Formal field definitions (human-readable + future machine schema)
 * `data/` – Example stub entries for early validation
+* `tooltips/` – Auto-generated JSON & Markdown summaries for in-game/UI consumption
 * `conflicts.md` – Central conflict tag matrix
 * `balance-baselines.md` – Initial numeric banding
 * `enums.md` – Shared enumerations (tiers, categories, tags)

@@ -1,0 +1,8 @@
+{
+  "id": "mythic.aurora_crown",
+  "name": "Aurora Crown",
+  "status": "draft",
+  "summary": "Buff crown granting moderate passive utility and an active supportive aura.",
+  "source": "plans/mythics/mythic_aurora_crown.md",
+  "tier": 2
+}

@@ -1,0 +1,38 @@
+# GENERATED FROM: plans/mythics/mythic_tempest_halberd.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: mythic.tempest_halberd
+name: Tempest Halberd
+tier: 3
+mythic_type: WEAPON
+activation_mode: ACTIVE_WINDOW
+acquisition_path: EVENT_DROP
+soul_focus:
+- Wind
+- Tides
+cooldown_seconds: 260
+active_window_seconds: 10
+passives:
+  wind_damage_amp: 0.12
+  tides_damage_amp: 0.08
+active:
+  chain_cleave_base: 3
+  chain_cleave_damage: 14
+  chain_radius: 5
+scaling:
+  wind_souls_chain_targets_per: '1 (cap_total: 6)'
+resonance_hooks:
+- condition: resonance:wind_tides active_within:18
+  modify:
+    chain_cleave_base_add: 1
+    chain_cleave_damage_mult: 1.15
+anti_abuse:
+  chain_target_repeat_block_seconds: 2
+attunement:
+  exclusive_slot: weapon_core
+visual:
+  model: weapon/tempest_halberd
+  swing_trail: electric_air
+  activation_burst: vortex_spark
+logging: EXTENDED
+notes: []
+status: draft

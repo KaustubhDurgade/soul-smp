@@ -1,3 +1,16 @@
+---
+id: soul.glory.eternal_flame
+resource: TBD
+ability_names:
+  passive: Eternal Mark
+  tactical: Burning Oath
+  movement: Phoenix Dash
+  ultimate: Flame of Legacy
+  weapon: Emberblade
+  final_stand: Ashen Scar
+difficulty: tbd
+---
+
 # Soul of Glory – Path of Eternal Flame
 
 Philosophy: Immortal legacy through flame markers and sacrificial protection.

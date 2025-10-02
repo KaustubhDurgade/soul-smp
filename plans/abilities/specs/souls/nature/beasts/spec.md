@@ -1,3 +1,16 @@
+---
+id: soul.nature.beasts
+resource: Pack Spirit
+ability_names:
+  passive: Beast Bond
+  tactical: Wolf Call
+  movement: Pounce
+  ultimate: Primal Stampede
+  weapon: Beastclaw
+  final_stand: Alpha's Last Howl
+difficulty: tbd
+---
+
 # Soul of Nature – Path of Beasts (Resource: Pack Spirit)
 
 Philosophy: Animal companionship and primal combat through beast summoning and pack tactics.

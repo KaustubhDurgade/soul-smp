@@ -1,0 +1,39 @@
+# GENERATED FROM: plans/events/event_prism_alignment.md
+# DO NOT EDIT MANUALLY. Update the source spec and re-run convert_specs.py.
+id: event.prism_alignment
+name: Prism Alignment
+category: FUSION
+scope: REGIONAL
+rarity: LEGENDARY
+intensity_tier: 3
+scaling:
+  extra_silence_souls_petrify_add: '0.25 (cap_total: 3)'
+resonance_hooks:
+- condition: resonance:frost_silence active_within:20
+  modify:
+    silence_duration_add: 0.5
+anti_abuse:
+  boss_control_resistance: 0.5
+visual:
+  dome_layers: ice_outer + lightning_inner
+  prism_beams: true
+logging: FULL
+notes: []
+status: draft
+trigger:
+  mode: COMPOSITE
+  conditions:
+    silence_souls>=: 2
+    frost_souls>=: 1
+    lightning_souls>=: 1
+phases:
+  telegraph_seconds: 25
+  active_seconds: 90
+  recovery_seconds: 10
+  cooldown_seconds: 5400
+mechanics:
+  petrify_duration: 2
+  silence_duration: 2.5
+  aura_radius: 14
+rewards:
+  loot_table_id: loot.prism_crystals

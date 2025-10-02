@@ -18,6 +18,7 @@ visual:
   sunrise_overglow: true
   phoenix_trails: fiery_wings
 logging: FULL
+notes: []
 status: draft
 trigger:
   mode: COMPOSITE

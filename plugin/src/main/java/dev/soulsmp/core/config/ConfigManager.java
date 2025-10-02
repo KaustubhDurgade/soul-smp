@@ -7,6 +7,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public final class ConfigManager {
 
@@ -59,6 +62,64 @@ public final class ConfigManager {
         return new HeatConfig(min, max, starting, decayInterval, combatTick);
     }
 
+    public MetricsConfig metrics() {
+        FileConfiguration config = getConfiguration();
+        boolean enabled = config.getBoolean("metrics.enabled", true);
+        int interval = config.getInt("metrics.report-interval-minutes", 5);
+        return new MetricsConfig(enabled, interval);
+    }
+
+    public TelemetryConfig telemetry() {
+        FileConfiguration config = getConfiguration();
+        boolean enabled = config.getBoolean("telemetry.enabled", true);
+        int seconds = config.getInt("telemetry.flush-interval-seconds", 300);
+        return new TelemetryConfig(enabled, seconds);
+    }
+
+    public CombatConfig combat() {
+        FileConfiguration config = getConfiguration();
+        long throttleWindow = config.getLong("combat.throttle-window-millis", 200L);
+        return new CombatConfig(throttleWindow);
+    }
+
+    public SoulsConfig souls() {
+        FileConfiguration config = getConfiguration();
+        boolean allowRespec = config.getBoolean("souls.allow-respec", true);
+        List<Map<?, ?>> rawCatalog = config.getMapList("souls.catalog");
+        List<SoulEntry> entries = new ArrayList<>();
+        for (Map<?, ?> raw : rawCatalog) {
+            if (raw == null) {
+                continue;
+            }
+            String id = stringValue(raw.get("id"));
+            String name = stringValue(raw.get("name"));
+            String description = stringValue(raw.get("description"));
+            String difficulty = stringValue(raw.get("difficulty"));
+            List<String> paths = new ArrayList<>();
+            Object rawPaths = raw.get("paths");
+            if (rawPaths instanceof List<?> list) {
+                for (Object pathObj : list) {
+                    String pathId = stringValue(pathObj);
+                    if (!pathId.isEmpty()) {
+                        paths.add(pathId);
+                    }
+                }
+            }
+            if (id != null && !id.isBlank()) {
+                entries.add(new SoulEntry(id, name, description, difficulty, List.copyOf(paths)));
+            }
+        }
+        return new SoulsConfig(allowRespec, List.copyOf(entries));
+    }
+
+    private String stringValue(Object value) {
+        return value == null ? null : value.toString();
+    }
+
+    public int persistenceSchemaVersion() {
+        return getConfiguration().getInt("persistence.schema-version", 1);
+    }
+
     public static final class HeatConfig {
         private final int min;
         private final int max;
@@ -93,5 +154,20 @@ public final class ConfigManager {
         public int combatTickSeconds() {
             return combatTickSeconds;
         }
+    }
+
+    public record MetricsConfig(boolean enabled, int reportIntervalMinutes) {
+    }
+
+    public record TelemetryConfig(boolean enabled, int flushIntervalSeconds) {
+    }
+
+    public record CombatConfig(long throttleWindowMillis) {
+    }
+
+    public record SoulsConfig(boolean allowRespec, List<SoulEntry> catalog) {
+    }
+
+    public record SoulEntry(String id, String name, String description, String difficulty, List<String> paths) {
     }
 }

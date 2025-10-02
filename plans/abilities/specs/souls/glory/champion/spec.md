@@ -1,3 +1,16 @@
+---
+id: soul.glory.champion
+resource: Valor
+ability_names:
+  passive: Arena Mastery
+  tactical: Crushing Blow
+  movement: Valor Rush
+  ultimate: Colosseum
+  weapon: Champion's Spear
+  final_stand: Arena of Legends
+difficulty: tbd
+---
+
 # Soul of Glory – Path of Champion (Resource: Valor)
 
 Philosophy: Honorable combat mastery through duel mechanics and arena control.

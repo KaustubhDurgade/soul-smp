@@ -39,4 +39,5 @@ visual:
   tentacle_particles: water_spiral
   activation_burst: geyser_column
 logging: FULL
+notes: []
 status: draft

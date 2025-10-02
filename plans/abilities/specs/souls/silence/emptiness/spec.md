@@ -1,3 +1,16 @@
+---
+id: soul.silence.emptiness
+resource: Null Saturation
+ability_names:
+  passive: Void Presence
+  tactical: Null Pulse
+  movement: Void Dash
+  ultimate: Oblivion
+  weapon: Voidbrand
+  final_stand: Collapse into Nothing
+difficulty: tbd
+---
+
 # Soul of Silence – Path of Emptiness (Resource: Null Saturation)
 
 Philosophy: Complete nullification and void presence through buff removal and anti-magic mastery.

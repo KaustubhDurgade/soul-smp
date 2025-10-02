@@ -1,206 +1,55 @@
-Perfect — let’s design a **full SMP System Architecture Blueprint** that integrates **souls, abilities, resonances, contracts, events, and mythics** into a coherent, modular, and scalable framework for your plugin. This will serve as a **complete developer roadmap**.
-
 ---
 
-# 🌌 SMP System Architecture Blueprint
+# Soul SMP System Architecture Knowledge Base
 
-## **1. Core Modules**
+This document captures the shared systems that every soul, path, contract, and registry entry relies on. Use it as the canonical cross-cutting reference while implementing or balancing gameplay features.
 
-### **A. Player Data Module**
+## 🔥 Resources
 
-* Stores **per-player information**:
+- **Runtime ownership**: `ResourceManager` + `ResourceTickBus` (see `plugin/src/main/java/dev/soulsmp/core/resource`). Resource definitions live in `config.yml` (`resources.*`) and registry YAML under `plans/registry/data/*`.
+- **Tick cadence**: `ResourceTickBus` binds per-resource passive and combat handlers. Defaults come from spec front-matter (`resource` field) and schema docs in `plans/registry/schemas/`.
+- **Heat baseline**: Wrath Heat tuning (min/max/decay) mirrors `config.yml` defaults; any new soul resource must register identical min/max fields before activating.
+- **Decay and generation audit checklist**:
+  - Specify gain/spend hooks in the spec front-matter summary before coding.
+  - Configure decay intervals in the resource definition (avoid hard-coding inside soul managers).
+  - Wire telemetry counters (`resource.*`) whenever a resource changes; this feeds the metrics snapshot.
 
-  * Active soul(s) & subclass choices
-  * Soul mastery levels (Passive, Tactical, Movement, Ultimate, Mastery/Reform, Soulbound Weapon, Final Stand)
-  * Active contracts & contract states
-  * Equipped mythics & soulbound items
-  * Resonance alignment states
-  * Cooldowns & transformations
-* **Data structure example (pseudo):**
+## ⏱ Cooldowns
 
-```json
-PlayerData {
-  UUID,
-  Souls: [SoulID, SubclassID, MasteryLevel],
-  ActiveContracts: [ContractID, RemainingDuration],
-  EquippedMythics: [MythicID],
-  ActiveResonances: [ResonanceID],
-  AbilityCooldowns: {AbilityID: TimeRemaining},
-  TransformState: {TransformationID, DurationRemaining}
-}
-```
+- **Central service**: `CooldownManager` ensures consistent tracking, modifier stacking, and persistence per player.
+- **Spec alignment**: Cooldown values in specs should match registry YAML (`cooldown_seconds` or `active_window_seconds`). During implementation, read from registry rather than duplicating constants.
+- **Scaling hooks**:
+  - Balance changes go through `CooldownManager#modify` to keep UI displays accurate.
+  - Items/resonances that alter cooldowns must log telemetry (`cooldown.adjusted`) for balancing.
+- **UI integration**: BossBar/ActionBar roadmap tasks depend on `CooldownManager` publishing events; reserve listener slots to avoid duplicate displays.
 
----
+## 🜂 Effects & Status
 
-### **B. Soul Module**
+- **Engine**: `EffectManager` + `EffectType` provide stacking rules, amplification, and tick scheduling.
+- **Registered defaults**: Burn, Bleed, and Stun live in `EffectTypes.registerDefaults`. New status effects should follow the builder pattern (stacking policy, max amplifier, applier callbacks).
+- **Soul interactions**:
+  - Specs must call out which statuses they apply; mirror that in front-matter `ability_names` and in registry notes.
+  - Avoid direct Bukkit potion calls; route everything through `EffectManager` so expiration events fire correctly.
+- **Visual feedback**: Pair each effect with particles or sounds defined in the spec notes to keep designers and engineers in sync.
 
-* Handles **all soul abilities**:
+## 🔗 Integration Points
 
-  * Passive, Tactical, Movement, Ultimate, Mastery/Reform, Soulbound Weapon, Final Stand
-  * Ability selection and subclass branching
-  * Ability scaling based on player stats, level, and nearby resonances
-* **Mechanics:**
+- **Registry pipeline**: Markdown specs → `convert_specs.py` → `plans/registry/data` + tooltips. Always regenerate after spec edits to maintain schema guarantees (`notes`, `status`, `logging`).
+- **Telemetry & Metrics**: `TelemetryService` counts key events (`combat.*`, `resource.*`), while `MetricsService` snapshots online players and resource usage. Document new counters in `plans/registry/telemetry-keys.json`.
+- **Contracts & Events**: Reference IDs in registry files must match spec `id` fields and in-game handlers. Keep `plans/logs/registry-validation.md` updated after running validators.
+- **Knowledge hand-off**: When implementing a soul/path, read:
+  1. Spec front-matter (resource, ability names, difficulty baseline).
+  2. Registry YAML/tooltips for runtime numbers.
+  3. This knowledge base for shared services and telemetry requirements.
 
-  * Ability activation → triggers **particle/display effects**, damage calculations, or movement modifiers.
-  * Can be **modified by Mythics, Contracts, or Resonances**.
+## 📚 Reference Map
 
----
+| Area | Primary Sources | Runtime Entry Points |
+| --- | --- | --- |
+| Resources | Spec front-matter `resource`, `plans/registry/data/**/*yaml`, `config.yml` | `ResourceManager`, `ResourceTickBus` |
+| Cooldowns | Spec ability blocks, registry timings | `CooldownManager`, action bar/boss bar listeners |
+| Effects | Spec notes, `EffectTypes`, registry `effects` arrays | `EffectManager`, `EffectType` appliers |
+| Integration | `convert_specs.py`, validation logs, telemetry schema | `TelemetryService`, `MetricsService`, contract/event handlers |
 
-### **C. Resonance Module**
+Keep this file in sync whenever shared services evolve or new cross-cutting rules emerge.
 
-* Tracks **multi-soul synergies and joint effects**:
-
-  * Detects nearby compatible souls → triggers **resonance bonuses**
-  * Modifies ability parameters (damage, radius, duration, AoE patterns)
-* **Event interaction:**
-
-  * Resonances can **enhance world events, contracts, and mythic effects**.
-* **Example:** Fire + Wind resonance → Fire Tornado radius +50%, particle intensity ↑
-
----
-
-### **D. Contract Module**
-
-* Handles **contract creation, activation, and resolution**:
-
-  * Validates sacrifices (HP, items, souls, resources, time)
-  * Calculates effect strength:
-
-    ```
-    Effect = BaseEffect * (SacrificeAmount / MaxSacrifice) * ResonanceMultiplier
-    ```
-  * Activates **particles & block_display sigils**
-  * Supports **multi-player pooled contracts**
-* Contracts can **trigger temporary transformations, AoE boosts, or world events**.
-
----
-
-### **E. Event Module**
-
-* Manages **world, soul-specific, multi-soul, and rare events**:
-
-  * Tracks **trigger conditions**: biome, time, weather, nearby souls, contracts, mythics
-  * Schedules events using tick-based or timer systems
-  * Handles **particle effects, block_display entities, AoE calculations, terrain modification**
-* Example Flow:
-
-  ```
-  EventTriggerCheck() → ConditionMet? → ActivateEvent() → Particle/Display → EffectCalculation → DurationEndCleanup()
-  ```
-
----
-
-### **F. Mythic Module**
-
-* Handles **Mythic item effects**, transformations, and world-altering powers:
-
-  * **Passive & Active abilities**
-  * Scales with **nearby souls, resonances, events**
-  * Generates **visual spectacle**: particles, armorstands, block_display overlays
-  * Can **interact with contracts or trigger rare events**
-* Mythics are **tiered (Tier 2 & 3)** for scalability.
-
----
-
-## **2. Ability & Effect Engine**
-
-* **Particle System:**
-
-  * Generate arcs, spirals, domes, spheres, trails
-  * Layered particle effects for **ultimate & resonance interactions**
-* **Display Entities:**
-
-  * `block_display` for terrain overlays, sigils, or boss models
-  * Armorstands for temporary summons (shadow clones, elemental avatars)
-* **Math/Mechanics:**
-
-  * AoE = sphere/cone/vector calculations
-  * Pull/push vectors for whirlpools, tornadoes
-  * Damage & buff scaling: base × soul mastery × resonance × mythic modifier × contract multiplier
-
----
-
-## **3. Scheduler / Tick Flow**
-
-* **Core tick system:** Handles timing for:
-
-  * Ability cooldowns
-  * Contract durations
-  * Resonance activations
-  * Event scheduling
-  * Mythic active durations
-* **Event priority system:**
-
-  * Player-triggered > Contract-triggered > Soul/Resonance > World events
-
----
-
-## **4. Interaction Pipeline**
-
-1. **Player Action** → triggers **ability / contract / mythic**
-2. **Check Resonances** → modify parameters
-3. **Check Event Interactions** → amplify AoE, trigger additional effects
-4. **Particle & Display Layer** → visual feedback
-5. **Effect Calculation Layer** → damage, buffs, debuffs, world alterations
-6. **Cooldown / Duration Update** → tracked in tick scheduler
-7. **Cleanup** → remove temporary entities, particle trails, AoE zones
-
----
-
-## **5. Data Flow Diagram (Textual Overview)**
-
-```
-[PlayerData] → AbilityModule → EffectEngine → World
-                   ↓
-               ResonanceModule
-                   ↓
-               ContractModule
-                   ↓
-               EventModule
-                   ↓
-               MythicModule
-                   ↓
-            Particle/Display System
-                   ↓
-           AoE/World Effect Application
-```
-
-* Each module **reads & writes** to `PlayerData` and **interacts** with the Effect Engine and Visual System.
-* Multi-soul interactions and resonances **feed back** into events, contracts, and mythics dynamically.
-
----
-
-## **6. Modular Plugin Architecture**
-
-* **Core API / Manager Classes**:
-
-  * `SoulManager` → tracks souls, mastery, abilities
-  * `ResonanceManager` → calculates active resonances & bonuses
-  * `ContractManager` → validates, executes, and scales contracts
-  * `EventManager` → triggers & schedules events, handles AoE/effects
-  * `MythicManager` → manages mythic item activation & scaling
-  * `VisualManager` → particles, block_display, armorstand models
-  * `CooldownScheduler` → tick-based timing, updates durations
-
-* **Data Storage:**
-
-  * Use **YAML/JSON per player** for persistence or SQLite for high-scale servers
-  * Optional: **Redis cache** for tick-intensive operations
-
----
-
-## **7. Key Takeaways**
-
-* This architecture allows:
-
-  * **Dynamic synergy** between souls, resonances, contracts, events, and mythics
-  * **Scalable AoE and world-altering effects**
-  * **Flexible multi-player interactions**
-  * **Ultra-visual spectacle** via particle/display systems
-* Designed for **modularity**, so new souls, mythics, contracts, or events can be added without core rewrites.
-
----
-
-If you want, the **next step** could be me creating a **visual map / infographic** showing **all modules and their interactions**, with **arrows for data flow, effect layers, and resonance amplification paths** — essentially a **developer-ready SMP plugin diagram**.
-
-Do you want me to do that next?

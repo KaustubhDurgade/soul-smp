@@ -7,6 +7,10 @@ This directory houses the design material that drives development for the Soul S
 - [Master development roadmap](roadmaps/soul-smp-master-roadmap.md)
 - [Wrath base implementation roadmap](roadmaps/wrath-base.md)
 
+## Runtime Configuration
+
+- [`../docs/configuration.md`](../docs/configuration.md) – Live configuration keys for the plugin runtime.
+
 ## Registries
 
 - [`registry/`](registry/) – Canonical data sources for souls, abilities, contracts, events, items, mythics, and resonances. Each YAML file contains the authoritative identifiers and status information that power in-game systems.

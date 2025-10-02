@@ -1,3 +1,14 @@
+---
+id: soul.nature.base
+resource: Growth Charge
+ability_names:
+  passive: Verdant Blessing
+  tactical: Vine Snare
+  movement: Vine Whip
+  ultimate: Nature's Wrath
+difficulty: tbd
+---
+
 # Soul of Nature – Base (Resources: Growth Charge / Paths: Thorns & Beasts)
 
 Philosophy: Environmental harmony and natural growth acceleration through plant manipulation.

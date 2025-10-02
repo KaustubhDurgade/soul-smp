@@ -1,3 +1,16 @@
+---
+id: soul.pride.authority
+resource: TBD
+ability_names:
+  passive: Bannerlord
+  tactical: Royal Decree
+  movement: Sovereign Pathstride
+  ultimate: Warbanner
+  weapon: Crownblade
+  final_stand: Monument of Sovereigns
+difficulty: tbd
+---
+
 # Soul of Pride – Path of Authority (No Resource)
 
 Philosophy: Collective leadership and banner warfare through ally empowerment and territorial dominance.

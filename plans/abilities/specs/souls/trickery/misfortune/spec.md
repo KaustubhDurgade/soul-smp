@@ -1,3 +1,16 @@
+---
+id: soul.trickery.misfortune
+resource: Luck Debt
+ability_names:
+  passive: Cursed Fortune
+  tactical: Hex
+  movement: Trickster's Vault
+  ultimate: Wheel of Fate
+  weapon: Hexstaff
+  final_stand: Gambler's End
+difficulty: tbd
+---
+
 # Soul of Trickery – Path of Misfortune (Resource: Luck Debt)
 
 Philosophy: Probability manipulation and curse application through luck interference.

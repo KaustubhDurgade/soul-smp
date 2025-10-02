@@ -32,4 +32,5 @@ conflict_tags:
 anti_abuse:
   invis_reveal_on_attack: true
 logging: FULL
+notes: []
 status: draft

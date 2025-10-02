@@ -1,6 +1,8 @@
 package dev.soulsmp.wrath;
 
 import dev.soulsmp.SoulSMPPlugin;
+import dev.soulsmp.core.message.MessageService;
+import dev.soulsmp.core.telemetry.TelemetryService;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -21,15 +23,22 @@ final class WrathIgnitionManager {
 
     private final SoulSMPPlugin plugin;
     private final WrathHeatManager heatManager;
+    private final MessageService messageService;
+    private final TelemetryService telemetryService;
 
     private final Map<UUID, IgnitionState> active = new HashMap<>();
     private final Map<UUID, Long> cooldowns = new HashMap<>();
 
     private BukkitTask ticker;
 
-    WrathIgnitionManager(SoulSMPPlugin plugin, WrathHeatManager heatManager) {
+    WrathIgnitionManager(SoulSMPPlugin plugin,
+                         WrathHeatManager heatManager,
+                         MessageService messageService,
+                         TelemetryService telemetryService) {
         this.plugin = plugin;
         this.heatManager = heatManager;
+        this.messageService = messageService;
+        this.telemetryService = telemetryService;
     }
 
     void start() {
@@ -54,11 +63,11 @@ final class WrathIgnitionManager {
         Long cooldownUntil = this.cooldowns.get(id);
         if (cooldownUntil != null && cooldownUntil > now) {
             long seconds = (cooldownUntil - now + 999) / 1000;
-            player.sendMessage("§cIgnition is on cooldown for " + seconds + "s.");
+            messageService.send(player, "wrath.ignition.cooldown", java.util.Map.of("seconds", Long.toString(seconds)));
             return false;
         }
         if (this.active.containsKey(id)) {
-            player.sendMessage("§eIgnition is already active!");
+            messageService.send(player, "wrath.ignition.active");
             return false;
         }
         IgnitionState state = new IgnitionState(now + DURATION_MILLIS);
@@ -66,7 +75,8 @@ final class WrathIgnitionManager {
         this.cooldowns.put(id, now + COOLDOWN_MILLIS);
         player.getWorld().playSound(player.getLocation(), Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.2f);
         player.getWorld().spawnParticle(Particle.FLAME, player.getLocation().add(0, 1, 0), 40, 0.3, 0.6, 0.3, 0.02);
-        player.sendMessage("§6Your weapon erupts in flame for 6 seconds!");
+        messageService.send(player, "wrath.ignition.armed");
+        telemetryService.recordEvent("wrath.ignition.activate");
         return true;
     }
 
@@ -94,6 +104,7 @@ final class WrathIgnitionManager {
 
         if (state.registerUniqueTarget(victim.getUniqueId(), now)) {
             this.heatManager.addHeat(player, 2);
+            telemetryService.recordEvent("wrath.ignition.unique-hit");
         }
 
         if (state.totalHits >= 5 && !state.hasPurgedHeat) {
@@ -101,7 +112,7 @@ final class WrathIgnitionManager {
             this.heatManager.purgeHeat(player, 10);
             victim.getWorld().spawnParticle(Particle.EXPLOSION, victim.getLocation(), 20, 0.6, 0.6, 0.6, 0.02);
             victim.getWorld().playSound(victim.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0f, 0.9f);
-            player.sendMessage("§cYour fury erupts, venting heat!");
+            telemetryService.recordEvent("wrath.ignition.heat-purge");
         }
     }
 

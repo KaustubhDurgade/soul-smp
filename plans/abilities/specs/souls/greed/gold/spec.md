@@ -1,3 +1,16 @@
+---
+id: soul.greed.gold
+resource: Gilded Charge
+ability_names:
+  passive: Gilded Aura
+  tactical: Midas Grasp
+  movement: Greed Pull
+  ultimate: Treasurefall
+  weapon: Gilded Greataxe
+  final_stand: Golden Catastrophe
+difficulty: tbd
+---
+
 # Soul of Greed – Path of Gold (Resource: Gilded Charge)
 
 Philosophy: Material transmutation and wealth manifestation through golden power.

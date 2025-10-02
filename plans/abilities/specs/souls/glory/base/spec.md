@@ -1,3 +1,14 @@
+---
+id: soul.glory.base
+resource: Legacy Sparks
+ability_names:
+  passive: Hero's Spark
+  tactical: Rallying Cry
+  movement: Legacy Vault
+  ultimate: Immortal Banner
+difficulty: tbd
+---
+
 # Soul of Glory – Base (Resource: Legacy Sparks / Paths: Eternal Flame & Champion)
 
 Philosophy: Lasting impact through team empowerment and heroic presence.

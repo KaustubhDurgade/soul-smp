@@ -1,5 +1,6 @@
 package dev.soulsmp.core.player;
 
+import dev.soulsmp.core.player.migration.ProfileMigrationService;
 import dev.soulsmp.core.player.storage.ProfileStorage;
 import dev.soulsmp.core.resource.ResourceManager;
 
@@ -16,11 +17,13 @@ public final class PlayerProfileManager {
     private final ProfileStorage storage;
     private final Map<UUID, PlayerProfile> profiles = new ConcurrentHashMap<>();
     private final Logger logger;
+    private final ProfileMigrationService migrationService;
     private ResourceManager resourceManager;
 
-    public PlayerProfileManager(ProfileStorage storage, Logger logger) {
+    public PlayerProfileManager(ProfileStorage storage, Logger logger, ProfileMigrationService migrationService) {
         this.storage = storage;
         this.logger = logger;
+        this.migrationService = migrationService;
     }
 
     public void setResourceManager(ResourceManager resourceManager) {
@@ -83,6 +86,8 @@ public final class PlayerProfileManager {
         if (profile.getPlayerId() == null) {
             profile.setPlayerId(playerId);
         }
+
+        migrationService.migrate(profile);
 
         if (resourceManager != null) {
             resourceManager.initializeProfile(profile);

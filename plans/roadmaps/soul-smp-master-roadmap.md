@@ -27,54 +27,54 @@ _Status: Draft • Created 2025-09-30_
 
 ## Phase 1 · Data & Specification Pipeline
 
-- [ ] **Registry consolidation**
-  - [ ] Review `plans/registry/*.yml`, ensure consistent schema keys (id, name, status, notes).
-  - [ ] Add `status` field for implementation state (planned/in-progress/done/deprecated).
-  - [ ] Run `scripts/validate_registry.py` and document output in `plans/logs/registry-validation.md`.
-- [ ] **Spec conversion tooling**
-  - [ ] Extend `scripts/convert_specs.py` to emit JSON/Markdown summary per path for in-game tooltips.
-  - [ ] Create unit tests for scripts using `pytest` (add `requirements.txt` or `pyproject.toml`).
-  - [ ] Automate spec → registry sync job (optional) and log instructions in `scripts/README.md`.
-- [ ] **Knowledge base**
-  - [ ] Aggregate cross-cutting notes into `plans/system architecture.md` (add sections for resources, cooldowns, effects, integration points).
-  - [ ] Ensure each soul/path spec under `/plans/spec/souls/**` has front-matter metadata (id, resource, ability names, difficulty).
+- [x] **Registry consolidation** _(2025-10-01 · uncommitted)_
+  - [x] Review `plans/registry/*.yml`, ensure consistent schema keys (id, name, status, notes). _(2025-10-01 · uncommitted)_
+  - [x] Add `status` field for implementation state (planned/in-progress/done/deprecated). _(2025-10-01 · enforced via converter)_
+  - [x] Run `scripts/validate_registry.py` and document output in `plans/logs/registry-validation.md`. _(2025-10-01 · see log)_
+- [x] **Spec conversion tooling**
+  - [x] Extend `scripts/convert_specs.py` to emit JSON/Markdown summary per path for in-game tooltips. _(2025-10-01 · uncommitted)_
+  - [x] Create unit tests for scripts using `pytest` (add `requirements.txt` or `pyproject.toml`). _(2025-10-01 · uncommitted)_
+  - [x] Automate spec → registry sync job (optional) and log instructions in `scripts/README.md`. _(2025-10-01 · uncommitted)_
+- [x] **Knowledge base** _(2025-10-01 · uncommitted)_
+  - [x] Aggregate cross-cutting notes into `plans/system architecture.md` (add sections for resources, cooldowns, effects, integration points). _(2025-10-01 · uncommitted)_
+  - [x] Ensure each soul/path spec under `/plans/spec/souls/**` has front-matter metadata (id, resource, ability names, difficulty). _(2025-10-01 · scripted sweep)_
 
 ---
 
 ## Phase 2 · Core Runtime & Services
 
-- [ ] **Plugin bootstrap**
-  - [ ] Flesh out `SoulSMPPlugin.java` with subsystem registration order, config loading, metrics hooks.
-  - [ ] Introduce dependency injection container (simple service registry) for managers.
-  - [ ] Implement graceful disable sequence (save state, unregister listeners, cancel tasks).
-- [ ] **Configuration system**
+- [x] **Plugin bootstrap** _(2025-10-01 · uncommitted)_
+  - [x] Flesh out `SoulSMPPlugin.java` with subsystem registration order, config loading, metrics hooks. _(2025-10-01 · uncommitted)_
+  - [x] Introduce dependency injection container (simple service registry) for managers. _(2025-10-01 · uncommitted)_
+  - [x] Implement graceful disable sequence (save state, unregister listeners, cancel tasks). _(2025-10-01 · uncommitted)_
+- [x] **Configuration system** _(2025-10-01 · uncommitted)_
   - [x] Create `plugin/src/main/resources/config.yml` default values covering global tuning, path toggles, debugging levels. _(2025-10-01 · uncommitted)_
   - [x] Implement `ConfigManager` handling reloads (`/souls reload`). _(2025-10-01 · uncommitted)_
-  - [ ] Document config keys in `docs/configuration.md`.
-- [ ] **Messaging & localization**
+  - [x] Document config keys in `docs/configuration.md`. _(2025-10-01 · uncommitted)_
+- [x] **Messaging & localization** _(2025-10-01 · uncommitted)_
   - [x] Add `messages.properties` (and optional locale-specific variants). _(2025-10-01 · uncommitted)_
   - [x] Implement `MessageService` with prefix, color, placeholder interpolation. _(2025-10-01 · uncommitted)_
-  - [ ] Update all commands/listeners to use message service.
+  - [x] Update all commands/listeners to use message service. _(2025-10-01 · uncommitted)_
 - [x] **Scheduler utilities** _(2025-10-01 · uncommitted)_
   - [x] Create `TaskScheduler` wrapper with tracking (for cancel-on-disable, repeating tasks, async validations where safe). _(2025-10-01 · uncommitted)_
-- [ ] **Player profile & persistence**
+- [x] **Player profile & persistence** _(2025-10-01 · uncommitted)_
   - [x] Design `PlayerProfile` object storing soul choice, path, progress, unlocked perks. _(2025-10-01 · uncommitted)_
   - [x] Choose persistence layer (YAML per player, SQLite, or database) and implement repository. _(2025-10-01 · uncommitted)_
-  - [ ] Add migration strategy if schema evolves.
-- [ ] **Combat event pipeline**
-  - [ ] Centralize damage/heal events to allow souls to hook consistently.
-  - [ ] Add throttling/priority ordering to avoid conflicts between souls.
-- [ ] **Effect & status engine**
-  - [ ] Implement reusable effect classes (burn, bleed, stun, etc.) with registration.
-  - [ ] Provide API for stacking, refreshing, and visual cues.
-- [ ] **Resource engine**
+  - [x] Add migration strategy if schema evolves. _(2025-10-01 · uncommitted)_
+- [x] **Combat event pipeline** _(2025-10-01 · uncommitted)_
+  - [x] Centralize damage/heal events to allow souls to hook consistently. _(2025-10-01 · uncommitted)_
+  - [x] Add throttling/priority ordering to avoid conflicts between souls. _(2025-10-01 · uncommitted)_
+- [x] **Effect & status engine** _(2025-10-01 · uncommitted)_
+  - [x] Implement reusable effect classes (burn, bleed, stun, etc.) with registration. _(2025-10-01 · uncommitted)_
+  - [x] Provide API for stacking, refreshing, and visual cues. _(2025-10-01 · uncommitted)_
+- [x] **Resource engine** _(2025-10-01 · uncommitted)_
   - [x] Generalize Heat manager concept for other souls (e.g., Harmony, Wealth) via `ResourceManager` interface. _(2025-10-01 · uncommitted)_
-  - [ ] Add tick bus for resource updates with per-resource cadence definitions.
+  - [x] Add tick bus for resource updates with per-resource cadence definitions. _(2025-10-01 · uncommitted)_
 - [x] **Cooldown manager** _(2025-10-01 · uncommitted)_
   - [x] Implement central cooldown tracking keyed by ability IDs; allow dynamic adjustments via buffs/debuffs. _(2025-10-01 · uncommitted)_
-- [ ] **Logging & analytics**
-  - [ ] Create `TelemetryService` capturing ability usage, damage, healing, resource peaks; respect privacy config toggles.
-  - [ ] Output summary logs or integrate with external analytics if desired.
+- [x] **Logging & analytics** _(2025-10-01 · uncommitted)_
+  - [x] Create `TelemetryService` capturing ability usage, damage, healing, resource peaks; respect privacy config toggles. _(2025-10-01 · uncommitted)_
+  - [x] Output summary logs or integrate with external analytics if desired. _(2025-10-01 · uncommitted)_
 
 ---
 
@@ -280,4 +280,5 @@ YYYY-MM-DD · [x] <Task Description> (commit <hash>) — notes/links
 ```
 
 - 2025-10-01 · [x] Phase 0 repository hygiene + tooling groundwork (uncommitted) — Added .gitignore, .editorconfig, README structure overview, build/deploy scripts, CI workflow, planning index.
+- 2025-10-01 · [x] Phase 2 core runtime services (uncommitted) — Introduced service registry, resource tick bus, combat pipeline, effect engine, telemetry/metrics, config docs, and Wrath subsystem rewiring.
 - 2025-10-01 · [x] Core runtime scaffolding: config/messages/task scheduler/profile persistence/resource manager/cooldown manager (uncommitted)
