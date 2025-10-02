@@ -1,8 +1,0 @@
-{
-  "id": "event.tidal_surge",
-  "name": "Tidal Surge",
-  "status": "draft",
-  "summary": "Oceanic surge alternates push/pull water dynamics.",
-  "source": "plans/events/event_tidal_surge.md",
-  "category": "SOUL"
-}

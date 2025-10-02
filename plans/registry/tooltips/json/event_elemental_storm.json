@@ -1,8 +1,0 @@
-{
-  "id": "event.elemental_storm",
-  "name": "Elemental Storm",
-  "status": "draft",
-  "summary": "Rotating multi-element weather event applying cyclical environmental pressure and buffs/nerfs.",
-  "source": "plans/events/event_elemental_storm.md",
-  "category": "WEATHER"
-}

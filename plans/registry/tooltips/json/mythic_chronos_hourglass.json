@@ -1,8 +1,0 @@
-{
-  "id": "mythic.chronos_hourglass",
-  "name": "Chronos Hourglass",
-  "status": "draft",
-  "summary": "Time artifact compressing cooldowns and slowing enemies in an area.",
-  "source": "plans/mythics/mythic_chronos_hourglass.md",
-  "tier": 2
-}

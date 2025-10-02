@@ -1,8 +1,0 @@
-{
-  "id": "mythic.eclipse_totem",
-  "name": "Eclipse Totem",
-  "status": "draft",
-  "summary": "Deployed totem suppressing enemy healing and amplifying nearby shadow/silence effects.",
-  "source": "plans/mythics/mythic_eclipse_totem.md",
-  "tier": 3
-}

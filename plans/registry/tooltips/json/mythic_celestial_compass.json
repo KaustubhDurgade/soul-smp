@@ -1,8 +1,0 @@
-{
-  "id": "mythic.celestial_compass",
-  "name": "Celestial Compass",
-  "status": "draft",
-  "summary": "Deploys temporary biome-aligned elemental amplification field.",
-  "source": "plans/mythics/mythic_celestial_compass.md",
-  "tier": 2
-}

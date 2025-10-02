@@ -1,8 +1,0 @@
-{
-  "id": "mythic.meteoric_scepter",
-  "name": "Meteoric Scepter",
-  "status": "draft",
-  "summary": "Summons controllable meteor storm over target area.",
-  "source": "plans/mythics/mythic_meteoric_scepter.md",
-  "tier": 3
-}

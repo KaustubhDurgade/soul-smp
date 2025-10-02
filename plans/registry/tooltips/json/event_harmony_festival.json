@@ -1,8 +1,0 @@
-{
-  "id": "event.harmony_festival",
-  "name": "Harmony Festival",
-  "status": "draft",
-  "summary": "Celebratory buff event triggered by high local soul diversity.",
-  "source": "plans/events/event_harmony_festival.md",
-  "category": "GROUP"
-}

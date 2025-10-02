@@ -1,8 +1,0 @@
-{
-  "id": "event.leviathan_spawn",
-  "name": "Leviathan Spawn",
-  "status": "draft",
-  "summary": "Massive oceanic boss with control vortex and periodic water manipulation pulses.",
-  "source": "plans/events/event_leviathan_spawn.md",
-  "category": "CREATURE"
-}

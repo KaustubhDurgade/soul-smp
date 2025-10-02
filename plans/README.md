@@ -2,19 +2,6 @@
 
 This directory houses the design material that drives development for the Soul SMP plugin. Use this index to navigate the most important references.
 
-## Roadmaps
-
-- [Master development roadmap](roadmaps/soul-smp-master-roadmap.md)
-- [Wrath base implementation roadmap](roadmaps/wrath-base.md)
-
-## Runtime Configuration
-
-- [`../docs/configuration.md`](../docs/configuration.md) – Live configuration keys for the plugin runtime.
-
-## Registries
-
-- [`registry/`](registry/) – Canonical data sources for souls, abilities, contracts, events, items, mythics, and resonances. Each YAML file contains the authoritative identifiers and status information that power in-game systems.
-
 ## Specifications & Notes
 
 - [`abilities/`](abilities/) – Detailed ability breakdowns and combos.
@@ -24,11 +11,6 @@ This directory houses the design material that drives development for the Soul S
 - [`items/`](items/) & [`items.md`](items.md) – Custom item specifications and integration notes.
 - [`mythics/`](mythics/) & [`mythics.md`](mythics.md) – Mythic item and encounter design.
 - [`system architecture.md`](system%20architecture.md) – Cross-cutting architecture decisions, including resource engines, cooldowns, and integration touchpoints.
-
-## Workflows & Logs
-
-- [`plans/roadmaps/`](roadmaps/) – Soul- or feature-specific execution guides.
-- [`plans/registry/`](registry/) – Machine-readable registries synced with automation scripts.
 
 ## Related Scripts
 

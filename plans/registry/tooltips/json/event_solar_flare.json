@@ -1,8 +1,0 @@
-{
-  "id": "event.solar_flare",
-  "name": "Solar Flare",
-  "status": "draft",
-  "summary": "Daytime world flare amplifying light / flame output and weakening undead.",
-  "source": "plans/events/event_solar_flare.md",
-  "category": "ASTRAL"
-}

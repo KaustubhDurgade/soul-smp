@@ -1,8 +1,0 @@
-{
-  "id": "event.wild_mana_surge",
-  "name": "Wild Mana Surge",
-  "status": "draft",
-  "summary": "Localized ambient mana field boosting ultimate gain and minor CDR.",
-  "source": "plans/events/event_wild_mana_surge.md",
-  "category": "RESOURCE"
-}

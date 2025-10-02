@@ -1,8 +1,0 @@
-{
-  "id": "mythic.infernal_cannon",
-  "name": "Infernal Cannon",
-  "status": "draft",
-  "summary": "Heavy fire weapon launching explosive projectiles with chance to spawn fire tornadoes.",
-  "source": "plans/mythics/mythic_infernal_cannon.md",
-  "tier": 3
-}

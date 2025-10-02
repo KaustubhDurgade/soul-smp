@@ -1,8 +1,0 @@
-{
-  "id": "event.phoenix_rise",
-  "name": "Phoenix Rise",
-  "status": "draft",
-  "summary": "Mythic phoenix encounter with rebirth phase and persistent flame aura.",
-  "source": "plans/events/event_phoenix_rise.md",
-  "category": "CREATURE"
-}

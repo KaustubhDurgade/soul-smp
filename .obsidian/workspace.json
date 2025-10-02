@@ -11,14 +11,10 @@
             "id": "b70c88de95a04123",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "plans/roadmaps/soul-smp-master-roadmap.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "soul-smp-master-roadmap"
+              "title": "New tab"
             }
           }
         ]
@@ -171,17 +167,19 @@
   },
   "active": "b70c88de95a04123",
   "lastOpenFiles": [
+    "plans/roadmaps/soul-smp-master-roadmap.md",
+    "plans/logs/registry-validation.md",
+    "plans/logs",
+    "plans/items/README.md",
+    "plans/items",
+    "server/plugins/spark/tmp-client/spark-d8a94856104a-profile-data.jfr.tmp",
+    "server/plugins/spark/tmp-client/spark-d89b4dc9d2a7-profile-data.jfr.tmp",
     "server/plugins/spark/tmp-client/spark-d88d5597af5d-profile-data.jfr.tmp",
     "server/plugins/spark/tmp-client/spark-d87f5c7d8d9d-profile-data.jfr.tmp",
     "server/plugins/spark/tmp-client/spark-d87f260bfb8c-libasyncProfiler.so.tmp",
     "server/logs/2025-10-02-8.log.gz",
     "plugin/build/tmp/shadowJar/MANIFEST.MF",
     "plugin/build/tmp/shadowJar",
-    "plugin/build/libs/soul-smp-0.1.0.jar",
-    "plugin/build/libs",
-    "plugin/build/tmp/jar/MANIFEST.MF",
-    "plugin/build/tmp/jar",
-    "plugin/build/resources/main/plugin.yml",
     "plans/roadmaps/wrath-base.md",
     "docs/fixes/help-command-fix.md",
     "docs/CLEANUP-SUMMARY.md",
@@ -197,7 +195,6 @@
     "docs/phase3-completion.md",
     "old-gui-mod/REVERSE_ENGINEERING_ANALYSIS.md",
     "phase-gui-mod/REVERSE_ENGINEERING_ANALYSIS.md",
-    "plans/roadmaps/soul-smp-master-roadmap.md",
     "plans/items.md",
     "plans/contracts.md",
     "docs/catalog.md",
