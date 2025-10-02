@@ -15,21 +15,27 @@ import java.util.Map;
 import java.util.Optional;
 
 final class WrathCommand implements CommandExecutor, TabCompleter {
-    private static final List<String> SUB_COMMANDS = List.of("join", "leave", "heat", "ignition");
+    private static final List<String> SUB_COMMANDS = List.of("join", "leave", "heat", "ignition", "chain", "meteor");
 
     private final WrathAbilityManager abilityManager;
     private final WrathIgnitionManager ignitionManager;
+    private final WrathChainManager chainManager;
+    private final WrathMeteorManager meteorManager;
     private final WrathHeatManager heatManager;
     private final MessageService messageService;
     private final ResourceManager resourceManager;
 
     WrathCommand(WrathAbilityManager abilityManager,
                  WrathIgnitionManager ignitionManager,
+                 WrathChainManager chainManager,
+                 WrathMeteorManager meteorManager,
                  WrathHeatManager heatManager,
                  MessageService messageService,
                  ResourceManager resourceManager) {
         this.abilityManager = abilityManager;
         this.ignitionManager = ignitionManager;
+        this.chainManager = chainManager;
+        this.meteorManager = meteorManager;
         this.heatManager = heatManager;
         this.messageService = messageService;
         this.resourceManager = resourceManager;
@@ -53,6 +59,8 @@ final class WrathCommand implements CommandExecutor, TabCompleter {
             case "leave" -> handleLeave(player);
             case "heat" -> handleHeat(player);
             case "ignition" -> handleIgnition(player);
+            case "chain" -> handleChain(player);
+            case "meteor" -> handleMeteor(player);
             default -> messageService.send(sender, "unknown-subcommand");
         }
         return true;
@@ -90,6 +98,22 @@ final class WrathCommand implements CommandExecutor, TabCompleter {
         if (this.ignitionManager.activate(player)) {
             this.heatManager.recordCombat(player);
         }
+    }
+
+    private void handleChain(Player player) {
+        if (!this.abilityManager.hasPlayer(player)) {
+            messageService.send(player, "wrath.chain.not-aligned");
+            return;
+        }
+        this.chainManager.activate(player);
+    }
+
+    private void handleMeteor(Player player) {
+        if (!this.abilityManager.hasPlayer(player)) {
+            messageService.send(player, "wrath.meteor.not-aligned");
+            return;
+        }
+        this.meteorManager.activate(player);
     }
 
     private int maxHeat() {

@@ -9,8 +9,12 @@ public final class PlayerProfile {
     private UUID playerId;
     private String soulId;
     private String pathId;
+    private int soulLevel = 0;
+    private int soulExperience = 0;
     private Map<String, Integer> resourceValues = new HashMap<>();
     private int schemaVersion;
+    private String adminAbilitySoul;
+    private String adminPassiveSoul;
 
     public PlayerProfile() {
     }
@@ -41,6 +45,42 @@ public final class PlayerProfile {
 
     public void setPathId(String pathId) {
         this.pathId = pathId;
+    }
+
+    public int getSoulLevel() {
+        return soulLevel;
+    }
+
+    public void setSoulLevel(int soulLevel) {
+        this.soulLevel = soulLevel;
+    }
+
+    public int getSoulExperience() {
+        return soulExperience;
+    }
+
+    public void setSoulExperience(int soulExperience) {
+        this.soulExperience = soulExperience;
+    }
+
+    public void addExperience(int amount) {
+        this.soulExperience += amount;
+    }
+
+    public String getAdminAbilitySoul() {
+        return adminAbilitySoul;
+    }
+
+    public void setAdminAbilitySoul(String adminAbilitySoul) {
+        this.adminAbilitySoul = adminAbilitySoul;
+    }
+
+    public String getAdminPassiveSoul() {
+        return adminPassiveSoul;
+    }
+
+    public void setAdminPassiveSoul(String adminPassiveSoul) {
+        this.adminPassiveSoul = adminPassiveSoul;
     }
 
     public int getResource(String resourceId) {

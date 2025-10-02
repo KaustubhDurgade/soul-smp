@@ -1,7 +1,11 @@
 package dev.soulsmp;
 
+import dev.soulsmp.admin.AdminSoulManager;
 import dev.soulsmp.core.bootstrap.ServiceRegistry;
+import dev.soulsmp.core.command.MovementCommand;
 import dev.soulsmp.core.command.SoulsCommand;
+import dev.soulsmp.core.command.TacticalCommand;
+import dev.soulsmp.core.command.UltimateCommand;
 import dev.soulsmp.core.combat.CombatService;
 import dev.soulsmp.core.config.ConfigManager;
 import dev.soulsmp.core.cooldown.CooldownManager;
@@ -18,12 +22,17 @@ import dev.soulsmp.core.player.storage.YamlProfileStorage;
 import dev.soulsmp.core.resource.ResourceDefinition;
 import dev.soulsmp.core.resource.ResourceManager;
 import dev.soulsmp.core.resource.ResourceTickBus;
+import dev.soulsmp.core.soul.SoulAssignmentService;
 import dev.soulsmp.core.soul.SoulCatalog;
+import dev.soulsmp.core.soul.SoulProgressionService;
+import dev.soulsmp.core.soul.SoulRevealAnimationService;
+import dev.soulsmp.core.soul.SoulStateService;
 import dev.soulsmp.core.task.TaskScheduler;
 import dev.soulsmp.core.telemetry.TelemetryService;
 import dev.soulsmp.core.ui.UIDisplayService;
 import dev.soulsmp.wrath.WrathAbilityManager;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -43,10 +52,15 @@ public final class SoulSMPPlugin extends JavaPlugin {
     private CombatService combatService;
     private EffectManager effectManager;
     private SoulCatalog soulCatalog;
+    private SoulProgressionService soulProgressionService;
+    private SoulAssignmentService soulAssignmentService;
+    private SoulRevealAnimationService soulRevealAnimationService;
+    private SoulStateService soulStateService;
     private DebugService debugService;
     private CooldownManager cooldownManager;
     private UIDisplayService uiDisplayService;
     private WrathAbilityManager wrathAbilityManager;
+    private AdminSoulManager adminSoulManager;
 
     @Override
     public void onEnable() {
@@ -60,8 +74,9 @@ public final class SoulSMPPlugin extends JavaPlugin {
             registerCoreListeners();
             registerCommands();
 
-            this.wrathAbilityManager = new WrathAbilityManager(this, services);
-            this.wrathAbilityManager.register();
+            if (this.wrathAbilityManager != null) {
+                this.wrathAbilityManager.register();
+            }
         } catch (Exception ex) {
             getLogger().severe("Failed to initialize Soul SMP plugin: " + ex.getMessage());
             ex.printStackTrace();
@@ -125,18 +140,33 @@ public final class SoulSMPPlugin extends JavaPlugin {
 
     private void registerCoreListeners() {
         Bukkit.getPluginManager().registerEvents(
-            new CorePlayerListener(profileManager, resourceManager, uiDisplayService), this);
+            new CorePlayerListener(profileManager, resourceManager, uiDisplayService, soulAssignmentService, soulStateService), this);
     }
 
     private void registerCommands() {
         PluginCommand soulsCommand = getCommand("souls");
         if (soulsCommand != null) {
             SoulsCommand handler = new SoulsCommand(configManager, messageService, profileManager, resourceManager,
-                soulCatalog, cooldownManager, telemetryService, metricsService, debugService, this::onReload);
+                soulCatalog, cooldownManager, telemetryService, metricsService, debugService, adminSoulManager,
+                soulProgressionService, this::onReload);
             soulsCommand.setExecutor(handler);
             soulsCommand.setTabCompleter(handler);
         } else {
             getLogger().warning("Souls command is missing from plugin.yml");
+        }
+
+        // Register ability commands
+        registerAbilityCommand("tactical", new TacticalCommand(this, profileManager, soulProgressionService, messageService, adminSoulManager));
+        registerAbilityCommand("movement", new MovementCommand(this, profileManager, soulProgressionService, messageService, adminSoulManager));
+        registerAbilityCommand("ultimate", new UltimateCommand(this, profileManager, soulProgressionService, messageService, adminSoulManager));
+    }
+
+    private void registerAbilityCommand(String name, CommandExecutor executor) {
+        PluginCommand command = getCommand(name);
+        if (command != null) {
+            command.setExecutor(executor);
+        } else {
+            getLogger().warning("Command /" + name + " is missing from plugin.yml");
         }
     }
 
@@ -221,18 +251,36 @@ public final class SoulSMPPlugin extends JavaPlugin {
     }
 
     private void bootstrapUtilityServices() {
-        this.soulCatalog = new SoulCatalog(configManager);
-        services.register(SoulCatalog.class, soulCatalog);
+    this.soulCatalog = new SoulCatalog(configManager);
+    services.register(SoulCatalog.class, soulCatalog);
 
-        this.debugService = new DebugService();
-        services.register(DebugService.class, debugService);
+    this.soulProgressionService = new SoulProgressionService(profileManager, messageService);
+    services.register(SoulProgressionService.class, soulProgressionService);
 
-        this.cooldownManager = new CooldownManager();
-        services.register(CooldownManager.class, cooldownManager);
+    this.cooldownManager = new CooldownManager();
+    services.register(CooldownManager.class, cooldownManager);
 
-        this.uiDisplayService = new UIDisplayService(this, profileManager, resourceManager, cooldownManager);
-        uiDisplayService.start();
-        services.register(UIDisplayService.class, uiDisplayService);
+    this.uiDisplayService = new UIDisplayService(this, profileManager, resourceManager, cooldownManager, soulProgressionService);
+    uiDisplayService.start();
+    services.register(UIDisplayService.class, uiDisplayService);
+
+    this.wrathAbilityManager = new WrathAbilityManager(this, services);
+    services.register(WrathAbilityManager.class, wrathAbilityManager);
+
+    this.soulStateService = new SoulStateService(profileManager, wrathAbilityManager);
+    services.register(SoulStateService.class, soulStateService);
+
+    this.soulRevealAnimationService = new SoulRevealAnimationService(this, soulCatalog, messageService);
+    services.register(SoulRevealAnimationService.class, soulRevealAnimationService);
+
+    this.adminSoulManager = new AdminSoulManager(profileManager, soulStateService);
+    services.register(AdminSoulManager.class, adminSoulManager);
+
+    this.soulAssignmentService = new SoulAssignmentService(soulCatalog, profileManager, messageService, soulRevealAnimationService, soulStateService);
+    services.register(SoulAssignmentService.class, soulAssignmentService);
+
+    this.debugService = new DebugService();
+    services.register(DebugService.class, debugService);
     }
 
     private void registerDefaultResources() {

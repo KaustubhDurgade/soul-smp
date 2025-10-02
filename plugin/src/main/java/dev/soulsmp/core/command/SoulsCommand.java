@@ -1,5 +1,6 @@
 package dev.soulsmp.core.command;
 
+import dev.soulsmp.admin.AdminSoulManager;
 import dev.soulsmp.core.config.ConfigManager;
 import dev.soulsmp.core.cooldown.CooldownManager;
 import dev.soulsmp.core.debug.DebugService;
@@ -10,6 +11,7 @@ import dev.soulsmp.core.player.PlayerProfileManager;
 import dev.soulsmp.core.resource.ResourceManager;
 import dev.soulsmp.core.soul.SoulCatalog;
 import dev.soulsmp.core.soul.SoulDefinition;
+import dev.soulsmp.core.soul.SoulProgressionService;
 import dev.soulsmp.core.telemetry.TelemetryService;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -43,6 +45,8 @@ public final class SoulsCommand implements CommandExecutor, TabCompleter {
     private final TelemetryService telemetryService;
     private final MetricsService metricsService;
     private final DebugService debugService;
+    private final AdminSoulManager adminSoulManager;
+    private final SoulProgressionService soulProgressionService;
     private final Runnable reloadCallback;
 
     public SoulsCommand(ConfigManager configManager,
@@ -54,6 +58,8 @@ public final class SoulsCommand implements CommandExecutor, TabCompleter {
                         TelemetryService telemetryService,
                         MetricsService metricsService,
                         DebugService debugService,
+                        AdminSoulManager adminSoulManager,
+                        SoulProgressionService soulProgressionService,
                         Runnable reloadCallback) {
         this.configManager = configManager;
         this.messageService = messageService;
@@ -64,6 +70,8 @@ public final class SoulsCommand implements CommandExecutor, TabCompleter {
         this.telemetryService = telemetryService;
         this.metricsService = metricsService;
         this.debugService = debugService;
+        this.adminSoulManager = adminSoulManager;
+        this.soulProgressionService = soulProgressionService;
         this.reloadCallback = reloadCallback;
     }
 
@@ -215,6 +223,9 @@ public final class SoulsCommand implements CommandExecutor, TabCompleter {
             case "grant" -> handleAdminGrant(sender, args);
             case "resource" -> handleAdminResource(sender, args);
             case "cooldown" -> handleAdminCooldown(sender, args);
+            case "level" -> handleAdminLevel(sender, args);
+            case "ability" -> handleAdminAbility(sender, args);
+            case "passive" -> handleAdminPassive(sender, args);
             default -> messageService.send(sender, "souls.admin.usage");
         }
     }
@@ -245,6 +256,24 @@ public final class SoulsCommand implements CommandExecutor, TabCompleter {
         if (slashIndex > 0 && slashIndex < raw.length() - 1) {
             soulId = raw.substring(0, slashIndex);
             pathId = raw.substring(slashIndex + 1);
+        }
+
+        if ("admin".equalsIgnoreCase(soulId)) {
+            adminSoulManager.assignAdminSoul(targetId.get());
+            PlayerProfile updatedProfile = profileManager.getOrCreate(targetId.get());
+            resourceManager.applyDefinitions(updatedProfile);
+            profileManager.save(targetId.get());
+            Map<String, String> placeholders = Map.of(
+                "player", args[1],
+                "soul", "admin",
+                "path", "-"
+            );
+            messageService.send(sender, "souls.admin.grant.success", placeholders);
+            Player online = Bukkit.getPlayer(targetId.get());
+            if (online != null && !Objects.equals(online, sender)) {
+                messageService.send(online, "souls.admin.grant.notify", placeholders);
+            }
+            return;
         }
 
         Optional<SoulDefinition> optional = soulCatalog.find(soulId);
@@ -355,6 +384,167 @@ public final class SoulsCommand implements CommandExecutor, TabCompleter {
         placeholders.put("player", args[1]);
         placeholders.put("ability", abilityId);
         messageService.send(sender, "souls.admin.cooldown.reset", placeholders);
+    }
+
+    private void handleAdminLevel(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("souls.admin.level")) {
+            messageService.send(sender, "no-permission");
+            return;
+        }
+
+        if (args.length < 4) {
+            messageService.send(sender, "souls.admin.level.usage");
+            return;
+        }
+
+        Optional<UUID> targetId = resolvePlayerUniqueId(args[1]);
+        if (targetId.isEmpty()) {
+            messageService.send(sender, "souls.admin.player-not-found", Map.of("name", args[1]));
+            return;
+        }
+
+        String mode = args[2].toLowerCase(Locale.ROOT);
+        int value;
+        try {
+            value = Integer.parseInt(args[3]);
+        } catch (NumberFormatException ex) {
+            messageService.send(sender, "souls.admin.level.invalid", Map.of("value", args[3]));
+            return;
+        }
+
+        PlayerProfile profile = profileManager.getOrCreate(targetId.get());
+        if (profile.getSoulId() == null || profile.getSoulId().isBlank()) {
+            messageService.send(sender, "souls.admin.level.no-soul", Map.of("player", args[1]));
+            return;
+        }
+
+        int originalLevel = profile.getSoulLevel();
+        int updatedLevel = originalLevel;
+
+        switch (mode) {
+            case "set" -> updatedLevel = clampLevel(value);
+            case "add" -> updatedLevel = clampLevel(originalLevel + value);
+            default -> {
+                messageService.send(sender, "souls.admin.level.usage");
+                return;
+            }
+        }
+
+    profile.setSoulLevel(updatedLevel);
+    int floorXp = soulProgressionService.getXpFloorForLevel(updatedLevel);
+    profile.setSoulExperience(floorXp);
+        profileManager.save(targetId.get());
+
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("player", args[1]);
+        placeholders.put("level", Integer.toString(updatedLevel));
+        placeholders.put("mode", mode);
+        messageService.send(sender, "souls.admin.level.updated", placeholders);
+
+        Player online = Bukkit.getPlayer(targetId.get());
+        if (online != null && !Objects.equals(online, sender)) {
+            messageService.send(online, "souls.admin.level.notify", placeholders);
+        }
+    }
+
+    private void handleAdminAbility(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("souls.admin.ability")) {
+            messageService.send(sender, "no-permission");
+            return;
+        }
+
+        if (args.length < 3) {
+            messageService.send(sender, "souls.admin.ability.usage");
+            return;
+        }
+
+        Optional<UUID> targetId = resolvePlayerUniqueId(args[1]);
+        if (targetId.isEmpty()) {
+            messageService.send(sender, "souls.admin.player-not-found", Map.of("name", args[1]));
+            return;
+        }
+
+        String mode = args[2].toLowerCase(Locale.ROOT);
+        switch (mode) {
+            case "set" -> {
+                if (args.length < 4) {
+                    messageService.send(sender, "souls.admin.ability.usage");
+                    return;
+                }
+                adminSoulManager.setAdminAbilitySoul(targetId.get(), args[3]);
+                Map<String, String> placeholders = Map.of(
+                    "player", args[1],
+                    "soul", args[3].toLowerCase(Locale.ROOT)
+                );
+                messageService.send(sender, "souls.admin.ability.set", placeholders);
+                Player online = Bukkit.getPlayer(targetId.get());
+                if (online != null && !Objects.equals(online, sender)) {
+                    messageService.send(online, "souls.admin.ability.notify", placeholders);
+                }
+            }
+            case "clear" -> {
+                adminSoulManager.clearAdminAbilitySoul(targetId.get());
+                Map<String, String> placeholders = Map.of("player", args[1]);
+                messageService.send(sender, "souls.admin.ability.cleared", placeholders);
+                Player online = Bukkit.getPlayer(targetId.get());
+                if (online != null && !Objects.equals(online, sender)) {
+                    messageService.send(online, "souls.admin.ability.cleared-self", Map.of());
+                }
+            }
+            default -> messageService.send(sender, "souls.admin.ability.usage");
+        }
+    }
+
+    private void handleAdminPassive(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("souls.admin.passive")) {
+            messageService.send(sender, "no-permission");
+            return;
+        }
+
+        if (args.length < 3) {
+            messageService.send(sender, "souls.admin.passive.usage");
+            return;
+        }
+
+        Optional<UUID> targetId = resolvePlayerUniqueId(args[1]);
+        if (targetId.isEmpty()) {
+            messageService.send(sender, "souls.admin.player-not-found", Map.of("name", args[1]));
+            return;
+        }
+
+        String mode = args[2].toLowerCase(Locale.ROOT);
+        switch (mode) {
+            case "set" -> {
+                if (args.length < 4) {
+                    messageService.send(sender, "souls.admin.passive.usage");
+                    return;
+                }
+                adminSoulManager.setAdminPassiveSoul(targetId.get(), args[3]);
+                Map<String, String> placeholders = Map.of(
+                    "player", args[1],
+                    "soul", args[3].toLowerCase(Locale.ROOT)
+                );
+                messageService.send(sender, "souls.admin.passive.set", placeholders);
+                Player online = Bukkit.getPlayer(targetId.get());
+                if (online != null && !Objects.equals(online, sender)) {
+                    messageService.send(online, "souls.admin.passive.notify", placeholders);
+                }
+            }
+            case "clear" -> {
+                adminSoulManager.clearAdminPassiveSoul(targetId.get());
+                Map<String, String> placeholders = Map.of("player", args[1]);
+                messageService.send(sender, "souls.admin.passive.cleared", placeholders);
+                Player online = Bukkit.getPlayer(targetId.get());
+                if (online != null && !Objects.equals(online, sender)) {
+                    messageService.send(online, "souls.admin.passive.cleared-self", Map.of());
+                }
+            }
+            default -> messageService.send(sender, "souls.admin.passive.usage");
+        }
+    }
+
+    private int clampLevel(int level) {
+        return Math.max(0, Math.min(SoulProgressionService.FINAL_STAND_UNLOCK_LEVEL, level));
     }
 
     private void handleDebug(CommandSender sender, String[] args) {

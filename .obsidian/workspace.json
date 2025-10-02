@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "plans/roadmaps/wrath-base.md",
+                "file": "plans/roadmaps/soul-smp-master-roadmap.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "wrath-base"
+              "title": "soul-smp-master-roadmap"
             }
           }
         ]
@@ -171,18 +171,19 @@
   },
   "active": "b70c88de95a04123",
   "lastOpenFiles": [
-    "server/plugins/spark/tmp-client/spark-d458fef5e11f-profile-data.jfr.tmp",
-    "server/plugins/spark/tmp-client/spark-d44b05cad0e5-profile-data.jfr.tmp",
-    "server/plugins/spark/tmp-client/spark-d44af31c7e7b-libasyncProfiler.so.tmp",
-    "server/plugins/SoulSMP/messages.properties",
-    "server/logs/2025-10-02-4.log.gz",
-    "server/plugins/spark/tmp-client/spark-d43da3cfa3fc-profile-data.jfr.tmp",
+    "server/plugins/spark/tmp-client/spark-d88d5597af5d-profile-data.jfr.tmp",
+    "server/plugins/spark/tmp-client/spark-d87f5c7d8d9d-profile-data.jfr.tmp",
+    "server/plugins/spark/tmp-client/spark-d87f260bfb8c-libasyncProfiler.so.tmp",
+    "server/logs/2025-10-02-8.log.gz",
+    "plugin/build/tmp/shadowJar/MANIFEST.MF",
+    "plugin/build/tmp/shadowJar",
+    "plugin/build/libs/soul-smp-0.1.0.jar",
+    "plugin/build/libs",
+    "plugin/build/tmp/jar/MANIFEST.MF",
+    "plugin/build/tmp/jar",
+    "plugin/build/resources/main/plugin.yml",
+    "plans/roadmaps/wrath-base.md",
     "docs/fixes/help-command-fix.md",
-    "docs/fixes",
-    "server/plugins/spark/tmp-client/spark-d42fab150a20-profile-data.jfr.tmp",
-    "server/plugins/spark/tmp-client/spark-d42f76144796-libasyncProfiler.so.tmp",
-    "server/logs/2025-10-02-3.log.gz",
-    "server/plugins/spark/tmp-client/spark-d42649e95bcc-profile-data.jfr.tmp",
     "docs/CLEANUP-SUMMARY.md",
     "NAVIGATION.md",
     "docs/README.md",
@@ -190,7 +191,6 @@
     "docs/PHASE3-COMPLETE.md",
     "mydocs/commands.md",
     "docs/commands.md",
-    "plans/roadmaps/wrath-base.md",
     "docs/DEPLOYMENT.md",
     "docs/ui-examples.md",
     "PHASE3-COMPLETE.md",

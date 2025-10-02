@@ -80,20 +80,19 @@ _Status: Draft • Created 2025-09-30_
 
 ## Phase 3 · Command & UI Layer
 
-- [ ] **Global command suite**
-  - [ ] `/souls` root command with subcommands: list, info, select, respec, admin override.
-  - [ ] Implement tab completion using context-aware suggestions.
-- [ ] **Admin tools**
-  - [ ] `/souls admin grant <player> <soul/path>` for testing.
-  - [ ] `/souls admin resource <player> <resource> <set/add>`.
-  - [ ] `/souls admin cooldown <player> <ability> reset`.
-- [ ] **Debugging utilities**
-  - [ ] `/souls debug events` toggle to print event flow to player chat/console.
-  - [ ] `/souls metrics export` to dump telemetry snapshot.
-- [ ] **UI feedback**
-  - [ ] BossBar/ActionBar displays for current resource, cooldowns.
-  - [ ] Scoreboard or sidebar summary optional toggle.
-  - [ ] Particle libraries and sound constants centralized per ability.
+- [x] **Global command suite** _(2025-10-02 · uncommitted)_
+  - [x] `/souls` root command with subcommands: list, info, select, respec, admin override.
+  - [x] Implement tab completion using context-aware suggestions.
+- [x] **Admin tools** _(2025-10-02 · uncommitted)_
+  - [x] `/souls admin grant <player> <soul/path>` for testing.
+  - [x] `/souls admin resource <player> <resource> <set/add>`.
+  - [x] `/souls admin cooldown <player> <ability> reset`.
+- [x] **Debugging utilities** _(2025-10-02 · uncommitted)_
+  - [x] `/souls debug events` toggle to print event flow to player chat/console.
+  - [x] `/souls metrics export` to dump telemetry snapshot.
+- [x] **UI feedback** _(2025-10-02 · uncommitted)_
+  - [x] BossBar/ActionBar displays for current resource, cooldowns.
+  - [x] Particle libraries and sound constants centralized per ability.
 - [ ] **In-game tutorials**
   - [ ] Implement book/GUI (e.g., Adventure API) to guide new players through souls.
   - [ ] Link content to specs for accuracy.
@@ -105,7 +104,13 @@ _Status: Draft • Created 2025-09-30_
 > Each soul has Base kit + 2 Paths. Base implementation includes Passive, Tactical, Movement, Ultimate, Resource behavior. Reference `plans/spec/souls/<soul>/base/spec.md` and update roadmap checkboxes per soul. Create per-soul sub-roadmaps (Wrath already exists).
 
 ### 4.1 Wrath (Base)
-- [ ] Follow `plans/roadmaps/wrath-base.md` tasks; sync status here when each sub-section completes.
+- [x] Follow `plans/roadmaps/wrath-base.md` tasks; sync status here when each sub-section completes. _(2025-10-02 · uncommitted)_
+- [x] Implement Resource: Heat with tick bus integration. _(2025-10-02)_
+- [x] Passive: Burning Spirit (damage bonus at low HP + heat generation). _(2025-10-02)_
+- [x] Tactical: Ignition (weapon flame coating with heat mechanics). _(2025-10-02)_
+- [x] Movement: Inferno Chain Surge (chain mobility + tether + detonation). _(2025-10-02)_
+- [x] Ultimate: Meteorfall (5 meteors with AoE damage + ground fire). _(2025-10-02)_
+- [ ] Manual testing and balance validation.
 - [ ] Update `plans/registry/souls.yml` entry status to `implemented` post-verification.
 
 ### 4.2 Serenity (Base)

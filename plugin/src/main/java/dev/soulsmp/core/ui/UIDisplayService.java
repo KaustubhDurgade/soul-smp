@@ -4,8 +4,10 @@ import dev.soulsmp.core.cooldown.CooldownManager;
 import dev.soulsmp.core.player.PlayerProfile;
 import dev.soulsmp.core.player.PlayerProfileManager;
 import dev.soulsmp.core.resource.ResourceManager;
+import dev.soulsmp.core.soul.SoulProgressionService;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -13,6 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
+import java.time.Duration;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,6 +31,7 @@ public final class UIDisplayService {
     private final PlayerProfileManager profileManager;
     private final ResourceManager resourceManager;
     private final CooldownManager cooldownManager;
+    private final SoulProgressionService progressionService;
 
     private final Map<UUID, BossBar> activeBossBars = new ConcurrentHashMap<>();
     private final Map<UUID, UIDisplayMode> displayModes = new ConcurrentHashMap<>();
@@ -37,11 +42,13 @@ public final class UIDisplayService {
     public UIDisplayService(Plugin plugin,
                            PlayerProfileManager profileManager,
                            ResourceManager resourceManager,
-                           CooldownManager cooldownManager) {
+                           CooldownManager cooldownManager,
+                           SoulProgressionService progressionService) {
         this.plugin = plugin;
         this.profileManager = profileManager;
         this.resourceManager = resourceManager;
         this.cooldownManager = cooldownManager;
+        this.progressionService = progressionService;
     }
 
     /**
@@ -123,31 +130,156 @@ public final class UIDisplayService {
     }
 
     /**
-     * Update the ActionBar for a player.
+     * Update the ActionBar for a player - now shows abilities and cooldowns.
      */
     private void updateActionBar(Player player, PlayerProfile profile) {
-        String resourceKey = primaryResourceKeys.get(player.getUniqueId());
-        if (resourceKey == null || resourceKey.isBlank()) {
-            return;
+        // Build ability status display
+        Component abilityDisplay = buildAbilityStatusComponent(player, profile);
+        
+        if (abilityDisplay != null) {
+            player.sendActionBar(abilityDisplay);
+        }
+    }
+
+    /**
+     * Build component showing all abilities and their cooldowns/lock status.
+     */
+    private Component buildAbilityStatusComponent(Player player, PlayerProfile profile) {
+        String soulId = profile.getSoulId();
+        if (soulId == null || soulId.isBlank()) {
+            return Component.text("No soul assigned", NamedTextColor.GRAY);
         }
 
-        int current = resourceManager.get(player.getUniqueId(), resourceKey);
-        int max = resourceManager.getMax(player.getUniqueId(), resourceKey);
+        String normalized = soulId.trim().toLowerCase(Locale.ROOT);
+        return switch (normalized) {
+            case "wrath" -> buildWrathActionBar(player, profile, false);
+            case "admin" -> buildAdminActionBar(player, profile);
+            default -> buildGenericActionBar(player, profile, normalized);
+        };
+    }
 
-        // Build resource display
-        Component resourceDisplay = buildResourceComponent(resourceKey, current, max);
+    private Component buildGenericActionBar(Player player, PlayerProfile profile, String normalizedSoulId) {
+        TextComponent.Builder builder = Component.text();
+        builder.append(Component.text(normalizedSoulId.toUpperCase(Locale.ROOT) + " ", NamedTextColor.GOLD));
+        builder.append(Component.text("Lv." + profile.getSoulLevel(), NamedTextColor.YELLOW));
+        builder.append(Component.text(" | ", NamedTextColor.DARK_GRAY));
 
-        // Add cooldown display if any abilities are on cooldown
-        Component cooldownDisplay = buildCooldownComponent(player.getUniqueId());
+        builder.append(formatAbilityStatus(player, profile, SoulProgressionService.AbilityType.TACTICAL,
+            "T", "Tactical", "tactical", false));
+        builder.append(Component.text(" | ", NamedTextColor.DARK_GRAY));
 
-        Component combined;
-        if (cooldownDisplay != null) {
-            combined = resourceDisplay.append(Component.text(" | ")).append(cooldownDisplay);
+        builder.append(formatAbilityStatus(player, profile, SoulProgressionService.AbilityType.MOVEMENT,
+            "M", "Movement", "movement", false));
+        builder.append(Component.text(" | ", NamedTextColor.DARK_GRAY));
+
+        builder.append(formatAbilityStatus(player, profile, SoulProgressionService.AbilityType.ULTIMATE,
+            "U", "Ultimate", "ultimate", false));
+
+        return builder.build();
+    }
+
+    private Component buildWrathActionBar(Player player, PlayerProfile profile, boolean forceUnlocks) {
+        TextComponent.Builder builder = Component.text();
+        builder.append(Component.text("⚔ Wrath ", NamedTextColor.RED));
+        builder.append(Component.text("Lv." + profile.getSoulLevel(), NamedTextColor.GOLD));
+        builder.append(Component.text(" | ", NamedTextColor.DARK_GRAY));
+        builder.append(buildWrathAbilities(player, profile, forceUnlocks));
+        return builder.build();
+    }
+
+    private Component buildWrathAbilities(Player player, PlayerProfile profile, boolean forceUnlocks) {
+        TextComponent.Builder abilities = Component.text();
+        abilities.append(formatAbilityStatus(player, profile, SoulProgressionService.AbilityType.TACTICAL,
+            "✴", "Ignition", "tactical", forceUnlocks));
+        abilities.append(Component.text(" | ", NamedTextColor.DARK_GRAY));
+
+        abilities.append(formatAbilityStatus(player, profile, SoulProgressionService.AbilityType.MOVEMENT,
+            "⛓", "Chain", "movement", forceUnlocks));
+        abilities.append(Component.text(" | ", NamedTextColor.DARK_GRAY));
+
+        abilities.append(formatAbilityStatus(player, profile, SoulProgressionService.AbilityType.ULTIMATE,
+            "☄", "Meteor", "ultimate", forceUnlocks));
+        return abilities.build();
+    }
+
+    private Component buildAdminActionBar(Player player, PlayerProfile profile) {
+        TextComponent.Builder builder = Component.text();
+        builder.append(Component.text("👑 Admin Soul", NamedTextColor.LIGHT_PURPLE));
+
+        String abilitySoul = normalize(profile.getAdminAbilitySoul());
+        builder.append(Component.text(" | Ability: ", NamedTextColor.DARK_AQUA));
+        if (abilitySoul == null) {
+            builder.append(Component.text("Unset", NamedTextColor.GRAY));
         } else {
-            combined = resourceDisplay;
+            builder.append(Component.text(capitalize(abilitySoul), NamedTextColor.GOLD));
+            builder.append(Component.text(" • ", NamedTextColor.DARK_GRAY));
+            switch (abilitySoul) {
+                case "wrath" -> builder.append(buildWrathAbilities(player, profile, true));
+                default -> builder.append(Component.text("No preview", NamedTextColor.GRAY));
+            }
         }
 
-        player.sendActionBar(combined);
+        builder.append(Component.text(" | Passive: ", NamedTextColor.DARK_AQUA));
+        String passiveSoul = normalize(profile.getAdminPassiveSoul());
+        builder.append(Component.text(passiveSoul == null ? "None" : capitalize(passiveSoul), NamedTextColor.GOLD));
+
+        return builder.build();
+    }
+
+    private Component formatAbilityStatus(Player player,
+                                          PlayerProfile profile,
+                                          SoulProgressionService.AbilityType abilityType,
+                                          String icon,
+                                          String label,
+                                          String cooldownKey,
+                                          boolean forceUnlock) {
+        TextComponent.Builder builder = Component.text();
+        builder.append(Component.text(icon + " ", NamedTextColor.GOLD));
+        builder.append(Component.text(label + " ", NamedTextColor.YELLOW));
+
+        boolean unlocked = forceUnlock || progressionService.hasUnlocked(player.getUniqueId(), abilityType);
+        if (!unlocked) {
+            int requiredLevel = requiredLevelFor(abilityType);
+            builder.append(Component.text("LOCKED Lv" + requiredLevel, NamedTextColor.RED));
+            return builder.build();
+        }
+
+        Duration remaining = cooldownManager.getRemaining(player.getUniqueId(), cooldownKey);
+        long seconds = remaining.toSeconds();
+        if (seconds > 0) {
+            builder.append(Component.text(seconds + "s", NamedTextColor.RED));
+        } else {
+            builder.append(Component.text("READY", NamedTextColor.GREEN));
+        }
+        return builder.build();
+    }
+
+    private int requiredLevelFor(SoulProgressionService.AbilityType abilityType) {
+        return switch (abilityType) {
+            case PASSIVE -> SoulProgressionService.PASSIVE_UNLOCK_LEVEL;
+            case TACTICAL -> SoulProgressionService.TACTICAL_UNLOCK_LEVEL;
+            case MOVEMENT -> SoulProgressionService.MOVEMENT_UNLOCK_LEVEL;
+            case ULTIMATE -> SoulProgressionService.ULTIMATE_UNLOCK_LEVEL;
+            case FINAL_STAND -> SoulProgressionService.FINAL_STAND_UNLOCK_LEVEL;
+        };
+    }
+
+    private String normalize(String value) {
+        if (value == null) {
+            return null;
+        }
+        String trimmed = value.trim();
+        if (trimmed.isEmpty()) {
+            return null;
+        }
+        return trimmed.toLowerCase(Locale.ROOT);
+    }
+
+    private String capitalize(String value) {
+        if (value == null || value.isEmpty()) {
+            return value;
+        }
+        return value.substring(0, 1).toUpperCase(Locale.ROOT) + value.substring(1).toLowerCase(Locale.ROOT);
     }
 
     /**
@@ -187,24 +319,6 @@ public final class UIDisplayService {
         TextColor color = determineResourceColor(resourceKey, current, max);
         return Component.text(capitalizeResource(resourceKey) + ": ", NamedTextColor.GRAY)
             .append(Component.text(current + "/" + max, color));
-    }
-
-    /**
-     * Build a component displaying active cooldowns.
-     */
-    private Component buildCooldownComponent(UUID playerId) {
-        Map<String, Long> cooldowns = cooldownManager.getActiveCooldowns(playerId);
-        if (cooldowns.isEmpty()) {
-            return null;
-        }
-
-        // Show the first cooldown (most recently triggered)
-        Map.Entry<String, Long> first = cooldowns.entrySet().iterator().next();
-        long remaining = (first.getValue() - System.currentTimeMillis()) / 1000L;
-
-        return Component.text("CD: ", NamedTextColor.GRAY)
-            .append(Component.text(first.getKey() + " ", NamedTextColor.YELLOW))
-            .append(Component.text(remaining + "s", NamedTextColor.WHITE));
     }
 
     /**

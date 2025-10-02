@@ -22,6 +22,7 @@ final class WrathIgnitionManager {
     private static final long UNIQUE_HIT_INTERNAL_MILLIS = 500L;
 
     private final SoulSMPPlugin plugin;
+    private final WrathAbilityManager abilityManager;
     private final WrathHeatManager heatManager;
     private final MessageService messageService;
     private final TelemetryService telemetryService;
@@ -32,10 +33,12 @@ final class WrathIgnitionManager {
     private BukkitTask ticker;
 
     WrathIgnitionManager(SoulSMPPlugin plugin,
+                         WrathAbilityManager abilityManager,
                          WrathHeatManager heatManager,
                          MessageService messageService,
                          TelemetryService telemetryService) {
         this.plugin = plugin;
+        this.abilityManager = abilityManager;
         this.heatManager = heatManager;
         this.messageService = messageService;
         this.telemetryService = telemetryService;
@@ -60,19 +63,28 @@ final class WrathIgnitionManager {
     boolean activate(Player player) {
         UUID id = player.getUniqueId();
         long now = System.currentTimeMillis();
+        boolean bypass = abilityManager.shouldBypassCooldown(player);
         Long cooldownUntil = this.cooldowns.get(id);
-        if (cooldownUntil != null && cooldownUntil > now) {
+        if (!bypass && cooldownUntil != null && cooldownUntil > now) {
             long seconds = (cooldownUntil - now + 999) / 1000;
             messageService.send(player, "wrath.ignition.cooldown", java.util.Map.of("seconds", Long.toString(seconds)));
             return false;
         }
         if (this.active.containsKey(id)) {
-            messageService.send(player, "wrath.ignition.active");
-            return false;
+            if (!bypass) {
+                messageService.send(player, "wrath.ignition.active");
+                return false;
+            }
+            this.active.remove(id);
         }
         IgnitionState state = new IgnitionState(now + DURATION_MILLIS);
         this.active.put(id, state);
-        this.cooldowns.put(id, now + COOLDOWN_MILLIS);
+        if (!bypass) {
+            this.cooldowns.put(id, now + COOLDOWN_MILLIS);
+            abilityManager.recordCooldown(player, "tactical", java.time.Duration.ofMillis(COOLDOWN_MILLIS));
+        } else {
+            abilityManager.clearCooldown(player, "tactical");
+        }
         player.getWorld().playSound(player.getLocation(), Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.2f);
         player.getWorld().spawnParticle(Particle.FLAME, player.getLocation().add(0, 1, 0), 40, 0.3, 0.6, 0.3, 0.02);
         messageService.send(player, "wrath.ignition.armed");
