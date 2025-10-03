@@ -8,6 +8,52 @@ ability_names:
   ultimate: Infernal Storm
   weapon: Cinderblade
   final_stand: Worldscar Caldera
+unlock_requirements:
+  passive:
+    type: auto
+    id: wrath.ash.passive.attunement
+    description: Automatically granted when embracing the Path of Ash.
+  tactical:
+    type: player_kill
+    id: wrath.ash.tactical.first_blood
+    description: Defeat a player while they suffer burn damage you applied within the last 5 seconds.
+    criteria:
+      requires_burning_target: true
+  movement:
+    type: challenge
+    id: wrath.ash.movement.shadow_dive
+    description: Execute three Ash Glide backstab criticals within 45 seconds without taking damage or touching water.
+    criteria:
+      consecutive_backstabs: 3
+      time_window_seconds: 45
+      fail_conditions:
+        - damage_taken
+        - water_contact
+  ultimate:
+    type: crafting
+    id: wrath.ash.ultimate.infernal_matrix
+    description: Forge the Infernal Matrix at the Volcanic Crucible to unlock Infernal Storm.
+    crafting:
+      station: volcanic_crucible
+      recipe:
+        - meteor_shard:3
+        - blaze_core:4
+        - magma_heart:2
+        - wither_ember:1
+  weapon:
+    type: event_item
+    id: wrath.ash.weapon.cinderblade_scroll
+    description: Claim the Cinderblade schematic from the Ashen Siege world event chest.
+    source:
+      event: ashen_siege
+      drop: mastery_scroll
+  final_stand:
+    type: event_item
+    id: wrath.ash.final_stand.worldscar_rite
+    description: Complete the Worldscar Caldera ritual encounter inside the Ashen Decimator raid to bind the final stand.
+    source:
+      raid: ashen_decimator
+      requirement: finish_ritual_channel
 difficulty: tbd
 ---
 
@@ -23,6 +69,15 @@ Resource – Cinder Meter
 - Cinder Mastery: Higher Cinder Meter enables devastating meteor enhancements.
 
 Ability Kit
+
+## Unlock Progression
+
+- **Passive – Cinder Veins:** Granted immediately when the Path of Ash is selected.
+- **Tactical – Flame Surge:** Unlock by finishing a player who is actively burning from your fire effects.
+- **Movement – Ash Glide:** Perform three consecutive backstab critical hits with Ash Glide within 45 seconds, taking no damage and avoiding water contact.
+- **Ultimate – Infernal Storm:** Craft the Infernal Matrix (3 Meteor Shards, 4 Blaze Cores, 2 Magma Hearts, 1 Wither Ember) at the Volcanic Crucible.
+- **Weapon – Cinderblade:** Secure the mastery scroll reward from the Ashen Siege world event.
+- **Final Stand – Worldscar Caldera:** Complete the Worldscar ritual inside the Ashen Decimator raid to bind this final stand.
 
 P – Cinder Veins
 - Fire Resistance Bypass: Fire and lava damage ignores enemy fire resistance completely.

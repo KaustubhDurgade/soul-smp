@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PLUGIN_DIR="$ROOT_DIR/plugin"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_DIR="$ROOT_DIR/soul-plugin"
 SERVER_DIR="$ROOT_DIR/server"
 SERVER_PLUGINS_DIR="$SERVER_DIR/plugins"
 OUTPUT_JAR_NAME="SoulSMP.jar"
@@ -43,7 +43,7 @@ echo ""
 # Step 2: Build the plugin
 if [[ "$SKIP_BUILD" == false ]]; then
   echo "[2/5] Building plugin..."
-  "$ROOT_DIR/scripts/build_plugin.sh"
+  (cd "$PLUGIN_DIR" && ./gradlew build)
   echo "✓ Build complete"
 else
   echo "[2/5] Skipping build (--skip-build flag)"
@@ -65,11 +65,13 @@ echo ""
 echo "[4/5] Deploying plugin..."
 mkdir -p "$SERVER_PLUGINS_DIR"
 
-# Remove old plugin if it exists
-if [[ -f "$SERVER_PLUGINS_DIR/$OUTPUT_JAR_NAME" ]]; then
-  rm "$SERVER_PLUGINS_DIR/$OUTPUT_JAR_NAME"
-  echo "✓ Removed old plugin"
-fi
+# Remove old plugin jars if they exist
+for legacy in "$SERVER_PLUGINS_DIR/$OUTPUT_JAR_NAME" "$SERVER_PLUGINS_DIR/PhaseSMP.jar"; do
+  if [[ -f "$legacy" ]]; then
+    rm "$legacy"
+    echo "✓ Removed old plugin: $(basename "$legacy")"
+  fi
+done
 
 # Copy new plugin
 cp "$LATEST_JAR" "$SERVER_PLUGINS_DIR/$OUTPUT_JAR_NAME"

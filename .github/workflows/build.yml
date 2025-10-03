@@ -28,5 +28,5 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build
-        run: ./gradlew clean build
+      - name: Verify
+        run: ./gradlew clean spotlessCheck test integrationTest

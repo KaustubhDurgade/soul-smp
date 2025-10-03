@@ -8,6 +8,49 @@ ability_names:
   ultimate: Crimson Overdrive
   weapon: Bloodfang
   final_stand: Crimson Deluge
+unlock_requirements:
+  passive:
+    type: auto
+    id: wrath.blood.passive.attunement
+    description: Automatically unlocked upon choosing the Path of Blood.
+  tactical:
+    type: player_kill
+    id: wrath.blood.tactical.first_harvest
+    description: Finish a player while they are affected by your Bleed debuff from Blood Rend.
+    criteria:
+      requires_bleed_kill: true
+  movement:
+    type: challenge
+    id: wrath.blood.movement.relentless_pounce
+    description: Chain three Frenzy Leap impacts on <50% HP enemies within 60 seconds without touching the ground between leaps.
+    criteria:
+      chain_hits: 3
+      time_window_seconds: 60
+      airborne_requirement: true
+  ultimate:
+    type: crafting
+    id: wrath.blood.ultimate.sanguine_core
+    description: Craft the Sanguine Core at a Blood Crucible to stabilize Crimson Overdrive.
+    crafting:
+      station: blood_crucible
+      recipe:
+        - nether_star:1
+        - vampire_fang:4
+        - ancient_debris:2
+  weapon:
+    type: event_item
+    id: wrath.blood.weapon.bloodfang_scroll
+    description: Acquire the Bloodfang mastery scroll from the Crimson Gauntlet seasonal event.
+    source:
+      event: crimson_gauntlet
+      drop: mastery_scroll
+  final_stand:
+    type: event_item
+    id: wrath.blood.final_stand.crimson_deluge_rite
+    description: Complete the Blood Moon siege encounter and consume the Crimson Rite to unlock Crimson Deluge.
+    source:
+      event: blood_moon_siege
+      requirement: crimson_rite_offering
 difficulty: tbd
 ---
 
@@ -23,6 +66,15 @@ Resource – Bloodlust
 - Blood Mastery: Higher Bloodlust enables stronger berserker states and vampiric effects.
 
 Ability Kit
+
+## Unlock Progression
+
+- **Passive – Thirst for War:** Granted immediately on adopting the Path of Blood.
+- **Tactical – Blood Rend:** Slay a bleeding opponent whose Bleed was applied by you.
+- **Movement – Frenzy Leap:** Chain three airborne Frenzy Leap hits on sub‑50% enemies within 60 seconds without touching the ground between leaps.
+- **Ultimate – Crimson Overdrive:** Craft the Sanguine Core (Nether Star ×1, Vampire Fang ×4, Ancient Debris ×2) at the Blood Crucible.
+- **Weapon – Bloodfang:** Earn the mastery scroll from the Crimson Gauntlet world event.
+- **Final Stand – Crimson Deluge:** Survive the Blood Moon siege and complete the Crimson Rite to bind the final stand.
 
 P – Thirst for War
 - Base Life Steal: 5% life steal with 2 HP maximum per hit.

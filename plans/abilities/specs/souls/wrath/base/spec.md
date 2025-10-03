@@ -6,6 +6,36 @@ ability_names:
   tactical: Ignition
   movement: Inferno Chain Surge
   ultimate: Meteorfall
+unlock_requirements:
+  passive:
+    type: auto
+    id: wrath.base.passive.attunement
+    description: Automatically granted upon attuning to the Soul of Wrath.
+  tactical:
+    type: player_kill
+    id: wrath.base.tactical.first_blood
+    description: Defeat any opposing player while attuned to Wrath.
+  movement:
+    type: challenge
+    id: wrath.base.movement.superheated_chain
+    description: Maintain Heat ≥ 80 while burning without golden apples or fire resistance for 90 seconds, then strike an enemy to seal the chain.
+    criteria:
+      min_heat: 80
+      burn_duration_seconds: 90
+      forbidden_consumables:
+        - golden_apple
+        - enchanted_golden_apple
+        - potion_fire_resistance
+  ultimate:
+    type: crafting
+    id: wrath.base.ultimate.meteor_core
+    description: Forge the Meteoric Catalyst at the Volcanic Crucible to channel Meteorfall.
+    crafting:
+      station: volcanic_crucible
+      recipe:
+        - magma_heart:4
+        - blaze_core:2
+        - netherite_ingot:1
 difficulty: tbd
 ---
 
@@ -21,6 +51,13 @@ Resource – Heat
 - Rage Mastery: Higher Heat enhances all fire effects and combat aggression.
 
 Ability Kit
+
+## Unlock Progression
+
+- **Passive – Burning Spirit:** Unlocks automatically when a player attunes to the Soul of Wrath.
+- **Tactical – Ignition:** Earned by claiming a player kill while wielding Wrath.
+- **Movement – Inferno Chain Surge:** Survive 90 seconds of continuous burn without golden apples or fire resistance while keeping Heat above 80, then land a melee hit to bind the chains.
+- **Ultimate – Meteorfall:** Craft the Meteoric Catalyst at the Volcanic Crucible using 4 Magma Hearts, 2 Blaze Cores, and 1 Netherite Ingot.
 
 P – Burning Spirit
 - Health Threshold: Damage bonus activates when below 60% HP.

@@ -6,6 +6,36 @@ ability_names:
   tactical: Unstable Burst
   movement: Fracture Warp
   ultimate: Riftstorm
+unlock_requirements:
+  passive:
+    type: auto
+    id: chaos.base.passive.attunement
+    description: Automatically granted when attuning to the Soul of Chaos.
+  tactical:
+    type: player_kill
+    id: chaos.base.tactical.entropic_execution
+    description: Defeat a player while Chaotic Aura has an active buff on you and a debuff on the target.
+    criteria:
+      requires_active_aura: true
+      requires_dual_affect: true
+  movement:
+    type: challenge
+    id: chaos.base.movement.rift_runner
+    description: Chain five Fracture Warp casts within 90 seconds, each striking at least two different enemies with the follow-up mini rift.
+    criteria:
+      warp_chain: 5
+      time_window_seconds: 90
+      min_targets_per_warp: 2
+  ultimate:
+    type: crafting
+    id: chaos.base.ultimate.rift_keystone
+    description: Assemble the Rift Keystone at the Entropic Loom to stabilize Riftstorm.
+    crafting:
+      station: entropic_loom
+      recipe:
+        - voidglass_shard:6
+        - instability_core:3
+        - echo_pearl:1
 difficulty: tbd
 ---
 
@@ -21,6 +51,13 @@ Resource – Instability
 - Event Hooks: GainResourceEvent(Instability, amount, sourceTag), ThresholdCrossEvent(Instability,80), SpendResourceEvent when future spenders added.
 
 Ability Kit
+
+## Unlock Progression
+
+- **Passive – Chaotic Aura:** Unlocks automatically when the Soul of Chaos is bonded.
+- **Tactical – Unstable Burst:** Score a kill while Chaotic Aura is simultaneously buffing you and debuffing the victim.
+- **Movement – Fracture Warp:** Chain five Fracture Warp casts within 90 seconds, hitting at least two enemies with each rift implosion.
+- **Ultimate – Riftstorm:** Craft the Rift Keystone (Voidglass Shard ×6, Instability Core ×3, Echo Pearl ×1) at the Entropic Loom.
 
 P – Chaotic Aura (30s rotational proc)
 - Every 30s (server-aligned or per-player timer) the aura rolls one Buff Effect and one Debuff Effect from curated weighted tables.
